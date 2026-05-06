@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,9 +17,7 @@
       --navy-light: #1e2a3a;
       --gold: #c9a84c;
       --gold-light: #e2c06e;
-      --gold-pale: #f5e9c8;
       --white: #ffffff;
-      --off-white: #f8f6f1;
       --gray: #8a9ab0;
       --gray-light: #d1d9e6;
       --font-display: 'Playfair Display', Georgia, serif;
@@ -38,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -90,9 +86,8 @@
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+    .nav-cta:hover { background: var(--gold-light) !important; }
 
-    /* PAGE HEADER */
     .page-header {
       padding: 8rem 2rem 3rem;
       background: var(--navy-mid);
@@ -110,10 +105,8 @@
     }
 
     .page-header h1 em { font-style: italic; color: var(--gold); }
-
     .page-header p { color: var(--gray); font-size: 1rem; }
 
-    /* SEARCH BAR */
     .search-bar {
       margin-top: 2rem;
       display: flex;
@@ -149,22 +142,19 @@
       top: 50%;
       transform: translateY(-50%);
       color: var(--gray);
-      font-size: 1rem;
     }
 
     .search-select {
       background: var(--navy-light);
       border: 1px solid rgba(201, 168, 76, 0.2);
       border-radius: 100px;
-      padding: 0.8rem 1.5rem;
+      padding: 0.8rem 2.5rem 0.8rem 1.5rem;
       color: var(--white);
       font-family: var(--font-body);
       font-size: 0.9rem;
       outline: none;
       cursor: pointer;
-      transition: border-color 0.2s;
       appearance: none;
-      padding-right: 2.5rem;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238a9ab0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 1rem center;
@@ -172,7 +162,6 @@
 
     .search-select:focus { border-color: var(--gold); }
 
-    /* MAIN LAYOUT */
     .main-layout {
       max-width: 1200px;
       margin: 0 auto;
@@ -183,7 +172,6 @@
       align-items: start;
     }
 
-    /* SIDEBAR FILTERS */
     .sidebar {
       position: sticky;
       top: 5rem;
@@ -214,30 +202,16 @@
       gap: 0.6rem;
       cursor: pointer;
       padding: 0.4rem 0;
-      border-radius: 8px;
-      transition: color 0.2s;
       font-size: 0.875rem;
       color: var(--gray-light);
+      transition: color 0.2s;
     }
 
     .filter-option:hover { color: var(--white); }
-
-    .filter-option input[type="checkbox"] {
-      accent-color: var(--gold);
-      width: 15px;
-      height: 15px;
-      cursor: pointer;
-    }
-
-    .filter-option.active { color: var(--white); font-weight: 500; }
+    .filter-option input[type="checkbox"] { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
 
     .price-range { margin-top: 0.5rem; }
-
-    .price-range input[type="range"] {
-      width: 100%;
-      accent-color: var(--gold);
-      margin: 0.5rem 0;
-    }
+    .price-range input[type="range"] { width: 100%; accent-color: var(--gold); margin: 0.5rem 0; }
 
     .price-labels {
       display: flex;
@@ -262,7 +236,6 @@
 
     .clear-filters:hover { background: rgba(201, 168, 76, 0.1); }
 
-    /* CONTENT AREA */
     .content-area {}
 
     .results-header {
@@ -274,11 +247,7 @@
       gap: 1rem;
     }
 
-    .results-count {
-      font-size: 0.9rem;
-      color: var(--gray);
-    }
-
+    .results-count { font-size: 0.9rem; color: var(--gray); }
     .results-count strong { color: var(--white); }
 
     .sort-select {
@@ -297,7 +266,6 @@
       background-position: right 0.75rem center;
     }
 
-    /* CATEGORY PILLS */
     .category-pills {
       display: flex;
       gap: 0.5rem;
@@ -321,7 +289,6 @@
     .pill:hover { border-color: var(--gold); color: var(--white); }
     .pill.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
 
-    /* CREATOR GRID */
     .creator-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
@@ -369,10 +336,7 @@
       border-radius: 100px;
     }
 
-    .creator-badge.adult {
-      background: #8b1a1a;
-      color: var(--white);
-    }
+    .creator-badge.adult { background: #8b1a1a; color: var(--white); }
 
     .creator-info { padding: 1.1rem; }
 
@@ -420,7 +384,42 @@
     .creator-price span { font-size: 0.72rem; color: var(--gray); font-weight: 400; }
     .creator-rating { font-size: 0.78rem; color: var(--gold); }
 
-    /* AGE GATE MODAL */
+    /* SKELETON LOADER */
+    .skeleton {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .skeleton-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(90deg, var(--navy-light) 25%, var(--navy-mid) 50%, var(--navy-light) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+    }
+
+    .skeleton-info { padding: 1.1rem; }
+
+    .skeleton-line {
+      height: 12px;
+      border-radius: 6px;
+      background: linear-gradient(90deg, var(--navy-light) 25%, var(--navy-mid) 50%, var(--navy-light) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      margin-bottom: 0.75rem;
+    }
+
+    .skeleton-line.short { width: 60%; }
+    .skeleton-line.medium { width: 80%; }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* AGE GATE */
     .age-gate {
       display: none;
       position: fixed;
@@ -463,7 +462,6 @@
       border-radius: 100px;
       font-weight: 600;
       font-size: 1rem;
-      text-decoration: none;
       border: none;
       cursor: pointer;
       font-family: var(--font-body);
@@ -490,21 +488,17 @@
 
     .btn-ghost:hover { border-color: var(--gray); color: var(--white); }
 
-    /* EMPTY STATE */
     .empty-state {
       text-align: center;
       padding: 4rem 2rem;
       color: var(--gray);
+      grid-column: 1 / -1;
     }
 
     .empty-state-icon { font-size: 3rem; margin-bottom: 1rem; }
     .empty-state h3 { font-family: var(--font-display); font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem; }
 
-    /* LOAD MORE */
-    .load-more-wrap {
-      text-align: center;
-      margin-top: 2.5rem;
-    }
+    .load-more-wrap { text-align: center; margin-top: 2.5rem; }
 
     .btn-secondary {
       background: transparent;
@@ -513,7 +507,6 @@
       border-radius: 100px;
       font-weight: 500;
       font-size: 1rem;
-      text-decoration: none;
       border: 1px solid rgba(255,255,255,0.2);
       transition: all 0.2s;
       display: inline-block;
@@ -523,7 +516,6 @@
 
     .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* FOOTER */
     footer {
       background: var(--navy);
       border-top: 1px solid rgba(201, 168, 76, 0.08);
@@ -535,7 +527,6 @@
     footer p { font-size: 0.8rem; color: var(--gray); }
     footer a { color: var(--gold); text-decoration: none; }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .main-layout { grid-template-columns: 1fr; }
       .sidebar { position: static; display: none; }
@@ -549,19 +540,17 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
     <ul class="nav-links">
       <li><a href="creators.html" style="color:var(--white);">Browse Creators</a></li>
       <li><a href="index.html#how-it-works">How It Works</a></li>
       <li><a href="index.html#for-creators">For Creators</a></li>
-      <li><a href="login.html">Sign In</a></li>
-      <li><a href="login.html" class="nav-cta">Get Started</a></li>
+      <li><a href="login.html" id="navSignin">Sign In</a></li>
+      <li><a href="login.html" class="nav-cta" id="navCta">Get Started</a></li>
     </ul>
   </nav>
 
-  <!-- PAGE HEADER -->
   <div class="page-header">
     <div class="page-header-inner">
       <h1>Browse <em>Creators</em></h1>
@@ -572,41 +561,38 @@
           <input type="text" id="searchInput" placeholder="Search creators by name or category..." />
         </div>
         <select class="search-select" id="sortSelect">
-          <option value="popular">Most Popular</option>
-          <option value="price-low">Price: Low to High</option>
-          <option value="price-high">Price: High to Low</option>
           <option value="rating">Top Rated</option>
+          <option value="price_low">Price: Low to High</option>
+          <option value="price_high">Price: High to Low</option>
           <option value="newest">Newest</option>
+          <option value="completed">Most Completed</option>
         </select>
       </div>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main-layout">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
       <div class="filter-section">
         <div class="filter-title">Category</div>
         <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" value="comedy" /> Comedy</label>
-          <label class="filter-option"><input type="checkbox" value="music" /> Music</label>
-          <label class="filter-option"><input type="checkbox" value="sports" /> Sports</label>
-          <label class="filter-option"><input type="checkbox" value="wrestling" /> Wrestling</label>
-          <label class="filter-option"><input type="checkbox" value="podcasters" /> Podcasters</label>
-          <label class="filter-option"><input type="checkbox" value="fitness" /> Fitness</label>
-          <label class="filter-option"><input type="checkbox" value="politics" /> Politics</label>
-          <label class="filter-option"><input type="checkbox" value="gaming" /> Gaming</label>
-          <label class="filter-option"><input type="checkbox" value="kpop" /> K-Pop</label>
-          <label class="filter-option"><input type="checkbox" value="adult" /> 18+ Creators</label>
+          <label class="filter-option"><input type="checkbox" value="comedy" onchange="applyFilters()" /> Comedy</label>
+          <label class="filter-option"><input type="checkbox" value="music" onchange="applyFilters()" /> Music</label>
+          <label class="filter-option"><input type="checkbox" value="sports" onchange="applyFilters()" /> Sports</label>
+          <label class="filter-option"><input type="checkbox" value="wrestling" onchange="applyFilters()" /> Wrestling</label>
+          <label class="filter-option"><input type="checkbox" value="podcaster" onchange="applyFilters()" /> Podcasters</label>
+          <label class="filter-option"><input type="checkbox" value="fitness" onchange="applyFilters()" /> Fitness</label>
+          <label class="filter-option"><input type="checkbox" value="politics" onchange="applyFilters()" /> Politics</label>
+          <label class="filter-option"><input type="checkbox" value="gaming" onchange="applyFilters()" /> Gaming</label>
+          <label class="filter-option"><input type="checkbox" value="k-pop" onchange="applyFilters()" /> K-Pop</label>
         </div>
       </div>
 
       <div class="filter-section">
-        <div class="filter-title">Price Range</div>
+        <div class="filter-title">Max Price</div>
         <div class="price-range">
-          <input type="range" min="5" max="500" value="500" id="priceRange" />
+          <input type="range" min="5" max="500" value="500" id="priceRange" oninput="updatePriceLabel(this.value); applyFilters()" />
           <div class="price-labels">
             <span>$5</span>
             <span id="priceVal">Up to $500</span>
@@ -615,77 +601,72 @@
       </div>
 
       <div class="filter-section">
-        <div class="filter-title">Offers</div>
+        <div class="filter-title">Minimum Rating</div>
         <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" /> Shoutouts</label>
-          <label class="filter-option"><input type="checkbox" /> Subscriptions</label>
-          <label class="filter-option"><input type="checkbox" /> Direct Messages</label>
-          <label class="filter-option"><input type="checkbox" /> Digital Downloads</label>
-          <label class="filter-option"><input type="checkbox" /> Live Calls</label>
-          <label class="filter-option"><input type="checkbox" /> Tips</label>
-        </div>
-      </div>
-
-      <div class="filter-section">
-        <div class="filter-title">Rating</div>
-        <div class="filter-options">
-          <label class="filter-option"><input type="checkbox" /> ★★★★★ 5.0</label>
-          <label class="filter-option"><input type="checkbox" /> ★★★★ 4.0+</label>
-          <label class="filter-option"><input type="checkbox" /> ★★★ 3.0+</label>
+          <label class="filter-option"><input type="radio" name="rating" value="0" checked onchange="applyFilters()" /> Any rating</label>
+          <label class="filter-option"><input type="radio" name="rating" value="4" onchange="applyFilters()" /> ★ 4.0+</label>
+          <label class="filter-option"><input type="radio" name="rating" value="4.5" onchange="applyFilters()" /> ★ 4.5+</label>
+          <label class="filter-option"><input type="radio" name="rating" value="5" onchange="applyFilters()" /> ★ 5.0 only</label>
         </div>
       </div>
 
       <button class="clear-filters" onclick="clearFilters()">Clear All Filters</button>
     </aside>
 
-    <!-- CONTENT -->
     <div class="content-area">
 
-      <!-- CATEGORY PILLS -->
       <div class="category-pills">
         <button class="pill active" onclick="filterCat(this, 'all')">All</button>
         <button class="pill" onclick="filterCat(this, 'comedy')">😂 Comedy</button>
         <button class="pill" onclick="filterCat(this, 'music')">🎵 Music</button>
         <button class="pill" onclick="filterCat(this, 'sports')">🏆 Sports</button>
         <button class="pill" onclick="filterCat(this, 'wrestling')">🤼 Wrestling</button>
-        <button class="pill" onclick="filterCat(this, 'podcasters')">🎙️ Podcasters</button>
+        <button class="pill" onclick="filterCat(this, 'podcaster')">🎙️ Podcasters</button>
         <button class="pill" onclick="filterCat(this, 'fitness')">💪 Fitness</button>
         <button class="pill" onclick="filterCat(this, 'politics')">🎤 Politics</button>
         <button class="pill" onclick="filterCat(this, 'gaming')">🎮 Gaming</button>
-        <button class="pill" onclick="filterCat(this, 'kpop')">✨ K-Pop</button>
-        <button class="pill" onclick="showAgeGate(this, 'adult')">🔞 18+</button>
+        <button class="pill" onclick="filterCat(this, 'k-pop')">✨ K-Pop</button>
+        <button class="pill" onclick="showAgeGate(this)">🔞 18+</button>
       </div>
 
-      <!-- RESULTS HEADER -->
       <div class="results-header">
         <div class="results-count"><strong id="resultCount">0</strong> creators found</div>
-        <select class="sort-select" id="sortSelect2">
-          <option>Most Popular</option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
-          <option>Top Rated</option>
-          <option>Newest</option>
+        <select class="sort-select" id="sortSelect2" onchange="document.getElementById('sortSelect').value=this.value; loadCreators()">
+          <option value="rating">Top Rated</option>
+          <option value="price_low">Price: Low to High</option>
+          <option value="price_high">Price: High to Low</option>
+          <option value="newest">Newest</option>
+          <option value="completed">Most Completed</option>
         </select>
       </div>
 
-      <!-- CREATOR GRID -->
       <div class="creator-grid" id="creatorGrid">
-        <!-- Populated by JS -->
+        <!-- Skeleton loaders -->
+        ${[...Array(8)].map(() => `
+          <div class="skeleton">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-info">
+              <div class="skeleton-line medium"></div>
+              <div class="skeleton-line short"></div>
+              <div class="skeleton-line medium"></div>
+            </div>
+          </div>
+        `).join('')}
       </div>
 
-      <div class="load-more-wrap">
-        <button class="btn-secondary" id="loadMoreBtn" onclick="loadMore()">Load More Creators</button>
+      <div class="load-more-wrap" id="loadMoreWrap" style="display:none;">
+        <button class="btn-secondary" onclick="loadMore()">Load More Creators</button>
       </div>
 
     </div>
   </div>
 
-  <!-- AGE GATE MODAL -->
+  <!-- AGE GATE -->
   <div class="age-gate" id="ageGate">
     <div class="age-gate-box">
       <div class="age-gate-icon">🔞</div>
       <h2>Age Verification Required</h2>
-      <p>This section contains content intended for adults only. By continuing, you confirm that you are 18 years of age or older and consent to viewing adult content.</p>
+      <p>This section contains content intended for adults only. By continuing, you confirm that you are 18 years of age or older.</p>
       <div class="age-gate-actions">
         <button class="btn-primary" onclick="confirmAge()">I am 18 or older — Continue</button>
         <button class="btn-ghost" onclick="closeAgeGate()">No, take me back</button>
@@ -693,140 +674,269 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
   </footer>
 
-  <script>
-    // Sample creator data — replace with Supabase fetch
-    const creators = [
-      { id: 1, name: 'Alex Rivera', category: 'podcasters', emoji: '🎙️', price: 25, rating: 4.9, badge: 'Popular', tags: ['interviews', 'commentary'], adult: false },
-      { id: 2, name: 'Jordan Miles', category: 'fitness', emoji: '🏋️', price: 40, rating: 5.0, badge: 'New', tags: ['motivation', 'workouts'], adult: false },
-      { id: 3, name: 'Sam Kowalski', category: 'comedy', emoji: '😂', price: 15, rating: 4.8, badge: null, tags: ['roasts', 'improv'], adult: false },
-      { id: 4, name: 'Maya Chen', category: 'music', emoji: '🎵', price: 60, rating: 4.9, badge: 'Trending', tags: ['singer', 'songwriter'], adult: false },
-      { id: 5, name: 'Rico Valdez', category: 'wrestling', emoji: '🤼', price: 30, rating: 4.7, badge: null, tags: ['indie', 'promos'], adult: false },
-      { id: 6, name: 'Dana Park', category: 'kpop', emoji: '✨', price: 45, rating: 5.0, badge: 'Popular', tags: ['fan content', 'vlogs'], adult: false },
-      { id: 7, name: 'Marcus Lee', category: 'politics', emoji: '🎤', price: 75, rating: 4.6, badge: null, tags: ['commentary', 'analysis'], adult: false },
-      { id: 8, name: 'Taylor Brooks', category: 'gaming', emoji: '🎮', price: 20, rating: 4.8, badge: 'New', tags: ['streaming', 'esports'], adult: false },
-      { id: 9, name: 'Chris Monroe', category: 'sports', emoji: '🏆', price: 50, rating: 4.9, badge: 'Trending', tags: ['athlete', 'motivation'], adult: false },
-      { id: 10, name: 'Ashley Vance', category: 'comedy', emoji: '🎭', price: 35, rating: 4.7, badge: null, tags: ['stand-up', 'sketches'], adult: false },
-      { id: 11, name: 'Kai Nakamura', category: 'music', emoji: '🎸', price: 55, rating: 4.8, badge: null, tags: ['guitar', 'producer'], adult: false },
-      { id: 12, name: 'Nova Belle', category: 'adult', emoji: '⭐', price: 80, rating: 5.0, badge: '18+', tags: ['exclusive', 'premium'], adult: true },
-    ];
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-    let currentCat = 'all';
-    let ageVerified = sessionStorage.getItem('ageVerified') === 'true';
-    let pendingAdultClick = null;
-    let visibleCount = 9;
+    const supabase = createClient(
+      'https://qoljcpacudkfcuzncncx.supabase.co',
+      'sb_publishable_nbolRR6lOenzMa9ZKRV_LA_li0vIuPT'
+    )
 
-    function renderCreators(filter = 'all') {
-      const grid = document.getElementById('creatorGrid');
-      const filtered = creators.filter(c => {
-        if (c.adult && !ageVerified) return false;
-        if (filter === 'all') return true;
-        return c.category === filter;
-      });
+    let allCreators = []
+    let filteredCreators = []
+    let currentCat = 'all'
+    let ageVerified = sessionStorage.getItem('ageVerified') === 'true'
+    let pendingAdultPill = null
+    let offset = 0
+    const PAGE_SIZE = 12
 
-      document.getElementById('resultCount').textContent = filtered.length;
+    // Check auth state for nav
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session) {
+      document.getElementById('navSignin').textContent = 'My Account'
+      document.getElementById('navSignin').href = 'buyer.html'
+      document.getElementById('navCta').textContent = 'Dashboard'
+      document.getElementById('navCta').href = 'dashboard.html'
+    }
 
-      const visible = filtered.slice(0, visibleCount);
-      document.getElementById('loadMoreBtn').style.display = filtered.length > visibleCount ? 'inline-block' : 'none';
+    // Check URL params
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('cat')) {
+      const catParam = params.get('cat')
+      currentCat = catParam
+      document.querySelectorAll('.pill').forEach(p => {
+        p.classList.toggle('active', p.textContent.toLowerCase().includes(catParam))
+      })
+    }
 
-      grid.innerHTML = visible.map(c => `
-        <a href="profile.html?id=${c.id}" class="creator-card">
-          <div class="creator-img">
-            ${c.emoji}
-            ${c.badge ? `<div class="creator-badge ${c.adult ? 'adult' : ''}">${c.badge}</div>` : ''}
-          </div>
-          <div class="creator-info">
-            <div class="creator-name">${c.name}</div>
-            <div class="creator-category">${c.category}</div>
-            <div class="creator-tags">
-              ${c.tags.map(t => `<span class="creator-tag">${t}</span>`).join('')}
-            </div>
-            <div class="creator-price-row">
-              <div class="creator-price">$${c.price} <span>/ shoutout</span></div>
-              <div class="creator-rating">★ ${c.rating}</div>
-            </div>
-          </div>
-        </a>
-      `).join('');
+    async function loadCreators() {
+      showSkeletons()
+      const sort = document.getElementById('sortSelect').value
 
-      if (visible.length === 0) {
+      let query = supabase
+        .from('creators')
+        .select(`
+          id, display_name, slug, category, tags, avatar_emoji,
+          avatar_url, is_adult, is_verified, rating, review_count,
+          completed_orders, created_at,
+          offerings(type, price, is_active)
+        `)
+        .eq('is_active', true)
+
+      if (currentCat !== 'all' && currentCat !== 'adult') {
+        query = query.eq('category', currentCat)
+      }
+
+      if (currentCat === 'adult') {
+        if (!ageVerified) return renderCreators([])
+        query = query.eq('is_adult', true)
+      } else {
+        if (!ageVerified) query = query.eq('is_adult', false)
+      }
+
+      switch(sort) {
+        case 'rating': query = query.order('rating', { ascending: false }); break
+        case 'newest': query = query.order('created_at', { ascending: false }); break
+        case 'completed': query = query.order('completed_orders', { ascending: false }); break
+        default: query = query.order('rating', { ascending: false })
+      }
+
+      const { data, error } = await query
+
+      if (error) {
+        console.error('loadCreators error:', error)
+        renderCreators([])
+        return
+      }
+
+      allCreators = data || []
+      applyFilters()
+    }
+
+    window.applyFilters = function() {
+      const maxPrice = parseInt(document.getElementById('priceRange').value)
+      const minRating = parseFloat(document.querySelector('input[name="rating"]:checked')?.value || 0)
+      const checkedCats = [...document.querySelectorAll('.filter-options input[type="checkbox"]:checked')].map(i => i.value)
+      const searchQ = document.getElementById('searchInput').value.toLowerCase()
+
+      filteredCreators = allCreators.filter(c => {
+        if (searchQ && !c.display_name.toLowerCase().includes(searchQ) && !c.category.toLowerCase().includes(searchQ)) return false
+        if (minRating > 0 && (c.rating || 0) < minRating) return false
+        if (checkedCats.length > 0 && !checkedCats.includes(c.category)) return false
+
+        const lowestPrice = getLowestPrice(c.offerings)
+        if (lowestPrice && lowestPrice > maxPrice) return false
+
+        const sort = document.getElementById('sortSelect').value
+        if (sort === 'price_low' || sort === 'price_high') {
+          // handled in render sort
+        }
+
+        return true
+      })
+
+      const sort = document.getElementById('sortSelect').value
+      if (sort === 'price_low') {
+        filteredCreators.sort((a, b) => getLowestPrice(a.offerings) - getLowestPrice(b.offerings))
+      } else if (sort === 'price_high') {
+        filteredCreators.sort((a, b) => getLowestPrice(b.offerings) - getLowestPrice(a.offerings))
+      }
+
+      offset = PAGE_SIZE
+      renderCreators(filteredCreators.slice(0, PAGE_SIZE))
+      document.getElementById('resultCount').textContent = filteredCreators.length
+      document.getElementById('loadMoreWrap').style.display = filteredCreators.length > PAGE_SIZE ? 'block' : 'none'
+    }
+
+    window.loadMore = function() {
+      const next = filteredCreators.slice(offset, offset + PAGE_SIZE)
+      offset += PAGE_SIZE
+      appendCreators(next)
+      if (offset >= filteredCreators.length) {
+        document.getElementById('loadMoreWrap').style.display = 'none'
+      }
+    }
+
+    function getLowestPrice(offerings) {
+      if (!offerings || offerings.length === 0) return 999
+      const active = offerings.filter(o => o.is_active)
+      if (active.length === 0) return 999
+      return Math.min(...active.map(o => parseFloat(o.price)))
+    }
+
+    function renderCreators(creators) {
+      const grid = document.getElementById('creatorGrid')
+      if (creators.length === 0) {
         grid.innerHTML = `
-          <div class="empty-state" style="grid-column:1/-1">
+          <div class="empty-state">
             <div class="empty-state-icon">🔭</div>
             <h3>No creators found</h3>
-            <p>Try adjusting your filters or check back soon as we add new creators daily.</p>
-          </div>`;
+            <p>Try adjusting your filters or check back soon — new creators join daily.</p>
+          </div>`
+        return
       }
+      grid.innerHTML = creators.map(c => creatorCard(c)).join('')
     }
 
-    function filterCat(el, cat) {
-      if (cat === 'adult') return;
-      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-      currentCat = cat;
-      visibleCount = 9;
-      renderCreators(cat);
+    function appendCreators(creators) {
+      const grid = document.getElementById('creatorGrid')
+      creators.forEach(c => {
+        grid.insertAdjacentHTML('beforeend', creatorCard(c))
+      })
     }
 
-    function loadMore() {
-      visibleCount += 9;
-      renderCreators(currentCat);
+    function creatorCard(c) {
+      const price = getLowestPrice(c.offerings)
+      const priceStr = price < 999 ? `$${price}` : 'Contact'
+      const rating = c.rating ? c.rating.toFixed(1) : 'New'
+      const tags = (c.tags || []).slice(0, 2)
+      const profileUrl = `profile.html?id=${c.id}`
+
+      return `
+        <a href="${profileUrl}" class="creator-card">
+          <div class="creator-img">
+            ${c.avatar_url ? `<img src="${c.avatar_url}" alt="${c.display_name}" style="width:100%;height:100%;object-fit:cover;" />` : (c.avatar_emoji || '🎙️')}
+            ${c.is_verified ? `<div class="creator-badge">Verified</div>` : ''}
+            ${c.is_adult ? `<div class="creator-badge adult">18+</div>` : ''}
+          </div>
+          <div class="creator-info">
+            <div class="creator-name">${c.display_name}</div>
+            <div class="creator-category">${c.category}</div>
+            ${tags.length > 0 ? `<div class="creator-tags">${tags.map(t => `<span class="creator-tag">${t}</span>`).join('')}</div>` : ''}
+            <div class="creator-price-row">
+              <div class="creator-price">${priceStr} <span>/ shoutout</span></div>
+              <div class="creator-rating">★ ${rating}</div>
+            </div>
+          </div>
+        </a>`
     }
 
-    function showAgeGate(el, cat) {
+    function showSkeletons() {
+      const grid = document.getElementById('creatorGrid')
+      grid.innerHTML = Array(8).fill(`
+        <div class="skeleton">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-info">
+            <div class="skeleton-line medium"></div>
+            <div class="skeleton-line short"></div>
+            <div class="skeleton-line medium"></div>
+          </div>
+        </div>`).join('')
+    }
+
+    window.filterCat = function(el, cat) {
+      if (cat === 'adult') return
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'))
+      el.classList.add('active')
+      currentCat = cat
+      loadCreators()
+    }
+
+    window.showAgeGate = function(el) {
       if (ageVerified) {
-        filterCat(el, cat);
-        return;
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'))
+        el.classList.add('active')
+        currentCat = 'adult'
+        loadCreators()
+        return
       }
-      pendingAdultClick = el;
-      document.getElementById('ageGate').classList.add('active');
+      pendingAdultPill = el
+      document.getElementById('ageGate').classList.add('active')
     }
 
-    function confirmAge() {
-      ageVerified = true;
-      sessionStorage.setItem('ageVerified', 'true');
-      document.getElementById('ageGate').classList.remove('active');
-      if (pendingAdultClick) {
-        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        pendingAdultClick.classList.add('active');
-        currentCat = 'adult';
-        renderCreators('adult');
+    window.confirmAge = async function() {
+      ageVerified = true
+      sessionStorage.setItem('ageVerified', 'true')
+
+      // Update in Supabase if logged in
+      if (session) {
+        await supabase.from('users').update({ age_verified: true }).eq('id', session.user.id)
+      }
+
+      document.getElementById('ageGate').classList.remove('active')
+      if (pendingAdultPill) {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'))
+        pendingAdultPill.classList.add('active')
+        currentCat = 'adult'
+        loadCreators()
       }
     }
 
-    function closeAgeGate() {
-      document.getElementById('ageGate').classList.remove('active');
-      pendingAdultClick = null;
+    window.closeAgeGate = function() {
+      document.getElementById('ageGate').classList.remove('active')
+      pendingAdultPill = null
     }
 
-    function clearFilters() {
-      document.querySelectorAll('.filter-option input').forEach(i => i.checked = false);
-      document.getElementById('priceRange').value = 500;
-      document.getElementById('priceVal').textContent = 'Up to $500';
+    window.clearFilters = function() {
+      document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(i => i.checked = false)
+      document.querySelector('input[name="rating"][value="0"]').checked = true
+      document.getElementById('priceRange').value = 500
+      document.getElementById('priceVal').textContent = 'Up to $500'
+      applyFilters()
     }
 
-    // Price range display
-    document.getElementById('priceRange').addEventListener('input', function() {
-      document.getElementById('priceVal').textContent = `Up to $${this.value}`;
-    });
+    window.updatePriceLabel = function(val) {
+      document.getElementById('priceVal').textContent = `Up to $${val}`
+    }
 
-    // Search
+    // Search with debounce
+    let searchTimer
     document.getElementById('searchInput').addEventListener('input', function() {
-      const q = this.value.toLowerCase();
-      const cards = document.querySelectorAll('.creator-card');
-      cards.forEach(card => {
-        const name = card.querySelector('.creator-name').textContent.toLowerCase();
-        const cat = card.querySelector('.creator-category').textContent.toLowerCase();
-        card.style.display = (name.includes(q) || cat.includes(q)) ? 'block' : 'none';
-      });
-    });
+      clearTimeout(searchTimer)
+      searchTimer = setTimeout(() => applyFilters(), 300)
+    })
 
-    // Init
-    renderCreators();
+    document.getElementById('sortSelect').addEventListener('change', function() {
+      document.getElementById('sortSelect2').value = this.value
+      applyFilters()
+    })
+
+    // Initial load
+    loadCreators()
   </script>
 
 </body>
