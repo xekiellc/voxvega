@@ -1,1 +1,1007 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — VoxVega</title>
+  <meta name="description" content="Complete your VoxVega purchase securely." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0e1a;
+      --navy-mid: #111827;
+      --navy-light: #1e2a3a;
+      --gold: #c9a84c;
+      --gold-light: #e2c06e;
+      --white: #ffffff;
+      --gray: #8a9ab0;
+      --gray-light: #d1d9e6;
+      --green: #4ade80;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10, 14, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-secure {
+      font-size: 0.78rem;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .page-wrap {
+      min-height: 100vh;
+      padding: 7rem 2rem 4rem;
+    }
+
+    .page-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      grid-column: 1 / -1;
+    }
+
+    .breadcrumb a { color: var(--gray); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--gold); }
+    .breadcrumb span { color: var(--gold); }
+
+    /* STEP INDICATOR */
+    .steps-indicator {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .step-dot {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--gray);
+    }
+
+    .step-dot.active { color: var(--gold); }
+    .step-dot.done { color: var(--green); }
+
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .step-dot.active .step-circle { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+    .step-dot.done .step-circle { background: var(--green); color: var(--navy); border-color: var(--green); }
+
+    .step-line {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      margin: 0 0.75rem;
+    }
+
+    /* CARDS */
+    .form-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      border-radius: 18px;
+      padding: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-section-title {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .section-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(74, 222, 128, 0.1);
+      color: var(--green);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      font-family: var(--font-body);
+    }
+
+    /* PAYMENT METHOD TABS */
+    .payment-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 0;
+    }
+
+    .payment-tab {
+      padding: 0.7rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .payment-tab:hover { color: var(--white); }
+    .payment-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .payment-panel { display: none; }
+    .payment-panel.active { display: block; }
+
+    /* FORM ELEMENTS */
+    .form-group { margin-bottom: 1.25rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gray-light);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: var(--gray); }
+    .form-input:focus, .form-select:focus { border-color: var(--gold); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-row-3 {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-hint {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 0.35rem;
+    }
+
+    /* CARD ICONS */
+    .card-icons {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-icon {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.75rem;
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    /* CRYPTO SELECTOR */
+    .crypto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .crypto-option {
+      background: var(--navy);
+      border: 2px solid rgba(201, 168, 76, 0.1);
+      border-radius: 12px;
+      padding: 0.875rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .crypto-option:hover { border-color: rgba(201, 168, 76, 0.3); }
+    .crypto-option.selected { border-color: var(--gold); background: rgba(201, 168, 76, 0.06); }
+
+    .crypto-icon { font-size: 1.5rem; display: block; margin-bottom: 0.3rem; }
+    .crypto-name { font-size: 0.72rem; font-weight: 700; display: block; }
+    .crypto-ticker { font-size: 0.65rem; color: var(--gray); display: block; }
+
+    .crypto-address-box {
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .crypto-address-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .crypto-address {
+      font-family: monospace;
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      word-break: break-all;
+      line-height: 1.5;
+    }
+
+    .crypto-qr {
+      width: 120px;
+      height: 120px;
+      background: var(--white);
+      border-radius: 8px;
+      margin: 1rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--navy);
+      text-align: center;
+    }
+
+    .crypto-timer {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--gold);
+      margin-top: 0.75rem;
+    }
+
+    /* BILLING */
+    .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+      color: var(--gray-light);
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .form-check input[type="checkbox"] {
+      accent-color: var(--gold);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+      cursor: pointer;
+    }
+
+    .form-check a { color: var(--gold); text-decoration: none; }
+
+    /* SUBMIT */
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.2s, transform 0.2s;
+      width: 100%;
+      display: block;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gray);
+      padding: 0.85rem 2rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+      width: 100%;
+      display: block;
+      text-align: center;
+      margin-top: 0.75rem;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover { border-color: var(--gray); color: var(--white); }
+
+    .security-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .security-item {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      color: var(--gray);
+    }
+
+    /* ORDER SUMMARY */
+    .order-summary {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 18px;
+      padding: 1.75rem;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .order-summary-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .creator-mini {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .creator-mini-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .creator-mini-name { font-weight: 700; font-size: 0.95rem; }
+    .creator-mini-cat { font-size: 0.75rem; color: var(--gold); font-weight: 500; }
+
+    .order-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .order-line:last-of-type { border-bottom: none; }
+    .order-line-label { color: var(--gray); }
+    .order-line-value { font-weight: 500; }
+
+    .order-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .order-total-label { font-weight: 700; font-size: 0.95rem; }
+    .order-total-value {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .request-summary {
+      background: var(--navy);
+      border-radius: 10px;
+      padding: 0.875rem;
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    .request-summary strong { color: var(--gray-light); display: block; margin-bottom: 0.25rem; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .guarantee-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.15);
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-size: 0.78rem;
+      color: var(--green);
+      margin-top: 1rem;
+    }
+
+    /* SUCCESS STATE */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-overlay.active { display: flex; }
+
+    .success-box {
+      background: var(--navy-mid);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+    }
+
+    .success-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-box h2 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .success-box p {
+      color: var(--gray);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .success-detail {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .success-detail-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      padding: 0.3rem 0;
+    }
+
+    .success-detail-row span:first-child { color: var(--gray); }
+    .success-detail-row span:last-child { font-weight: 600; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    footer p { font-size: 0.8rem; color: var(--gray); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .page-inner { grid-template-columns: 1fr; }
+      .order-summary { position: static; }
+      .form-row, .form-row-3 { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 1rem 1.25rem; }
+      .crypto-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
+    <div class="nav-secure">🔒 Secure Checkout</div>
+  </nav>
+
+  <div class="page-wrap">
+    <div class="page-inner">
+
+      <!-- BREADCRUMB -->
+      <div class="breadcrumb">
+        <a href="creators.html">Browse Creators</a> ›
+        <a href="profile.html">Alex Rivera</a> ›
+        <a href="request.html">Request Details</a> ›
+        <span>Payment</span>
+      </div>
+
+      <!-- STEP INDICATOR -->
+      <div class="steps-indicator">
+        <div class="step-dot done">
+          <div class="step-circle">✓</div>
+          Request Details
+        </div>
+        <div class="step-line"></div>
+        <div class="step-dot active">
+          <div class="step-circle">2</div>
+          Payment
+        </div>
+        <div class="step-line"></div>
+        <div class="step-dot">
+          <div class="step-circle">3</div>
+          Confirmation
+        </div>
+      </div>
+
+      <!-- PAYMENT FORM -->
+      <div>
+
+        <!-- PAYMENT METHOD -->
+        <div class="form-card">
+          <div class="form-section-title">
+            Payment Method
+            <span class="section-badge">🔒 SSL Encrypted</span>
+          </div>
+
+          <div class="payment-tabs">
+            <button class="payment-tab active" onclick="switchPayment('card', this)">💳 Credit / Debit Card</button>
+            <button class="payment-tab" onclick="switchPayment('crypto', this)">₿ Cryptocurrency</button>
+          </div>
+
+          <!-- CARD PANEL -->
+          <div class="payment-panel active" id="panel-card">
+            <div class="card-icons">
+              <span class="card-icon">VISA</span>
+              <span class="card-icon">MC</span>
+              <span class="card-icon">AMEX</span>
+              <span class="card-icon">DISC</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Cardholder Name</label>
+              <input type="text" class="form-input" placeholder="Name as it appears on card" id="cardName" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-input" placeholder="1234 5678 9012 3456" id="cardNumber" maxlength="19" />
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Expiry Date</label>
+                <input type="text" class="form-input" placeholder="MM / YY" id="cardExpiry" maxlength="7" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">CVV</label>
+                <input type="text" class="form-input" placeholder="123" id="cardCvv" maxlength="4" />
+              </div>
+            </div>
+
+            <div class="form-hint" style="margin-bottom:1rem;">Your card details are processed securely via Stripe. VoxVega never stores your card information.</div>
+          </div>
+
+          <!-- CRYPTO PANEL -->
+          <div class="payment-panel" id="panel-crypto">
+            <p style="font-size:0.875rem;color:var(--gray);margin-bottom:1.25rem;line-height:1.6;">Select your preferred cryptocurrency. A wallet address and QR code will be generated for your payment. Your order will be confirmed once the transaction is verified on-chain.</p>
+
+            <div class="crypto-grid">
+              <div class="crypto-option selected" onclick="selectCrypto(this, 'BTC')">
+                <span class="crypto-icon">₿</span>
+                <span class="crypto-name">Bitcoin</span>
+                <span class="crypto-ticker">BTC</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'ETH')">
+                <span class="crypto-icon">⟠</span>
+                <span class="crypto-name">Ethereum</span>
+                <span class="crypto-ticker">ETH</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'USDT')">
+                <span class="crypto-icon">₮</span>
+                <span class="crypto-name">Tether</span>
+                <span class="crypto-ticker">USDT</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'USDC')">
+                <span class="crypto-icon">◎</span>
+                <span class="crypto-name">USD Coin</span>
+                <span class="crypto-ticker">USDC</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'LTC')">
+                <span class="crypto-icon">Ł</span>
+                <span class="crypto-name">Litecoin</span>
+                <span class="crypto-ticker">LTC</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'XMR')">
+                <span class="crypto-icon">ɱ</span>
+                <span class="crypto-name">Monero</span>
+                <span class="crypto-ticker">XMR</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'DOGE')">
+                <span class="crypto-icon">Ð</span>
+                <span class="crypto-name">Dogecoin</span>
+                <span class="crypto-ticker">DOGE</span>
+              </div>
+              <div class="crypto-option" onclick="selectCrypto(this, 'SOL')">
+                <span class="crypto-icon">◎</span>
+                <span class="crypto-name">Solana</span>
+                <span class="crypto-ticker">SOL</span>
+              </div>
+            </div>
+
+            <div class="crypto-address-box" id="cryptoAddressBox">
+              <div class="crypto-address-label">Send exactly <span id="cryptoAmount">0.00031 BTC</span> to:</div>
+              <div class="crypto-qr">QR Code<br/>(generated on<br/>payment init)</div>
+              <div class="crypto-address" id="cryptoAddress">Address generated when payment is initialized via NowPayments API</div>
+              <div class="crypto-timer">⏱ Payment window: <span id="cryptoTimer">30:00</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BILLING ADDRESS -->
+        <div class="form-card">
+          <div class="form-section-title">Billing Information</div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-input" placeholder="First name" id="billingFirst" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-input" placeholder="Last name" id="billingLast" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="your@email.com" id="billingEmail" />
+            <div class="form-hint">Your video will be delivered to this email address.</div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Country</label>
+            <select class="form-select" id="billingCountry">
+              <option value="US">United States</option>
+              <option value="CA">Canada</option>
+              <option value="GB">United Kingdom</option>
+              <option value="AU">Australia</option>
+              <option value="DE">Germany</option>
+              <option value="FR">France</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">ZIP / Postal Code</label>
+              <input type="text" class="form-input" placeholder="12345" id="billingZip" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">State / Province</label>
+              <input type="text" class="form-input" placeholder="OH" id="billingState" />
+            </div>
+          </div>
+        </div>
+
+        <!-- TERMS & SUBMIT -->
+        <div class="form-card">
+          <div class="form-section-title">Review & Confirm</div>
+
+          <label class="form-check">
+            <input type="checkbox" id="agreeTerms" />
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand my payment will be held until the creator delivers my video.
+          </label>
+
+          <label class="form-check">
+            <input type="checkbox" id="agreeRefund" />
+            I understand that if my video is not delivered within 7 days, I will receive a full automatic refund.
+          </label>
+
+          <label class="form-check" id="agreeAgeRow" style="display:none;">
+            <input type="checkbox" id="agreeAge" />
+            I confirm that I am 18 years of age or older and consent to viewing adult content.
+          </label>
+
+          <button class="btn-primary" id="payBtn" onclick="processPayment()">
+            Complete Purchase — <span id="payBtnAmount">$25.00</span>
+          </button>
+          <a href="request.html" class="btn-secondary">← Edit Request</a>
+
+          <div class="security-row">
+            <div class="security-item">🔒 SSL Encrypted</div>
+            <div class="security-item">🛡️ Buyer Protection</div>
+            <div class="security-item">↩️ Auto Refund</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ORDER SUMMARY -->
+      <div class="order-summary">
+        <div class="order-summary-title">Order Summary</div>
+
+        <div class="creator-mini">
+          <div class="creator-mini-avatar" id="summaryAvatar">🎙️</div>
+          <div>
+            <div class="creator-mini-name" id="summaryCreator">Alex Rivera</div>
+            <div class="creator-mini-cat">Podcaster</div>
+          </div>
+        </div>
+
+        <div class="order-line">
+          <span class="order-line-label">Request type</span>
+          <span class="order-line-value" id="summaryType">Personal Shoutout</span>
+        </div>
+        <div class="order-line">
+          <span class="order-line-label">Base price</span>
+          <span class="order-line-value" id="summaryBase">$25.00</span>
+        </div>
+        <div class="order-line" id="rushLine" style="display:none;">
+          <span class="order-line-label">Rush delivery</span>
+          <span class="order-line-value">+$10.00</span>
+        </div>
+        <div class="order-line">
+          <span class="order-line-label">Platform fee</span>
+          <span class="order-line-value">$0.00</span>
+        </div>
+
+        <div class="order-total">
+          <span class="order-total-label">Total</span>
+          <span class="order-total-value" id="summaryTotal">$25.00</span>
+        </div>
+
+        <div class="request-summary" id="requestSummary">
+          <strong>Your Request</strong>
+          Loading request details...
+        </div>
+
+        <div class="guarantee-badge">
+          🛡️ 100% refund if not delivered in 7 days
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SUCCESS OVERLAY -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-box">
+      <div class="success-icon">🎉</div>
+      <h2>You're all set!</h2>
+      <p>Your request has been sent to the creator. You'll receive an email notification as soon as your video is ready — typically within 24 hours.</p>
+      <div class="success-detail" id="successDetail">
+        <div class="success-detail-row"><span>Creator</span><span id="successCreator">Alex Rivera</span></div>
+        <div class="success-detail-row"><span>Request type</span><span id="successType">Personal Shoutout</span></div>
+        <div class="success-detail-row"><span>Amount paid</span><span id="successAmount">$25.00</span></div>
+        <div class="success-detail-row"><span>Delivery to</span><span id="successEmail">your@email.com</span></div>
+        <div class="success-detail-row"><span>Order ID</span><span id="successOrderId">#VV-000001</span></div>
+      </div>
+      <button class="btn-primary" onclick="window.location.href='buyer.html'">View My Orders</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+  </footer>
+
+  <script>
+    // Load request from session storage
+    const requestData = JSON.parse(sessionStorage.getItem('voxvega_request') || '{}');
+
+    if (requestData.price) {
+      document.getElementById('summaryType').textContent = requestData.type || 'Personal Shoutout';
+      document.getElementById('summaryBase').textContent = '$' + (requestData.price).toFixed(2);
+      document.getElementById('summaryTotal').textContent = '$' + (requestData.price).toFixed(2);
+      document.getElementById('payBtnAmount').textContent = '$' + (requestData.price).toFixed(2);
+      if (requestData.rush) document.getElementById('rushLine').style.display = 'flex';
+      if (requestData.buyerEmail) document.getElementById('billingEmail').value = requestData.buyerEmail;
+      if (requestData.buyerName) {
+        const parts = requestData.buyerName.split(' ');
+        document.getElementById('billingFirst').value = parts[0] || '';
+        document.getElementById('billingLast').value = parts.slice(1).join(' ') || '';
+      }
+      document.getElementById('requestSummary').innerHTML = `<strong>Your Request</strong>${requestData.instructions || 'No instructions provided.'}`;
+    }
+
+    function switchPayment(type, el) {
+      document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.payment-panel').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('panel-' + type).classList.add('active');
+    }
+
+    function selectCrypto(el, ticker) {
+      document.querySelectorAll('.crypto-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('cryptoAmount').textContent = `~${getCryptoAmount(ticker)} ${ticker}`;
+      document.getElementById('cryptoAddress').textContent = `Address will be generated via NowPayments API when you confirm payment`;
+    }
+
+    function getCryptoAmount(ticker) {
+      const price = requestData.price || 25;
+      const rates = { BTC: 0.000031, ETH: 0.00078, USDT: 1, USDC: 1, LTC: 0.031, XMR: 0.014, DOGE: 14.2, SOL: 0.016 };
+      return (price * (rates[ticker] || 1)).toFixed(6);
+    }
+
+    // Crypto countdown timer
+    let timerSeconds = 1800;
+    function updateTimer() {
+      const m = Math.floor(timerSeconds / 60);
+      const s = timerSeconds % 60;
+      const el = document.getElementById('cryptoTimer');
+      if (el) el.textContent = `${m}:${s.toString().padStart(2, '0')}`;
+      if (timerSeconds > 0) timerSeconds--;
+    }
+    setInterval(updateTimer, 1000);
+
+    // Card formatting
+    const cardNum = document.getElementById('cardNumber');
+    if (cardNum) {
+      cardNum.addEventListener('input', function() {
+        let v = this.value.replace(/\D/g, '').substring(0, 16);
+        this.value = v.replace(/(.{4})/g, '$1 ').trim();
+      });
+    }
+
+    const cardExp = document.getElementById('cardExpiry');
+    if (cardExp) {
+      cardExp.addEventListener('input', function() {
+        let v = this.value.replace(/\D/g, '');
+        if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2, 4);
+        this.value = v;
+      });
+    }
+
+    function processPayment() {
+      const agreeTerms = document.getElementById('agreeTerms').checked;
+      const agreeRefund = document.getElementById('agreeRefund').checked;
+      const email = document.getElementById('billingEmail').value;
+      const firstName = document.getElementById('billingFirst').value;
+
+      if (!agreeTerms || !agreeRefund) {
+        alert('Please agree to the terms and refund policy before completing your purchase.');
+        return;
+      }
+
+      if (!email || !firstName) {
+        alert('Please complete your billing information.');
+        return;
+      }
+
+      // Simulate payment processing
+      const btn = document.getElementById('payBtn');
+      btn.textContent = 'Processing...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        // Show success
+        const orderId = '#VV-' + Math.floor(Math.random() * 900000 + 100000);
+        document.getElementById('successCreator').textContent = requestData.creatorName || 'Alex Rivera';
+        document.getElementById('successType').textContent = requestData.type || 'Personal Shoutout';
+        document.getElementById('successAmount').textContent = '$' + (requestData.price || 25).toFixed(2);
+        document.getElementById('successEmail').textContent = email;
+        document.getElementById('successOrderId').textContent = orderId;
+        document.getElementById('successOverlay').classList.add('active');
+        sessionStorage.removeItem('voxvega_request');
+      }, 2000);
+    }
+  </script>
+
+</body>
+</html>
