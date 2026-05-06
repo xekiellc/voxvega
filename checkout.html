@@ -8,6 +8,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <script src="https://js.stripe.com/v3/"></script>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8293211QR8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8293211QR8');
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -166,7 +174,6 @@
             <button class="payment-tab" onclick="switchPayment('crypto', this)">₿ Cryptocurrency</button>
           </div>
 
-          <!-- CARD -->
           <div class="payment-panel active" id="panel-card">
             <div class="card-icons">
               <span class="card-icon">VISA</span>
@@ -186,7 +193,6 @@
             <div class="form-hint">Your card details are processed securely by Stripe. VoxVega never stores card information.</div>
           </div>
 
-          <!-- CRYPTO -->
           <div class="payment-panel" id="panel-crypto">
             <p style="font-size:0.875rem;color:var(--white-dim);margin-bottom:1.25rem;line-height:1.6;">Select your cryptocurrency. A payment address will be generated instantly.</p>
             <div class="crypto-grid">
@@ -205,7 +211,6 @@
           </div>
         </div>
 
-        <!-- BILLING -->
         <div class="form-card">
           <div class="form-section-title">Billing Information</div>
           <div class="form-row">
@@ -247,7 +252,6 @@
           </div>
         </div>
 
-        <!-- CONFIRM -->
         <div class="form-card">
           <div class="form-section-title">Review & Confirm</div>
           <label class="form-check">
@@ -271,7 +275,6 @@
         </div>
       </div>
 
-      <!-- ORDER SUMMARY -->
       <div class="order-summary">
         <div class="order-summary-title">Order Summary</div>
         <div class="creator-mini">
@@ -296,7 +299,6 @@
     </div>
   </div>
 
-  <!-- SUCCESS -->
   <div class="success-overlay" id="successOverlay">
     <div class="success-box">
       <div class="success-icon">🎉</div>
@@ -412,25 +414,15 @@
     async function generateCryptoPayment(orderId, amount) {
       const box = document.getElementById('cryptoAddressBox')
       box.innerHTML = '<div class="crypto-loading">⏳ Generating payment address...</div>'
-
       try {
         const response = await fetch(`${WORKER_URL}/create-crypto-payment`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            amount,
-            currency: selectedCrypto,
-            orderId,
-            description: `VoxVega order - ${requestData.creatorName}`
-          })
+          body: JSON.stringify({ amount, currency: selectedCrypto, orderId, description: `VoxVega order - ${requestData.creatorName}` })
         })
-
         const data = await response.json()
-
         if (!response.ok || data.error) throw new Error(data.error || 'Payment generation failed')
-
         cryptoPaymentData = data
-
         box.innerHTML = `
           <div class="crypto-address-label">Send exactly</div>
           <div class="crypto-amount-display">${data.payAmount} ${data.payCurrency?.toUpperCase()}</div>
@@ -442,7 +434,6 @@
         `
         startTimer()
         return data
-
       } catch (err) {
         box.innerHTML = `<div class="crypto-loading" style="color:var(--red);">Error: ${err.message}</div>`
         throw err
@@ -460,22 +451,18 @@
       const email = document.getElementById('billingEmail').value.trim()
       const firstName = document.getElementById('billingFirst').value.trim()
       const errorEl = document.getElementById('formError')
-
       if (!agreeTerms || !agreeRefund) { errorEl.textContent = 'Please agree to the terms and refund policy.'; errorEl.classList.add('show'); return }
       if (!email || !firstName) { errorEl.textContent = 'Please complete your billing information.'; errorEl.classList.add('show'); return }
       errorEl.classList.remove('show')
-
       const btn = document.getElementById('payBtn')
       btn.textContent = 'Processing...'
       btn.disabled = true
-
       try {
         const total = parseFloat(requestData.price || 0) + (requestData.rush ? 10 : 0)
         const creatorEarnings = (total * 0.9).toFixed(2)
         const platformFee = (total * 0.1).toFixed(2)
         const deadlineHours = requestData.rush ? 12 : 168
         const deadline = new Date(Date.now() + deadlineHours * 60 * 60 * 1000).toISOString()
-
         const { data: order, error: orderError } = await supabase
           .from('orders')
           .insert({
@@ -503,42 +490,33 @@
           })
           .select()
           .single()
-
         if (orderError) throw orderError
-
         if (paymentMethod === 'crypto') {
           await generateCryptoPayment(order.id, total)
           await supabase.from('orders').update({ payment_status: 'awaiting_crypto', crypto_currency: selectedCrypto }).eq('id', order.id)
           btn.textContent = `Waiting for ${selectedCrypto} payment...`
           btn.disabled = false
           btn.onclick = null
-
           document.getElementById('successCreator').textContent = requestData.creatorName
           document.getElementById('successType').textContent = (requestData.type || '').replace(/_/g, ' ')
           document.getElementById('successAmount').textContent = `$${total.toFixed(2)} in ${selectedCrypto}`
           document.getElementById('successEmail').textContent = email
           document.getElementById('successOrderId').textContent = order.order_number || order.id.substring(0,8).toUpperCase()
-
           setTimeout(() => {
             document.getElementById('successOverlay').classList.add('active')
             sessionStorage.removeItem('voxvega_request')
           }, 3000)
-
         } else {
-          // Stripe — add publishable key to activate
           await new Promise(resolve => setTimeout(resolve, 1500))
           await supabase.from('orders').update({ payment_status: 'captured' }).eq('id', order.id)
-
           document.getElementById('successCreator').textContent = requestData.creatorName
           document.getElementById('successType').textContent = (requestData.type || '').replace(/_/g, ' ')
           document.getElementById('successAmount').textContent = `$${total.toFixed(2)}`
           document.getElementById('successEmail').textContent = email
           document.getElementById('successOrderId').textContent = order.order_number || order.id.substring(0,8).toUpperCase()
-
           document.getElementById('successOverlay').classList.add('active')
           sessionStorage.removeItem('voxvega_request')
         }
-
       } catch (err) {
         errorEl.textContent = err.message || 'Payment failed. Please try again.'
         errorEl.classList.add('show')
