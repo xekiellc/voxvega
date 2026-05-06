@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,29 +11,32 @@
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --navy: #0a0e1a;
-      --navy-mid: #111827;
-      --navy-light: #1e2a3a;
-      --gold: #c9a84c;
-      --gold-light: #e2c06e;
-      --gold-pale: #f5e9c8;
-      --white: #ffffff;
-      --off-white: #f8f6f1;
-      --gray: #8a9ab0;
-      --gray-light: #d1d9e6;
-      --font-display: 'Playfair Display', Georgia, serif;
+      --black: #0D0D0D;
+      --black-2: #141414;
+      --black-3: #1C1C1C;
+      --black-4: #242424;
+      --red: #E8001D;
+      --red-dark: #B5001A;
+      --red-glow: rgba(232, 0, 29, 0.15);
+      --white: #F5F0EB;
+      --white-dim: rgba(245, 240, 235, 0.6);
+      --white-faint: rgba(245, 240, 235, 0.12);
+      --gold: #C9A84C;
+      --gold-dim: rgba(201, 168, 76, 0.3);
+      --font-display: 'Bebas Neue', sans-serif;
+      --font-serif: 'DM Serif Display', Georgia, serif;
       --font-body: 'DM Sans', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--navy);
+      background: var(--black);
       color: var(--white);
       font-family: var(--font-body);
       font-size: 16px;
@@ -42,7 +44,7 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ─── NAV ─── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -50,555 +52,745 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      background: rgba(10, 14, 26, 0.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      padding: 1.25rem 3rem;
+      background: rgba(13, 13, 13, 0.88);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--white-faint);
     }
 
     .nav-logo {
       font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 0.06em;
       color: var(--white);
       text-decoration: none;
-      letter-spacing: -0.02em;
+      line-height: 1;
     }
 
-    .nav-logo span { color: var(--gold); }
+    .nav-logo span { color: var(--red); }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 2rem;
+      gap: 2.5rem;
       list-style: none;
     }
 
     .nav-links a {
-      color: var(--gray);
+      color: var(--white-dim);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       transition: color 0.2s;
     }
 
     .nav-links a:hover { color: var(--white); }
 
     .nav-cta {
-      background: var(--gold);
-      color: var(--navy) !important;
-      padding: 0.5rem 1.25rem;
-      border-radius: 100px;
+      background: var(--red) !important;
+      color: var(--white) !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 4px;
       font-weight: 600 !important;
+      letter-spacing: 0.08em !important;
       transition: background 0.2s !important;
     }
 
-    .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+    .nav-cta:hover { background: var(--red-dark) !important; }
 
-    /* HERO */
+    /* ─── HERO ─── */
     .hero {
       min-height: 100vh;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 8rem 2rem 4rem;
+      padding: 0;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -20%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-stars {
+    .hero-bg {
       position: absolute;
       inset: 0;
-      pointer-events: none;
-      overflow: hidden;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(232,0,29,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 50%);
     }
 
-    .star {
+    .hero-grid-lines {
       position: absolute;
-      width: 2px;
-      height: 2px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0;
-      animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,240,235,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,240,235,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; transform: scale(1); }
-      50% { opacity: var(--op, 0.6); transform: scale(1.5); }
+    .hero-left {
+      position: relative;
+      z-index: 2;
+      padding: 10rem 3rem 5rem 3rem;
     }
-
-    .hero-content { position: relative; z-index: 2; max-width: 800px; }
 
     .hero-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
+      gap: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--red);
       margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.2s forwards;
     }
 
-    .hero-eyebrow::before, .hero-eyebrow::after {
+    .hero-eyebrow::before {
       content: '';
       display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--gold);
-      opacity: 0.5;
+      width: 40px;
+      height: 2px;
+      background: var(--red);
     }
 
-    .hero h1 {
+    .hero-headline {
       font-family: var(--font-display);
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.4s forwards;
+      font-size: clamp(5rem, 10vw, 9rem);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
     }
 
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold);
+    .hero-headline .line-red { color: var(--red); display: block; }
+    .hero-headline .line-white { color: var(--white); display: block; }
+    .hero-headline .line-outline {
+      color: transparent;
+      -webkit-text-stroke: 2px var(--white-dim);
+      display: block;
     }
 
     .hero-sub {
-      font-size: 1.15rem;
-      color: var(--gray);
-      max-width: 520px;
-      margin: 0 auto 2.5rem;
+      font-size: 1.05rem;
+      color: var(--white-dim);
+      max-width: 420px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
       font-weight: 300;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.6s forwards;
     }
 
     .hero-actions {
       display: flex;
       gap: 1rem;
-      justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.8s forwards;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.9rem 2rem;
-      border-radius: 100px;
+      background: var(--red);
+      color: var(--white);
+      padding: 1rem 2.25rem;
+      border-radius: 4px;
       font-weight: 600;
-      font-size: 1rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
       text-decoration: none;
+      text-transform: uppercase;
       transition: background 0.2s, transform 0.2s;
       display: inline-block;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
     }
 
-    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
 
-    .btn-secondary {
+    .btn-outline {
       background: transparent;
       color: var(--white);
-      padding: 0.9rem 2rem;
-      border-radius: 100px;
+      padding: 1rem 2.25rem;
+      border-radius: 4px;
       font-weight: 500;
-      font-size: 1rem;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.2);
+      text-transform: uppercase;
+      border: 1px solid var(--white-faint);
       transition: border-color 0.2s, transform 0.2s;
       display: inline-block;
     }
 
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .btn-outline:hover { border-color: var(--white-dim); transform: translateY(-2px); }
 
-    /* STATS BAR */
-    .stats-bar {
-      background: var(--navy-light);
-      border-top: 1px solid rgba(201, 168, 76, 0.1);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
-      padding: 2rem;
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
+      padding: 8rem 3rem 5rem 2rem;
+      gap: 1rem;
     }
 
-    .stat { text-align: center; }
+    .hero-stat-card {
+      background: var(--black-2);
+      border: 1px solid var(--white-faint);
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      transition: border-color 0.3s, transform 0.3s;
+      animation: slideInRight 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    .hero-stat-card:nth-child(1) { animation-delay: 0.3s; }
+    .hero-stat-card:nth-child(2) { animation-delay: 0.5s; }
+    .hero-stat-card:nth-child(3) { animation-delay: 0.7s; }
+    .hero-stat-card:nth-child(4) { animation-delay: 0.9s; }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-stat-card:hover {
+      border-color: var(--red);
+      transform: translateX(-4px);
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      width: 48px;
+      text-align: center;
+      flex-shrink: 0;
+    }
 
     .stat-number {
       font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--gold);
-      display: block;
+      font-size: 2.2rem;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 0.04em;
     }
+
+    .stat-number.red { color: var(--red); }
+    .stat-number.gold { color: var(--gold); }
 
     .stat-label {
-      font-size: 0.8rem;
-      color: var(--gray);
-      letter-spacing: 0.08em;
+      font-size: 0.75rem;
+      color: var(--white-dim);
       text-transform: uppercase;
-      font-weight: 500;
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
     }
 
-    /* SECTIONS */
-    section { padding: 5rem 2rem; }
+    /* ─── MARQUEE ─── */
+    .marquee-wrap {
+      background: var(--red);
+      padding: 0.875rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      gap: 0;
+      animation: marquee 20s linear infinite;
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+    }
+
+    .marquee-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── HOW IT WORKS ─── */
+    .how-section {
+      padding: 8rem 3rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
 
     .section-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
+      color: var(--red);
       margin-bottom: 1rem;
     }
 
-    .section-sub {
-      color: var(--gray);
-      font-size: 1.05rem;
-      max-width: 520px;
-      font-weight: 300;
+    .section-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: 5rem;
     }
 
-    /* HOW IT WORKS */
-    .how-it-works { max-width: 1100px; margin: 0 auto; }
+    .section-headline em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--red);
+      text-transform: none;
+      letter-spacing: 0;
+    }
 
-    .how-header { margin-bottom: 3.5rem; }
-
-    .steps {
+    .steps-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--white-faint);
+      border-radius: 8px;
+      overflow: hidden;
     }
 
     .step {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.1);
-      border-radius: 16px;
-      padding: 2rem;
+      padding: 3rem 2rem;
+      border-right: 1px solid var(--white-faint);
       position: relative;
-      transition: border-color 0.3s, transform 0.3s;
+      transition: background 0.3s;
     }
 
-    .step:hover { border-color: rgba(201, 168, 76, 0.4); transform: translateY(-4px); }
+    .step:last-child { border-right: none; }
+    .step:hover { background: var(--black-2); }
 
-    .step-number {
+    .step-num {
       font-family: var(--font-display);
-      font-size: 3.5rem;
-      font-weight: 900;
-      color: rgba(201, 168, 76, 0.12);
+      font-size: 5rem;
+      color: var(--white-faint);
       line-height: 1;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.02em;
     }
 
-    .step-icon {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
+    .step-icon { font-size: 2rem; margin-bottom: 1rem; display: block; }
 
     .step h3 {
       font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .step p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
-
-    /* CATEGORIES */
-    .categories-section { background: var(--navy-mid); }
-
-    .categories-inner { max-width: 1100px; margin: 0 auto; }
-
-    .categories-header { margin-bottom: 3rem; }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-    }
-
-    .category-card {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.08);
-      border-radius: 12px;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      text-decoration: none;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
       color: var(--white);
-      transition: all 0.3s;
-      cursor: pointer;
     }
 
-    .category-card:hover {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.05);
-      transform: translateY(-3px);
+    .step p {
+      font-size: 0.875rem;
+      color: var(--white-dim);
+      line-height: 1.7;
     }
 
-    .category-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+    .step-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: left;
+    }
 
-    .category-name { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; }
+    .step:hover .step-line { transform: scaleX(1); }
 
-    .category-count { font-size: 0.75rem; color: var(--gray); margin-top: 0.25rem; }
+    /* ─── CATEGORIES ─── */
+    .cat-section {
+      padding: 6rem 0;
+      background: var(--black-2);
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+    }
 
-    /* FEATURED CREATORS */
-    .featured-section { max-width: 1100px; margin: 0 auto; }
-
-    .featured-header {
+    .cat-header {
+      padding: 0 3rem;
+      max-width: 1300px;
+      margin: 0 auto 3rem;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
-      margin-bottom: 2.5rem;
+      gap: 2rem;
       flex-wrap: wrap;
+    }
+
+    .cat-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .cat-headline em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--red);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .cat-scroll {
+      display: flex;
       gap: 1rem;
+      padding: 0 3rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 1rem;
+    }
+
+    .cat-scroll::-webkit-scrollbar { display: none; }
+
+    .cat-card {
+      flex-shrink: 0;
+      background: var(--black-3);
+      border: 1px solid var(--white-faint);
+      border-radius: 8px;
+      padding: 2rem 1.75rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.25s;
+      min-width: 160px;
+    }
+
+    .cat-card:hover {
+      border-color: var(--red);
+      background: var(--red-glow);
+      transform: translateY(-4px);
+    }
+
+    .cat-card-icon { font-size: 2.25rem; display: block; margin-bottom: 1rem; }
+    .cat-card-name { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .cat-card-count { font-size: 0.7rem; color: var(--white-dim); margin-top: 0.35rem; }
+
+    /* ─── CREATOR CARDS ─── */
+    .creators-section {
+      padding: 8rem 3rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .creators-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
 
     .creator-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 1.5rem;
     }
 
     .creator-card {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.08);
-      border-radius: 16px;
+      background: var(--black-2);
+      border: 1px solid var(--white-faint);
+      border-radius: 8px;
       overflow: hidden;
       text-decoration: none;
       color: var(--white);
       transition: all 0.3s;
       display: block;
+      position: relative;
     }
 
-    .creator-card:hover { border-color: rgba(201, 168, 76, 0.4); transform: translateY(-5px); }
+    .creator-card:hover {
+      border-color: var(--red);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(232,0,29,0.12);
+    }
 
-    .creator-img {
+    .creator-card-img {
       width: 100%;
-      aspect-ratio: 1;
-      background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+      aspect-ratio: 4/3;
+      background: var(--black-3);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3.5rem;
+      font-size: 4rem;
       position: relative;
       overflow: hidden;
     }
 
-    .creator-img::after {
+    .creator-card-img::after {
       content: '';
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 60%;
-      background: linear-gradient(transparent, rgba(10,14,26,0.8));
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(13,13,13,0.9) 100%);
     }
 
     .creator-badge {
       position: absolute;
-      top: 0.75rem; right: 0.75rem;
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 0.65rem;
+      top: 1rem;
+      right: 1rem;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.6rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      padding: 0.25rem 0.5rem;
-      border-radius: 100px;
+      padding: 0.3rem 0.6rem;
+      border-radius: 2px;
       z-index: 2;
     }
 
-    .creator-info { padding: 1.25rem; }
+    .creator-card-body { padding: 1.5rem; }
 
-    .creator-name {
+    .creator-card-name {
       font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-
-    .creator-category {
-      font-size: 0.78rem;
-      color: var(--gold);
-      font-weight: 500;
+      font-size: 1.5rem;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.2rem;
     }
 
-    .creator-price-row {
+    .creator-card-cat {
+      font-size: 0.7rem;
+      color: var(--red);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .creator-card-bottom {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-top: 1px solid var(--white-faint);
+      padding-top: 1rem;
+      margin-top: 1rem;
     }
 
-    .creator-price {
-      font-size: 1rem;
-      font-weight: 600;
+    .creator-card-price {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
       color: var(--white);
     }
 
-    .creator-price span {
-      font-size: 0.75rem;
-      color: var(--gray);
+    .creator-card-price span {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--white-dim);
       font-weight: 400;
+      letter-spacing: 0;
     }
 
-    .creator-rating {
+    .creator-card-rating {
       font-size: 0.8rem;
       color: var(--gold);
+      font-weight: 600;
     }
 
-    /* FOR CREATORS SECTION */
-    .for-creators {
-      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
-      border-top: 1px solid rgba(201, 168, 76, 0.1);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    /* ─── FOR CREATORS ─── */
+    .creators-pitch {
+      background: var(--black-2);
+      border-top: 1px solid var(--white-faint);
+      border-bottom: 1px solid var(--white-faint);
+      padding: 8rem 3rem;
     }
 
-    .for-creators-inner {
-      max-width: 1100px;
+    .creators-pitch-inner {
+      max-width: 1300px;
       margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+      gap: 6rem;
       align-items: center;
     }
 
-    .creators-perks { list-style: none; margin: 2rem 0; }
+    .pitch-left {}
 
-    .creators-perks li {
+    .pitch-perks {
+      list-style: none;
+      margin: 3rem 0;
       display: flex;
-      align-items: flex-start;
-      gap: 0.75rem;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      font-size: 0.95rem;
+      flex-direction: column;
+      gap: 0;
     }
 
-    .creators-perks li:last-child { border-bottom: none; }
+    .pitch-perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid var(--white-faint);
+    }
 
-    .perk-icon { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .pitch-perk:first-child { border-top: 1px solid var(--white-faint); }
 
-    .perk-text strong { display: block; font-weight: 600; margin-bottom: 0.15rem; }
-    .perk-text span { color: var(--gray); font-size: 0.85rem; }
+    .perk-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--red);
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+      width: 36px;
+    }
 
-    .revenue-card {
-      background: var(--navy);
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 20px;
-      padding: 2.5rem;
+    .perk-content strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.02em;
+    }
+
+    .perk-content span {
+      font-size: 0.82rem;
+      color: var(--white-dim);
+      line-height: 1.6;
+    }
+
+    .pitch-right {}
+
+    .split-card {
+      background: var(--black-3);
+      border: 1px solid var(--white-faint);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .split-card-header {
+      background: var(--red);
+      padding: 2rem;
       text-align: center;
     }
 
-    .revenue-label {
-      font-size: 0.8rem;
-      color: var(--gray);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    .revenue-number {
+    .split-card-header .big-num {
       font-family: var(--font-display);
-      font-size: 5rem;
-      font-weight: 900;
-      color: var(--gold);
+      font-size: 6rem;
       line-height: 1;
-      margin-bottom: 0.25rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
     }
 
-    .revenue-sub {
-      font-size: 0.9rem;
-      color: var(--gray);
-      margin-bottom: 2rem;
+    .split-card-header .big-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
     }
 
-    .revenue-streams {
+    .split-card-body {
+      padding: 2rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 0.75rem;
-      margin-bottom: 2rem;
     }
 
-    .revenue-stream {
-      background: var(--navy-light);
-      border-radius: 10px;
-      padding: 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--gray-light);
+    .stream-pill {
+      background: var(--black-4);
+      border: 1px solid var(--white-faint);
+      border-radius: 4px;
+      padding: 1rem;
+      text-align: center;
     }
 
-    .revenue-stream strong { display: block; color: var(--gold); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+    .stream-pill strong {
+      display: block;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.3rem;
+    }
 
-    /* TESTIMONIALS */
-    .testimonials-section { max-width: 1100px; margin: 0 auto; }
+    .stream-pill span {
+      font-size: 0.82rem;
+      color: var(--white-dim);
+    }
 
-    .testimonial-grid {
+    .split-card-footer {
+      padding: 1.5rem 2rem;
+      border-top: 1px solid var(--white-faint);
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials-section {
+      padding: 8rem 3rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
-      margin-top: 3rem;
+      margin-top: 4rem;
     }
 
     .testimonial {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.08);
-      border-radius: 16px;
-      padding: 2rem;
+      background: var(--black-2);
+      border: 1px solid var(--white-faint);
+      border-radius: 8px;
+      padding: 2.5rem;
+      position: relative;
     }
 
-    .testimonial-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; }
+    .testimonial::before {
+      content: '"';
+      font-family: var(--font-serif);
+      font-size: 5rem;
+      color: var(--red);
+      position: absolute;
+      top: 1rem;
+      left: 2rem;
+      line-height: 1;
+      opacity: 0.4;
+    }
 
     .testimonial-text {
       font-size: 0.95rem;
-      color: var(--gray-light);
-      line-height: 1.7;
+      color: var(--white-dim);
+      line-height: 1.75;
       font-style: italic;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      padding-top: 2.5rem;
     }
 
-    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
 
-    .author-avatar {
-      width: 40px; height: 40px;
+    .testimonial-avatar {
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      background: rgba(201, 168, 76, 0.15);
+      background: var(--black-4);
+      border: 1px solid var(--white-faint);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -606,59 +798,133 @@
       flex-shrink: 0;
     }
 
-    .author-name { font-weight: 600; font-size: 0.9rem; }
-    .author-detail { font-size: 0.78rem; color: var(--gray); }
+    .testimonial-name { font-weight: 700; font-size: 0.9rem; }
+    .testimonial-role { font-size: 0.75rem; color: var(--white-dim); }
+    .testimonial-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 0.5rem; }
 
-    /* CTA SECTION */
+    /* ─── BIG CTA ─── */
     .cta-section {
+      background: var(--red);
+      padding: 8rem 3rem;
       text-align: center;
-      background: var(--navy-mid);
-      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      position: relative;
+      overflow: hidden;
     }
 
-    .cta-inner { max-width: 640px; margin: 0 auto; }
-
-    .cta-inner h2 {
+    .cta-section::before {
+      content: 'VOXVEGA';
+      position: absolute;
       font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
+      font-size: 20vw;
+      color: rgba(0,0,0,0.15);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: 0.05em;
+    }
+
+    .cta-inner { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+
+    .cta-headline {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-headline em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .cta-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 3rem;
+    }
+
+    .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-white {
+      background: var(--white);
+      color: var(--red);
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
       font-weight: 700;
-      margin-bottom: 1rem;
-      letter-spacing: -0.02em;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
     }
 
-    .cta-inner h2 em { font-style: italic; color: var(--gold); }
+    .btn-white:hover { background: var(--black); color: var(--white); transform: translateY(-2px); }
 
-    .cta-inner p { color: var(--gray); margin-bottom: 2rem; font-size: 1.05rem; }
+    .btn-white-outline {
+      background: transparent;
+      color: var(--white);
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 2px solid rgba(255,255,255,0.5);
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
 
-    /* FOOTER */
+    .btn-white-outline:hover { border-color: var(--white); transform: translateY(-2px); }
+
+    /* ─── FOOTER ─── */
     footer {
-      background: var(--navy);
-      border-top: 1px solid rgba(201, 168, 76, 0.08);
-      padding: 3rem 2rem 2rem;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
+      background: var(--black-2);
+      border-top: 1px solid var(--white-faint);
+      padding: 4rem 3rem 2rem;
     }
 
     .footer-top {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr 1fr;
       gap: 3rem;
-      margin-bottom: 3rem;
+      max-width: 1300px;
+      margin: 0 auto 3rem;
     }
 
-    .footer-brand .nav-logo { font-size: 1.4rem; display: inline-block; margin-bottom: 1rem; }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1rem;
+    }
 
-    .footer-brand p { color: var(--gray); font-size: 0.85rem; max-width: 260px; line-height: 1.7; }
+    .footer-logo span { color: var(--red); }
+
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+      max-width: 280px;
+    }
 
     .footer-col h4 {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--red);
       margin-bottom: 1.25rem;
     }
 
@@ -667,16 +933,18 @@
     .footer-col ul li { margin-bottom: 0.6rem; }
 
     .footer-col ul li a {
-      color: var(--gray);
+      color: var(--white-dim);
       text-decoration: none;
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       transition: color 0.2s;
     }
 
     .footer-col ul li a:hover { color: var(--white); }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.05);
+      max-width: 1300px;
+      margin: 0 auto;
+      border-top: 1px solid var(--white-faint);
       padding-top: 1.5rem;
       display: flex;
       align-items: center;
@@ -685,25 +953,36 @@
       gap: 1rem;
     }
 
-    .footer-bottom p { font-size: 0.8rem; color: var(--gray); }
+    .footer-bottom p { font-size: 0.78rem; color: var(--white-dim); }
 
     .footer-legal { display: flex; gap: 1.5rem; }
-
-    .footer-legal a { font-size: 0.8rem; color: var(--gray); text-decoration: none; }
+    .footer-legal a { font-size: 0.78rem; color: var(--white-dim); text-decoration: none; }
     .footer-legal a:hover { color: var(--white); }
 
-    /* RESPONSIVE */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.25rem; }
-      .nav-links { display: none; }
-      .stats-bar { gap: 2rem; }
-      .for-creators-inner { grid-template-columns: 1fr; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-right { display: none; }
+      .hero-left { padding: 9rem 2rem 5rem; }
+      .steps-grid { grid-template-columns: 1fr 1fr; }
+      .step { border-bottom: 1px solid var(--white-faint); }
+      .creators-pitch-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .testimonials-grid { grid-template-columns: 1fr; }
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
 
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .hero-headline { font-size: 4.5rem; }
+      .cta-section::before { font-size: 30vw; }
+    }
+
     @media (max-width: 480px) {
+      .how-section, .creators-section, .testimonials-section, .creators-pitch { padding: 5rem 1.5rem; }
+      .cat-section { padding: 5rem 0; }
       .footer-top { grid-template-columns: 1fr; }
-      .revenue-streams { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -711,7 +990,7 @@
 
   <!-- NAV -->
   <nav>
-    <a href="/" class="nav-logo">Vox<span>Vega</span></a>
+    <a href="/" class="nav-logo">VOX<span>VEGA</span></a>
     <ul class="nav-links">
       <li><a href="creators.html">Browse Creators</a></li>
       <li><a href="#how-it-works">How It Works</a></li>
@@ -723,195 +1002,240 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-stars" id="heroStars"></div>
-    <div class="hero-content">
-      <div class="hero-eyebrow">Personalized Creator Experiences</div>
-      <h1>Your favorite creator,<br /><em>speaking to you.</em></h1>
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-left">
+      <div class="hero-eyebrow">The creator economy, redefined</div>
+      <h1 class="hero-headline">
+        <span class="line-white">Your</span>
+        <span class="line-red">Favorite</span>
+        <span class="line-outline">Creator</span>
+        <span class="line-white">Speaking</span>
+        <span class="line-red">To You.</span>
+      </h1>
       <p class="hero-sub">Book personalized video messages, exclusive content, and direct connections from the creators you love — on the platform that puts them first.</p>
       <div class="hero-actions">
         <a href="creators.html" class="btn-primary">Browse Creators</a>
-        <a href="#for-creators" class="btn-secondary">Join as a Creator</a>
+        <a href="#for-creators" class="btn-outline">Join as Creator</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-stat-card">
+        <div class="stat-icon">💰</div>
+        <div>
+          <div class="stat-number red">90%</div>
+          <div class="stat-label">Paid to every creator</div>
+        </div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-icon">⚡</div>
+        <div>
+          <div class="stat-number">48HR</div>
+          <div class="stat-label">Average delivery time</div>
+        </div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-icon">₿</div>
+        <div>
+          <div class="stat-number gold">8</div>
+          <div class="stat-label">Crypto currencies accepted</div>
+        </div>
+      </div>
+      <div class="hero-stat-card">
+        <div class="stat-icon">🎬</div>
+        <div>
+          <div class="stat-number">6</div>
+          <div class="stat-label">Ways to monetize</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- STATS BAR -->
-  <div class="stats-bar">
-    <div class="stat">
-      <span class="stat-number">90%</span>
-      <span class="stat-label">Paid to Creators</span>
-    </div>
-    <div class="stat">
-      <span class="stat-number">48hr</span>
-      <span class="stat-label">Average Delivery</span>
-    </div>
-    <div class="stat">
-      <span class="stat-number">100%</span>
-      <span class="stat-label">Satisfaction Guarantee</span>
-    </div>
-    <div class="stat">
-      <span class="stat-number">6+</span>
-      <span class="stat-label">Ways to Monetize</span>
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">Shoutouts <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Subscriptions <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Direct Messages <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Live Calls <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Digital Downloads <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Tips <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Business Promos <span class="marquee-dot"></span></span>
+      <span class="marquee-item">No Gatekeeping <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Crypto Payouts <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Shoutouts <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Subscriptions <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Direct Messages <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Live Calls <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Digital Downloads <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Tips <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Business Promos <span class="marquee-dot"></span></span>
+      <span class="marquee-item">No Gatekeeping <span class="marquee-dot"></span></span>
+      <span class="marquee-item">Crypto Payouts <span class="marquee-dot"></span></span>
     </div>
   </div>
 
   <!-- HOW IT WORKS -->
   <section id="how-it-works">
-    <div class="how-it-works">
-      <div class="how-header">
-        <div class="section-label">Simple Process</div>
-        <h2 class="section-title">How VoxVega works</h2>
-        <p class="section-sub">From browsing to delivery, we've made booking a personal creator experience effortless.</p>
-      </div>
-      <div class="steps">
+    <div class="how-section">
+      <div class="section-label">Simple Process</div>
+      <h2 class="section-headline">How it <em>works</em></h2>
+      <div class="steps-grid">
         <div class="step">
-          <div class="step-number">01</div>
+          <div class="step-num">01</div>
           <span class="step-icon">🔍</span>
-          <h3>Find your creator</h3>
+          <h3>Find Your Creator</h3>
           <p>Browse by category, search by name, or discover new talent. Every creator sets their own price and availability.</p>
+          <div class="step-line"></div>
         </div>
         <div class="step">
-          <div class="step-number">02</div>
+          <div class="step-num">02</div>
           <span class="step-icon">✍️</span>
-          <h3>Make your request</h3>
-          <p>Tell the creator what you need — a birthday shoutout, a business message, a personal note, or something totally unique.</p>
+          <h3>Make Your Request</h3>
+          <p>Tell the creator what you need — birthday shoutout, business message, personal note, or something totally unique.</p>
+          <div class="step-line"></div>
         </div>
         <div class="step">
-          <div class="step-number">03</div>
+          <div class="step-num">03</div>
           <span class="step-icon">💳</span>
-          <h3>Pay securely</h3>
-          <p>Pay by card or crypto. Your payment is held safely until your video is delivered — no delivery, no charge.</p>
+          <h3>Pay Securely</h3>
+          <p>Pay by card or crypto. Your payment is held safely until delivery — no video, no charge. Guaranteed.</p>
+          <div class="step-line"></div>
         </div>
         <div class="step">
-          <div class="step-number">04</div>
+          <div class="step-num">04</div>
           <span class="step-icon">🎬</span>
-          <h3>Receive your video</h3>
-          <p>Get notified when your personalized video is ready. Download, share, and keep it forever.</p>
+          <h3>Receive Your Video</h3>
+          <p>Get notified the moment your personalized video is ready. Download, share, and keep it forever.</p>
+          <div class="step-line"></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CATEGORIES -->
-  <section class="categories-section">
-    <div class="categories-inner">
-      <div class="categories-header">
+  <section class="cat-section">
+    <div class="cat-header">
+      <div>
         <div class="section-label">Explore</div>
-        <h2 class="section-title">Find creators in every category</h2>
+        <h2 class="cat-headline">Find creators<br />in <em>every</em> category</h2>
       </div>
-      <div class="category-grid">
-        <a href="creators.html?cat=comedy" class="category-card">
-          <span class="category-icon">😂</span>
-          <div class="category-name">Comedy</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=music" class="category-card">
-          <span class="category-icon">🎵</span>
-          <div class="category-name">Music</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=sports" class="category-card">
-          <span class="category-icon">🏆</span>
-          <div class="category-name">Sports</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=wrestling" class="category-card">
-          <span class="category-icon">🤼</span>
-          <div class="category-name">Wrestling</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=podcasters" class="category-card">
-          <span class="category-icon">🎙️</span>
-          <div class="category-name">Podcasters</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=fitness" class="category-card">
-          <span class="category-icon">💪</span>
-          <div class="category-name">Fitness</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=politics" class="category-card">
-          <span class="category-icon">🎤</span>
-          <div class="category-name">Politics</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=gaming" class="category-card">
-          <span class="category-icon">🎮</span>
-          <div class="category-name">Gaming</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=kpop" class="category-card">
-          <span class="category-icon">✨</span>
-          <div class="category-name">K-Pop</div>
-          <div class="category-count">Coming soon</div>
-        </a>
-        <a href="creators.html?cat=adult" class="category-card">
-          <span class="category-icon">🔞</span>
-          <div class="category-name">18+ Creators</div>
-          <div class="category-count">Age verified</div>
-        </a>
-      </div>
+      <a href="creators.html" class="btn-outline">View All Creators</a>
+    </div>
+    <div class="cat-scroll">
+      <a href="creators.html?cat=comedy" class="cat-card">
+        <span class="cat-card-icon">😂</span>
+        <div class="cat-card-name">Comedy</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=music" class="cat-card">
+        <span class="cat-card-icon">🎵</span>
+        <div class="cat-card-name">Music</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=sports" class="cat-card">
+        <span class="cat-card-icon">🏆</span>
+        <div class="cat-card-name">Sports</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=wrestling" class="cat-card">
+        <span class="cat-card-icon">🤼</span>
+        <div class="cat-card-name">Wrestling</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=podcaster" class="cat-card">
+        <span class="cat-card-icon">🎙️</span>
+        <div class="cat-card-name">Podcasters</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=fitness" class="cat-card">
+        <span class="cat-card-icon">💪</span>
+        <div class="cat-card-name">Fitness</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=politics" class="cat-card">
+        <span class="cat-card-icon">🎤</span>
+        <div class="cat-card-name">Politics</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=gaming" class="cat-card">
+        <span class="cat-card-icon">🎮</span>
+        <div class="cat-card-name">Gaming</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=k-pop" class="cat-card">
+        <span class="cat-card-icon">✨</span>
+        <div class="cat-card-name">K-Pop</div>
+        <div class="cat-card-count">Coming soon</div>
+      </a>
+      <a href="creators.html?cat=adult" class="cat-card">
+        <span class="cat-card-icon">🔞</span>
+        <div class="cat-card-name">18+ Creators</div>
+        <div class="cat-card-count">Age verified</div>
+      </a>
     </div>
   </section>
 
-  <!-- FEATURED CREATORS (placeholder) -->
+  <!-- FEATURED CREATORS -->
   <section>
-    <div class="featured-section">
-      <div class="featured-header">
+    <div class="creators-section">
+      <div class="creators-header">
         <div>
           <div class="section-label">Featured</div>
-          <h2 class="section-title">Meet our creators</h2>
+          <h2 class="section-headline">Meet our <em>creators</em></h2>
         </div>
-        <a href="creators.html" class="btn-secondary">View all creators</a>
+        <a href="creators.html" class="btn-outline">All Creators</a>
       </div>
       <div class="creator-grid">
         <a href="profile.html" class="creator-card">
-          <div class="creator-img">🎤
+          <div class="creator-card-img">🎙️
             <div class="creator-badge">Popular</div>
           </div>
-          <div class="creator-info">
-            <div class="creator-name">Alex Rivera</div>
-            <div class="creator-category">Podcaster</div>
-            <div class="creator-price-row">
-              <div class="creator-price">$25 <span>/ shoutout</span></div>
-              <div class="creator-rating">★ 4.9</div>
+          <div class="creator-card-body">
+            <div class="creator-card-name">Alex Rivera</div>
+            <div class="creator-card-cat">Podcaster</div>
+            <div class="creator-card-bottom">
+              <div class="creator-card-price">$25 <span>/ shoutout</span></div>
+              <div class="creator-card-rating">★ 4.9</div>
             </div>
           </div>
         </a>
         <a href="profile.html" class="creator-card">
-          <div class="creator-img">🏋️
+          <div class="creator-card-img">🏋️
             <div class="creator-badge">New</div>
           </div>
-          <div class="creator-info">
-            <div class="creator-name">Jordan Miles</div>
-            <div class="creator-category">Fitness</div>
-            <div class="creator-price-row">
-              <div class="creator-price">$40 <span>/ shoutout</span></div>
-              <div class="creator-rating">★ 5.0</div>
+          <div class="creator-card-body">
+            <div class="creator-card-name">Jordan Miles</div>
+            <div class="creator-card-cat">Fitness</div>
+            <div class="creator-card-bottom">
+              <div class="creator-card-price">$40 <span>/ shoutout</span></div>
+              <div class="creator-card-rating">★ 5.0</div>
             </div>
           </div>
         </a>
         <a href="profile.html" class="creator-card">
-          <div class="creator-img">😂</div>
-          <div class="creator-info">
-            <div class="creator-name">Sam Kowalski</div>
-            <div class="creator-category">Comedy</div>
-            <div class="creator-price-row">
-              <div class="creator-price">$15 <span>/ shoutout</span></div>
-              <div class="creator-rating">★ 4.8</div>
+          <div class="creator-card-img">😂</div>
+          <div class="creator-card-body">
+            <div class="creator-card-name">Sam Kowalski</div>
+            <div class="creator-card-cat">Comedy</div>
+            <div class="creator-card-bottom">
+              <div class="creator-card-price">$15 <span>/ shoutout</span></div>
+              <div class="creator-card-rating">★ 4.8</div>
             </div>
           </div>
         </a>
         <a href="profile.html" class="creator-card">
-          <div class="creator-img">🎵
+          <div class="creator-card-img">🎵
             <div class="creator-badge">Trending</div>
           </div>
-          <div class="creator-info">
-            <div class="creator-name">Maya Chen</div>
-            <div class="creator-category">Music</div>
-            <div class="creator-price-row">
-              <div class="creator-price">$60 <span>/ shoutout</span></div>
-              <div class="creator-rating">★ 4.9</div>
+          <div class="creator-card-body">
+            <div class="creator-card-name">Maya Chen</div>
+            <div class="creator-card-cat">Music</div>
+            <div class="creator-card-bottom">
+              <div class="creator-card-price">$60 <span>/ shoutout</span></div>
+              <div class="creator-card-rating">★ 4.9</div>
             </div>
           </div>
         </a>
@@ -920,64 +1244,70 @@
   </section>
 
   <!-- FOR CREATORS -->
-  <section class="for-creators" id="for-creators">
-    <div class="for-creators-inner">
-      <div>
+  <section class="creators-pitch" id="for-creators">
+    <div class="creators-pitch-inner">
+      <div class="pitch-left">
         <div class="section-label">For Creators</div>
-        <h2 class="section-title">The platform that actually pays you</h2>
-        <p class="section-sub">VoxVega was built creator-first. Keep 90% of everything you earn — across every revenue stream.</p>
-        <ul class="creators-perks">
-          <li>
-            <span class="perk-icon">★</span>
-            <div class="perk-text">
-              <strong>90/10 revenue split</strong>
-              <span>Industry-leading payout. You keep 90% of every transaction.</span>
+        <h2 class="section-headline">The platform that actually <em>pays</em> you</h2>
+        <p style="color:var(--white-dim);font-size:1rem;line-height:1.7;max-width:480px;">VoxVega was built creator-first. Keep 90% of everything you earn — across every revenue stream. No approval process. No ideological gatekeeping. Just you and your fans.</p>
+        <ul class="pitch-perks">
+          <li class="pitch-perk">
+            <div class="perk-num">01</div>
+            <div class="perk-content">
+              <strong>90/10 Revenue Split</strong>
+              <span>Industry-leading payout. You keep 90% of every transaction, across every revenue type.</span>
             </div>
           </li>
-          <li>
-            <span class="perk-icon">★</span>
-            <div class="perk-text">
-              <strong>Multiple income streams</strong>
-              <span>Shoutouts, subscriptions, tips, DMs, digital downloads, and live calls — all in one place.</span>
+          <li class="pitch-perk">
+            <div class="perk-num">02</div>
+            <div class="perk-content">
+              <strong>Six Income Streams</strong>
+              <span>Shoutouts, subscriptions, tips, DMs, digital downloads, and live calls — all in one profile.</span>
             </div>
           </li>
-          <li>
-            <span class="perk-icon">★</span>
-            <div class="perk-text">
-              <strong>Card + crypto payouts</strong>
-              <span>Get paid by bank transfer or choose from 8 cryptocurrencies.</span>
+          <li class="pitch-perk">
+            <div class="perk-num">03</div>
+            <div class="perk-content">
+              <strong>Card + Crypto Payouts</strong>
+              <span>Get paid by bank transfer or choose from 8 cryptocurrencies including BTC, ETH, and Monero.</span>
             </div>
           </li>
-          <li>
-            <span class="perk-icon">★</span>
-            <div class="perk-text">
-              <strong>No gatekeeping</strong>
-              <span>We welcome all legal creators. No approval process, no ideological vetting.</span>
+          <li class="pitch-perk">
+            <div class="perk-num">04</div>
+            <div class="perk-content">
+              <strong>No Gatekeeping</strong>
+              <span>We welcome all legal creators regardless of platform history, political views, or content type.</span>
             </div>
           </li>
-          <li>
-            <span class="perk-icon">★</span>
-            <div class="perk-text">
-              <strong>Your full profile, your ecosystem</strong>
-              <span>Link your socials, merch store, YouTube, and other platforms directly on your VoxVega profile.</span>
+          <li class="pitch-perk">
+            <div class="perk-num">05</div>
+            <div class="perk-content">
+              <strong>Your Full Ecosystem</strong>
+              <span>Link your socials, merch store, YouTube, podcast, and other platforms directly on your profile.</span>
             </div>
           </li>
         </ul>
-        <a href="login.html" class="btn-primary">Start earning on VoxVega</a>
+        <a href="login.html?mode=signup&type=creator" class="btn-primary">Start Earning on VoxVega</a>
       </div>
-      <div class="revenue-card">
-        <div class="revenue-label">Your creator split</div>
-        <div class="revenue-number">90%</div>
-        <div class="revenue-sub">of every dollar goes to you</div>
-        <div class="revenue-streams">
-          <div class="revenue-stream"><strong>Shoutouts</strong>Personal & business</div>
-          <div class="revenue-stream"><strong>Subscriptions</strong>Monthly recurring</div>
-          <div class="revenue-stream"><strong>Tips</strong>Fan appreciation</div>
-          <div class="revenue-stream"><strong>Direct DMs</strong>Paid messaging</div>
-          <div class="revenue-stream"><strong>Downloads</strong>Digital products</div>
-          <div class="revenue-stream"><strong>Live Calls</strong>1-on-1 video</div>
+
+      <div class="pitch-right">
+        <div class="split-card">
+          <div class="split-card-header">
+            <div class="big-num">90%</div>
+            <div class="big-label">Goes directly to you</div>
+          </div>
+          <div class="split-card-body">
+            <div class="stream-pill"><strong>Shoutouts</strong><span>Personal & business</span></div>
+            <div class="stream-pill"><strong>Subscriptions</strong><span>Monthly recurring</span></div>
+            <div class="stream-pill"><strong>Tips</strong><span>Fan appreciation</span></div>
+            <div class="stream-pill"><strong>Direct DMs</strong><span>Paid messaging</span></div>
+            <div class="stream-pill"><strong>Downloads</strong><span>Digital products</span></div>
+            <div class="stream-pill"><strong>Live Calls</strong><span>1-on-1 video</span></div>
+          </div>
+          <div class="split-card-footer">
+            <a href="login.html?mode=signup&type=creator" class="btn-primary" style="width:100%;text-align:center;display:block;">Apply as a Creator</a>
+          </div>
         </div>
-        <a href="login.html" class="btn-primary" style="width:100%;text-align:center;">Apply as a Creator</a>
       </div>
     </div>
   </section>
@@ -986,38 +1316,38 @@
   <section>
     <div class="testimonials-section">
       <div class="section-label">Reviews</div>
-      <h2 class="section-title">Fans and creators love VoxVega</h2>
-      <div class="testimonial-grid">
+      <h2 class="section-headline">Fans and creators<br /><em>love</em> VoxVega</h2>
+      <div class="testimonials-grid">
         <div class="testimonial">
           <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"I got a birthday video for my dad from his favorite podcaster. He cried. Worth every penny and then some."</p>
+          <p class="testimonial-text">Got a birthday video for my dad from his favorite podcaster. He cried. Worth every penny and then some. Delivered in under 6 hours.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">👤</div>
+            <div class="testimonial-avatar">👤</div>
             <div>
-              <div class="author-name">Sarah M.</div>
-              <div class="author-detail">VoxVega buyer</div>
+              <div class="testimonial-name">Sarah M.</div>
+              <div class="testimonial-role">VoxVega fan</div>
             </div>
           </div>
         </div>
         <div class="testimonial">
           <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"Finally a platform that doesn't take half my earnings. I moved from another platform and immediately noticed the difference."</p>
+          <p class="testimonial-text">Finally a platform that doesn't take half my earnings. Moved from another platform and immediately noticed the difference. 90% is real.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">🎙️</div>
+            <div class="testimonial-avatar">🎙️</div>
             <div>
-              <div class="author-name">Derek T.</div>
-              <div class="author-detail">Podcaster & VoxVega creator</div>
+              <div class="testimonial-name">Derek T.</div>
+              <div class="testimonial-role">Podcaster & creator</div>
             </div>
           </div>
         </div>
         <div class="testimonial">
           <div class="testimonial-stars">★★★★★</div>
-          <p class="testimonial-text">"The crypto payout option is a game changer. No other platform offers this. VoxVega is the future of creator monetization."</p>
+          <p class="testimonial-text">The crypto payout option is a game changer. No other platform offers this. VoxVega is the future of creator monetization, full stop.</p>
           <div class="testimonial-author">
-            <div class="author-avatar">💪</div>
+            <div class="testimonial-avatar">💪</div>
             <div>
-              <div class="author-name">Marcus L.</div>
-              <div class="author-detail">Fitness creator</div>
+              <div class="testimonial-name">Marcus L.</div>
+              <div class="testimonial-role">Fitness creator</div>
             </div>
           </div>
         </div>
@@ -1025,83 +1355,62 @@
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- BIG CTA -->
   <section class="cta-section">
     <div class="cta-inner">
-      <h2>Ready to book your<br /><em>perfect moment?</em></h2>
-      <p>Join thousands of fans connecting with their favorite creators on VoxVega.</p>
-      <div class="hero-actions">
-        <a href="creators.html" class="btn-primary">Browse Creators</a>
-        <a href="login.html" class="btn-secondary">Join as a Creator</a>
+      <h2 class="cta-headline">Ready to book your <em>perfect moment?</em></h2>
+      <p class="cta-sub">Join thousands of fans connecting with their favorite creators on VoxVega.</p>
+      <div class="cta-actions">
+        <a href="creators.html" class="btn-white">Browse Creators</a>
+        <a href="login.html?mode=signup&type=creator" class="btn-white-outline">Join as a Creator</a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <a href="/" class="nav-logo">Vox<span>Vega</span></a>
-          <p>The creator monetization platform that puts creators first. Book personalized videos, subscribe to exclusive content, and connect directly with the creators you love.</p>
-        </div>
-        <div class="footer-col">
-          <h4>For Fans</h4>
-          <ul>
-            <li><a href="creators.html">Browse Creators</a></li>
-            <li><a href="creators.html">How It Works</a></li>
-            <li><a href="buyer.html">My Orders</a></li>
-            <li><a href="#">Gift Cards</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>For Creators</h4>
-          <ul>
-            <li><a href="login.html">Join VoxVega</a></li>
-            <li><a href="dashboard.html">Creator Dashboard</a></li>
-            <li><a href="#">Pricing & Payouts</a></li>
-            <li><a href="#">Creator Guide</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-          </ul>
-        </div>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="/" class="footer-logo">VOX<span>VEGA</span></a>
+        <p>The creator monetization platform that puts creators first. Book personalized videos, subscribe to exclusive content, and connect directly with the creators you love.</p>
       </div>
-      <div class="footer-bottom">
-        <p>© 2026 VoxVega LLC. All rights reserved.</p>
-        <div class="footer-legal">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-          <a href="#">Cookie Policy</a>
-        </div>
+      <div class="footer-col">
+        <h4>For Fans</h4>
+        <ul>
+          <li><a href="creators.html">Browse Creators</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="buyer.html">My Orders</a></li>
+          <li><a href="#">Gift Cards</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>For Creators</h4>
+        <ul>
+          <li><a href="login.html?mode=signup&type=creator">Join VoxVega</a></li>
+          <li><a href="dashboard.html">Creator Dashboard</a></li>
+          <li><a href="#">Pricing & Payouts</a></li>
+          <li><a href="#">Creator Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VoxVega LLC. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookie Policy</a>
       </div>
     </div>
   </footer>
-
-  <script>
-    // Generate twinkling stars
-    const container = document.getElementById('heroStars');
-    for (let i = 0; i < 60; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
-      star.style.cssText = `
-        left: ${Math.random() * 100}%;
-        top: ${Math.random() * 100}%;
-        --dur: ${2 + Math.random() * 4}s;
-        --delay: ${Math.random() * 4}s;
-        --op: ${0.3 + Math.random() * 0.7};
-        width: ${1 + Math.random() * 2}px;
-        height: ${1 + Math.random() * 2}px;
-      `;
-      container.appendChild(star);
-    }
-  </script>
 
 </body>
 </html>
