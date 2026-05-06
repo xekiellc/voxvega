@@ -4,521 +4,252 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Creator Dashboard — VoxVega</title>
-  <meta name="description" content="Manage your requests, earnings, and profile on VoxVega." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --navy: #0a0e1a;
-      --navy-mid: #111827;
-      --navy-light: #1e2a3a;
-      --gold: #c9a84c;
-      --gold-light: #e2c06e;
-      --white: #ffffff;
-      --gray: #8a9ab0;
-      --gray-light: #d1d9e6;
-      --green: #4ade80;
-      --red: #f87171;
-      --font-display: 'Playfair Display', Georgia, serif;
-      --font-body: 'DM Sans', sans-serif;
+      --cyan: #00E5FF; --cyan-dim: rgba(0,229,255,0.12);
+      --purple: #8B5CF6; --purple-dim: rgba(139,92,246,0.12);
+      --magenta: #E040FB; --mag-dim: rgba(224,64,251,0.12);
+      --gold: #FFB300; --gold-dim: rgba(255,179,0,0.12);
+      --green: #4ADE80; --green-dim: rgba(74,222,128,0.1);
+      --red: #F87171; --red-dim: rgba(248,113,113,0.1);
+      --bg: #080B14; --bg-2: #0D1120; --bg-3: #111827; --bg-4: #161D2E;
+      --white: #FFFFFF; --white-dim: rgba(255,255,255,0.55); --white-faint: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.07);
+      --grad: linear-gradient(135deg, #00E5FF 0%, #8B5CF6 35%, #E040FB 65%, #FFB300 100%);
+      --grad-text: linear-gradient(90deg, #00E5FF 0%, #8B5CF6 30%, #E040FB 65%, #FFB300 100%);
+      --font-main: 'Inter', sans-serif; --font-serif: 'Playfair Display', Georgia, serif;
     }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--navy);
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 16px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    body { background: var(--bg); color: var(--white); font-family: var(--font-main); font-size: 16px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.25rem 2.5rem;
-      background: rgba(10, 14, 26, 0.95);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 2.5rem; height: 64px;
+      background: rgba(8,11,20,0.95); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
     }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--white);
-      text-decoration: none;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-logo span { color: var(--gold); }
-
-    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
-
-    .nav-avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(201, 168, 76, 0.15);
-      border: 1px solid rgba(201, 168, 76, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-
-    .nav-link { color: var(--gray); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+    .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+    .nav-logo img { height: 34px; filter: drop-shadow(0 0 8px rgba(0,229,255,0.4)); }
+    .nav-logo-word { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .nav-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; color: var(--white); cursor: pointer; border: 2px solid var(--border); }
+    .nav-link { color: var(--white-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
     .nav-link:hover { color: var(--white); }
 
-    .dashboard-layout {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      min-height: 100vh;
-      padding-top: 5rem;
-    }
+    .dashboard-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; padding-top: 64px; }
 
+    /* SIDEBAR */
     .sidebar {
-      background: var(--navy-mid);
-      border-right: 1px solid rgba(201, 168, 76, 0.08);
-      padding: 2rem 0;
-      position: sticky;
-      top: 5rem;
-      height: calc(100vh - 5rem);
-      overflow-y: auto;
+      background: var(--bg-2); border-right: 1px solid var(--border);
+      padding: 2rem 0; position: sticky; top: 64px;
+      height: calc(100vh - 64px); overflow-y: auto;
     }
 
-    .sidebar-creator {
-      padding: 0 1.5rem 1.5rem;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      margin-bottom: 1rem;
-      text-align: center;
-    }
+    .sidebar-creator { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; text-align: center; }
 
     .sidebar-avatar {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: rgba(201, 168, 76, 0.1);
-      border: 2px solid rgba(201, 168, 76, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      margin: 0 auto 0.75rem;
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 900; color: var(--white);
+      margin: 0 auto 0.75rem; border: 2px solid var(--border);
       overflow: hidden;
     }
-
     .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .sidebar-name { font-family: var(--font-display); font-size: 1rem; font-weight: 700; }
 
-    .sidebar-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      font-size: 0.72rem;
-      color: var(--green);
-      font-weight: 500;
-      margin-top: 0.25rem;
-    }
-
-    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .sidebar-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 800; }
+    .sidebar-status { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.7rem; color: var(--green); font-weight: 600; margin-top: 0.3rem; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
 
     .sidebar-nav { padding: 0 0.75rem; }
-
-    .sidebar-section-label {
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gray);
-      padding: 0.75rem 0.75rem 0.35rem;
-    }
+    .sidebar-section-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white-dim); padding: 0.75rem 0.75rem 0.35rem; }
 
     .sidebar-link {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.65rem 0.75rem;
-      border-radius: 10px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--gray);
-      text-decoration: none;
-      transition: all 0.2s;
-      cursor: pointer;
-      margin-bottom: 0.15rem;
-      border: none;
-      background: none;
-      width: 100%;
-      font-family: var(--font-body);
-      text-align: left;
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.65rem 0.875rem; border-radius: 10px;
+      font-size: 0.84rem; font-weight: 500; color: var(--white-dim);
+      text-decoration: none; transition: all 0.2s; cursor: pointer;
+      margin-bottom: 0.15rem; border: none; background: none;
+      width: 100%; font-family: var(--font-main); text-align: left;
     }
+    .sidebar-link:hover { background: var(--white-faint); color: var(--white); }
+    .sidebar-link.active { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(139,92,246,0.2); }
+    .sidebar-link-icon { font-size: 0.95rem; width: 18px; text-align: center; }
 
-    .sidebar-link:hover { background: rgba(255,255,255,0.04); color: var(--white); }
-    .sidebar-link.active { background: rgba(201, 168, 76, 0.1); color: var(--gold); }
-    .sidebar-link-icon { font-size: 1rem; width: 20px; text-align: center; }
+    .sidebar-badge { margin-left: auto; background: var(--grad); color: var(--white); font-size: 0.62rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 100px; }
 
-    .sidebar-badge {
-      margin-left: auto;
-      background: var(--gold);
-      color: var(--navy);
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 0.1rem 0.5rem;
-      border-radius: 100px;
-    }
-
-    .main-content { padding: 2rem 2.5rem; overflow-x: hidden; }
-
-    .page-header { margin-bottom: 2rem; }
-
-    .page-title {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .page-title em { font-style: italic; color: var(--gold); }
-    .page-sub { color: var(--gray); font-size: 0.9rem; margin-top: 0.25rem; }
+    /* MAIN */
+    .main-content { padding: 2.5rem; overflow-x: hidden; }
 
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
+    .page-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .page-eyebrow::before { content: ''; display: block; width: 16px; height: 2px; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
 
-    .metric-card {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.08);
-      border-radius: 14px;
-      padding: 1.25rem;
-    }
+    .page-title { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.35rem; }
+    .page-title em { font-style: italic; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .page-sub { color: var(--white-dim); font-size: 0.875rem; margin-bottom: 2rem; }
 
-    .metric-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gray);
-      margin-bottom: 0.5rem;
-    }
+    /* METRICS */
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2.5rem; }
 
-    .metric-value {
-      font-family: var(--font-display);
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1;
-    }
+    .metric-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; transition: border-color 0.2s; }
+    .metric-card:hover { border-color: rgba(139,92,246,0.2); }
 
-    .metric-value.gold { color: var(--gold); }
-    .metric-value.green { color: var(--green); }
+    .metric-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 0.5rem; }
 
-    .metric-change { font-size: 0.75rem; margin-top: 0.35rem; }
-    .metric-change.up { color: var(--green); }
+    .metric-value { font-family: var(--font-serif); font-size: 2rem; font-weight: 800; line-height: 1; }
+    .mv-cyan { color: var(--cyan); text-shadow: 0 0 16px rgba(0,229,255,0.4); }
+    .mv-purple { color: var(--purple); text-shadow: 0 0 16px rgba(139,92,246,0.4); }
+    .mv-mag { color: var(--magenta); text-shadow: 0 0 16px rgba(224,64,251,0.4); }
+    .mv-gold { color: var(--gold); text-shadow: 0 0 16px rgba(255,179,0,0.4); }
+    .mv-green { color: var(--green); text-shadow: 0 0 16px rgba(74,222,128,0.4); }
 
-    .section-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.25rem;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
+    .metric-change { font-size: 0.72rem; margin-top: 0.35rem; color: var(--white-dim); }
 
-    .section-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+    /* SECTION HEADER */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 1rem; }
+    .section-title { font-family: var(--font-serif); font-size: 1.2rem; font-weight: 800; }
 
+    /* REQUESTS */
     .requests-list { display: flex; flex-direction: column; gap: 0.875rem; }
 
     .request-card {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.08);
-      border-radius: 14px;
-      padding: 1.25rem 1.5rem;
-      display: grid;
-      grid-template-columns: auto 1fr auto auto;
-      gap: 1.25rem;
-      align-items: center;
-      transition: border-color 0.2s;
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1.5rem;
+      display: grid; grid-template-columns: auto 1fr auto auto;
+      gap: 1.25rem; align-items: center; transition: border-color 0.2s;
     }
-
-    .request-card:hover { border-color: rgba(201, 168, 76, 0.2); }
+    .request-card:hover { border-color: rgba(139,92,246,0.2); }
     .request-card.urgent { border-left: 3px solid var(--gold); }
     .request-card.overdue { border-left: 3px solid var(--red); }
 
-    .request-avatar {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--navy);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      flex-shrink: 0;
-    }
+    .request-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 800; color: var(--white); flex-shrink: 0; }
 
-    .request-from { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
-    .request-type { font-size: 0.75rem; color: var(--gold); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-    .request-instructions { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
+    .request-from { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .request-type { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .request-instructions { font-size: 0.78rem; color: var(--white-dim); margin-top: 0.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 300px; }
 
     .request-meta { text-align: right; }
-    .request-price { font-weight: 700; font-size: 1rem; color: var(--gold); }
-    .request-deadline { font-size: 0.72rem; color: var(--gray); margin-top: 0.2rem; }
+    .request-price { font-family: var(--font-serif); font-weight: 800; font-size: 1.1rem; color: var(--gold); }
+    .request-deadline { font-size: 0.7rem; color: var(--white-dim); margin-top: 0.2rem; }
     .request-deadline.urgent { color: var(--gold); }
     .request-deadline.overdue { color: var(--red); }
 
-    .request-actions { display: flex; flex-direction: column; gap: 0.5rem; }
+    .request-actions { display: flex; flex-direction: column; gap: 0.4rem; }
 
-    .btn-sm {
-      padding: 0.4rem 0.875rem;
-      border-radius: 100px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: var(--font-body);
-      transition: all 0.2s;
-      border: none;
-      white-space: nowrap;
-    }
-
-    .btn-sm-primary { background: var(--gold); color: var(--navy); }
-    .btn-sm-primary:hover { background: var(--gold-light); }
-    .btn-sm-ghost { background: transparent; color: var(--gray); border: 1px solid rgba(255,255,255,0.1); }
-    .btn-sm-ghost:hover { border-color: var(--gray); color: var(--white); }
+    .btn-sm { padding: 0.4rem 0.875rem; border-radius: 100px; font-size: 0.72rem; font-weight: 700; cursor: pointer; font-family: var(--font-main); transition: all 0.2s; border: none; white-space: nowrap; }
+    .btn-sm-grad { background: var(--grad); color: var(--white); box-shadow: 0 0 10px rgba(139,92,246,0.25); }
+    .btn-sm-grad:hover { opacity: 0.85; }
+    .btn-sm-ghost { background: transparent; color: var(--white-dim); border: 1px solid var(--border); }
+    .btn-sm-ghost:hover { border-color: var(--white-dim); color: var(--white); }
     .btn-sm-danger { background: transparent; color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
-    .btn-sm-danger:hover { background: rgba(248,113,113,0.1); }
+    .btn-sm-danger:hover { background: var(--red-dim); }
 
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-    }
+    .status-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 100px; }
+    .status-pending { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(255,179,0,0.2); }
+    .status-completed { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+    .status-declined { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+    .status-delivered { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(139,92,246,0.2); }
 
-    .status-pending { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
-    .status-completed { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
-    .status-declined { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
-    .status-delivered { background: rgba(139,92,246,0.1); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
-
+    /* EARNINGS */
     .earnings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 2rem; }
 
-    .earnings-card {
-      background: var(--navy-light);
-      border: 1px solid rgba(201, 168, 76, 0.1);
-      border-radius: 14px;
-      padding: 1.5rem;
-    }
+    .earnings-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
+    .earnings-card-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 0.75rem; }
+    .earnings-amount { font-family: var(--font-serif); font-size: 2.5rem; font-weight: 800; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
 
-    .earnings-card-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); margin-bottom: 0.75rem; }
-    .earnings-amount { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--gold); margin-bottom: 0.5rem; }
-    .earnings-breakdown { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 1rem; }
-
-    .earnings-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.8rem;
-      padding: 0.35rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-
+    .earnings-breakdown { display: flex; flex-direction: column; gap: 0; margin-top: 1rem; }
+    .earnings-row { display: flex; justify-content: space-between; font-size: 0.8rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
     .earnings-row:last-child { border-bottom: none; }
-    .earnings-row span:first-child { color: var(--gray); }
+    .earnings-row span:first-child { color: var(--white-dim); }
     .earnings-row span:last-child { font-weight: 600; }
 
     .payout-section {
-      background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 14px;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
+      background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(224,64,251,0.05));
+      border: 1px solid rgba(139,92,246,0.2);
+      border-radius: 16px; padding: 1.75rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;
     }
-
-    .payout-label { font-size: 0.72rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 700; margin-bottom: 0.25rem; }
-    .payout-amount { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--gold); }
-    .payout-sub { font-size: 0.78rem; color: var(--gray); margin-top: 0.2rem; }
+    .payout-label { font-size: 0.68rem; color: var(--white-dim); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.25rem; }
+    .payout-amount { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 800; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .payout-sub { font-size: 0.75rem; color: var(--white-dim); margin-top: 0.2rem; }
     .payout-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-    .btn-primary {
-      background: var(--gold);
-      color: var(--navy);
-      padding: 0.75rem 1.5rem;
-      border-radius: 100px;
-      font-weight: 700;
-      font-size: 0.9rem;
-      border: none;
-      cursor: pointer;
-      font-family: var(--font-body);
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
+    .btn-grad { background: var(--grad); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 100px; font-weight: 700; font-size: 0.875rem; border: none; cursor: pointer; font-family: var(--font-main); transition: opacity 0.2s, transform 0.2s; box-shadow: 0 0 20px rgba(139,92,246,0.3); text-decoration: none; display: inline-block; }
+    .btn-grad:hover { opacity: 0.85; transform: translateY(-1px); }
 
-    .btn-primary:hover { background: var(--gold-light); }
+    .btn-glass { background: var(--white-faint); color: var(--white-dim); padding: 0.75rem 1.5rem; border-radius: 100px; font-weight: 500; font-size: 0.875rem; border: 1px solid var(--border); cursor: pointer; font-family: var(--font-main); transition: all 0.2s; }
+    .btn-glass:hover { background: rgba(255,255,255,0.1); color: var(--white); }
 
-    .btn-secondary {
-      background: transparent;
-      color: var(--white);
-      padding: 0.75rem 1.5rem;
-      border-radius: 100px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      border: 1px solid rgba(255,255,255,0.15);
-      cursor: pointer;
-      font-family: var(--font-body);
-      transition: all 0.2s;
-    }
-
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      background: rgba(0,0,0,0.85);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-overlay.active { display: flex; }
-
-    .modal-box {
-      background: var(--navy-mid);
-      border: 1px solid rgba(201, 168, 76, 0.2);
-      border-radius: 20px;
-      padding: 2.5rem;
-      max-width: 520px;
-      width: 90%;
-    }
-
-    .modal-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
-    .modal-sub { color: var(--gray); font-size: 0.875rem; margin-bottom: 1.5rem; }
-
-    .upload-zone {
-      border: 2px dashed rgba(201, 168, 76, 0.3);
-      border-radius: 14px;
-      padding: 2.5rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      margin-bottom: 1.25rem;
-    }
-
-    .upload-zone:hover { border-color: var(--gold); background: rgba(201,168,76,0.03); }
-    .upload-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .upload-text { font-size: 0.9rem; color: var(--gray-light); margin-bottom: 0.35rem; }
-    .upload-sub { font-size: 0.75rem; color: var(--gray); }
-
-    .modal-input, .modal-textarea {
-      width: 100%;
-      background: var(--navy);
-      border: 1px solid rgba(201, 168, 76, 0.15);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      outline: none;
-      margin-bottom: 1rem;
-    }
-
-    .modal-input:focus, .modal-textarea:focus { border-color: var(--gold); }
-    .modal-textarea { min-height: 80px; resize: vertical; }
-    .modal-actions { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
-    .modal-actions .btn-primary { flex: 1; text-align: center; }
-
-    .btn-ghost {
-      background: transparent;
-      color: var(--gray);
-      padding: 0.75rem 1.5rem;
-      border-radius: 100px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      border: 1px solid rgba(255,255,255,0.1);
-      cursor: pointer;
-      font-family: var(--font-body);
-      transition: all 0.2s;
-      flex: 1;
-      text-align: center;
-    }
-
-    .btn-ghost:hover { border-color: var(--gray); color: var(--white); }
-
+    /* SETTINGS */
     .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
-    .settings-card { background: var(--navy-light); border: 1px solid rgba(201, 168, 76, 0.08); border-radius: 14px; padding: 1.5rem; }
+    .settings-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
     .settings-card.full { grid-column: 1 / -1; }
+    .settings-card-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.25rem; }
 
-    .settings-card-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .settings-label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 0.4rem; }
 
-    .settings-input {
-      width: 100%;
-      background: var(--navy);
-      border: 1px solid rgba(201, 168, 76, 0.12);
-      border-radius: 10px;
-      padding: 0.75rem 1rem;
-      color: var(--white);
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      outline: none;
-      margin-bottom: 0.875rem;
-      transition: border-color 0.2s;
+    .settings-input, .settings-select, .settings-textarea {
+      width: 100%; background: var(--bg-3); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.75rem 1rem; color: var(--white);
+      font-family: var(--font-main); font-size: 0.875rem; outline: none;
+      margin-bottom: 0.875rem; transition: border-color 0.2s;
     }
-
-    .settings-input:focus { border-color: var(--gold); }
-    .settings-input::placeholder { color: var(--gray); }
-
-    .settings-label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em; color: var(--gray); margin-bottom: 0.35rem; text-transform: uppercase; }
+    .settings-input:focus, .settings-select:focus, .settings-textarea:focus { border-color: rgba(139,92,246,0.5); }
+    .settings-input::placeholder, .settings-textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .settings-select option { background: var(--bg-3); }
+    .settings-textarea { min-height: 90px; resize: vertical; }
 
     .price-input-wrap { position: relative; margin-bottom: 0.875rem; }
-    .price-input-wrap span { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gold); font-weight: 700; }
-    .price-input-wrap input { width: 100%; background: var(--navy); border: 1px solid rgba(201, 168, 76, 0.12); border-radius: 10px; padding: 0.75rem 1rem 0.75rem 2rem; color: var(--white); font-family: var(--font-body); font-size: 0.9rem; outline: none; }
-    .price-input-wrap input:focus { border-color: var(--gold); }
+    .price-input-wrap::before { content: '$'; position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--gold); font-weight: 700; pointer-events: none; }
+    .price-input-wrap input { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem 0.75rem 2rem; color: var(--white); font-family: var(--font-main); font-size: 0.875rem; outline: none; transition: border-color 0.2s; }
+    .price-input-wrap input:focus { border-color: rgba(139,92,246,0.5); }
 
-    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.65rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
     .toggle-row:last-child { border-bottom: none; }
     .toggle-label-text { font-size: 0.875rem; }
-    .toggle-label-sub { font-size: 0.72rem; color: var(--gray); }
+    .toggle-label-sub { font-size: 0.7rem; color: var(--white-dim); }
 
-    .toggle { width: 44px; height: 24px; background: var(--navy); border: 1px solid rgba(255,255,255,0.15); border-radius: 100px; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
-    .toggle.on { background: var(--gold); border-color: var(--gold); }
+    .toggle { width: 44px; height: 24px; background: var(--bg-3); border: 1px solid var(--border); border-radius: 100px; position: relative; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+    .toggle.on { background: var(--purple); border-color: var(--purple); box-shadow: 0 0 10px rgba(139,92,246,0.4); }
     .toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: var(--white); border-radius: 50%; transition: transform 0.2s; }
     .toggle.on::after { transform: translateX(20px); }
 
-    .social-input-wrap { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
-    .social-prefix { font-size: 0.85rem; color: var(--gray); white-space: nowrap; min-width: 80px; }
+    .social-input-wrap { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .social-prefix { font-size: 0.78rem; color: var(--white-dim); white-space: nowrap; min-width: 90px; font-weight: 500; }
 
-    .empty-state { text-align: center; padding: 3rem 2rem; color: var(--gray); }
-    .empty-state-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-    .empty-state h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--white); margin-bottom: 0.5rem; }
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(8,11,20,0.9); align-items: center; justify-content: center; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: var(--bg-2); border: 1px solid rgba(139,92,246,0.2); border-radius: 24px; padding: 2.5rem; max-width: 520px; width: 90%; }
+    .modal-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .modal-sub { color: var(--white-dim); font-size: 0.875rem; margin-bottom: 1.5rem; }
 
-    footer { background: var(--navy); border-top: 1px solid rgba(201, 168, 76, 0.08); padding: 1.5rem 2rem; text-align: center; }
-    footer p { font-size: 0.8rem; color: var(--gray); }
-    footer a { color: var(--gold); text-decoration: none; }
+    .upload-zone { border: 2px dashed rgba(139,92,246,0.3); border-radius: 14px; padding: 2.5rem; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 1.25rem; }
+    .upload-zone:hover { border-color: rgba(139,92,246,0.6); background: var(--purple-dim); }
+    .upload-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .upload-text { font-size: 0.9rem; color: var(--white-dim); margin-bottom: 0.35rem; }
+    .upload-sub { font-size: 0.75rem; color: var(--white-dim); }
+
+    .modal-textarea { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 10px; padding: 0.875rem 1rem; color: var(--white); font-family: var(--font-main); font-size: 0.875rem; outline: none; min-height: 80px; resize: vertical; margin-bottom: 1.25rem; }
+    .modal-textarea:focus { border-color: rgba(139,92,246,0.5); }
+    .modal-textarea::placeholder { color: rgba(255,255,255,0.2); }
+    .modal-actions { display: flex; gap: 0.75rem; }
+
+    .empty-state { text-align: center; padding: 3rem 2rem; color: var(--white-dim); }
+    .empty-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .empty-title { font-family: var(--font-serif); font-size: 1.2rem; color: var(--white); margin-bottom: 0.5rem; }
+
+    footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 1.5rem 2.5rem; text-align: center; }
+    footer p { font-size: 0.78rem; color: var(--white-dim); }
+    footer a { color: var(--cyan); text-decoration: none; }
 
     @media (max-width: 900px) {
       .dashboard-layout { grid-template-columns: 1fr; }
@@ -528,9 +259,8 @@
       .settings-card.full { grid-column: 1; }
       .request-card { grid-template-columns: auto 1fr; }
     }
-
     @media (max-width: 480px) {
-      nav { padding: 1rem 1.25rem; }
+      nav { padding: 0 1.25rem; }
       .main-content { padding: 1.5rem 1rem; }
       .metrics-grid { grid-template-columns: 1fr 1fr; }
     }
@@ -539,10 +269,13 @@
 <body>
 
   <nav>
-    <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
+    <a href="index.html" class="nav-logo">
+      <img src="logo.png" alt="VoxVega" onerror="this.style.display='none'" />
+      <span class="nav-logo-word">VoxVega</span>
+    </a>
     <div class="nav-right">
       <a href="#" class="nav-link" id="viewProfileLink">View My Profile</a>
-      <div class="nav-avatar" id="navAvatar">⏳</div>
+      <div class="nav-avatar" id="navAvatar" style="background:linear-gradient(135deg,#00E5FF,#8B5CF6)">VV</div>
     </div>
   </nav>
 
@@ -550,7 +283,7 @@
 
     <aside class="sidebar">
       <div class="sidebar-creator">
-        <div class="sidebar-avatar" id="sidebarAvatar">⏳</div>
+        <div class="sidebar-avatar" id="sidebarAvatar" style="background:linear-gradient(135deg,#00E5FF,#8B5CF6)">VV</div>
         <div class="sidebar-name" id="sidebarName">Loading...</div>
         <div class="sidebar-status"><div class="status-dot"></div> Active</div>
       </div>
@@ -567,7 +300,6 @@
         <button class="sidebar-link" onclick="switchPanel('earnings', this)">
           <span class="sidebar-link-icon">💰</span> Earnings
         </button>
-
         <div class="sidebar-section-label">Manage</div>
         <button class="sidebar-link" onclick="switchPanel('offerings', this)">
           <span class="sidebar-link-icon">🎬</span> My Offerings
@@ -578,14 +310,9 @@
         <button class="sidebar-link" onclick="switchPanel('payouts', this)">
           <span class="sidebar-link-icon">🏦</span> Payout Settings
         </button>
-
         <div class="sidebar-section-label">Account</div>
-        <a href="index.html" class="sidebar-link">
-          <span class="sidebar-link-icon">🏠</span> Browse Platform
-        </a>
-        <button class="sidebar-link" onclick="handleSignOut()">
-          <span class="sidebar-link-icon">🚪</span> Sign Out
-        </button>
+        <a href="index.html" class="sidebar-link"><span class="sidebar-link-icon">🏠</span> Browse Platform</a>
+        <button class="sidebar-link" onclick="handleSignOut()"><span class="sidebar-link-icon">🚪</span> Sign Out</button>
       </div>
     </aside>
 
@@ -593,57 +320,46 @@
 
       <!-- OVERVIEW -->
       <div class="tab-panel active" id="panel-overview">
-        <div class="page-header">
-          <h1 class="page-title">Welcome back, <em id="welcomeName">Creator</em></h1>
-          <p class="page-sub" id="welcomeSub">Loading your dashboard...</p>
-        </div>
-
+        <div class="page-eyebrow">Dashboard</div>
+        <h1 class="page-title">Welcome back, <em id="welcomeName">Creator</em></h1>
+        <p class="page-sub" id="welcomeSub">Loading your dashboard...</p>
         <div class="metrics-grid" id="metricsGrid">
-          <div class="metric-card"><div class="metric-label">Pending</div><div class="metric-value gold">—</div></div>
-          <div class="metric-card"><div class="metric-label">Completed (30d)</div><div class="metric-value">—</div></div>
-          <div class="metric-card"><div class="metric-label">Earnings (30d)</div><div class="metric-value gold">—</div></div>
-          <div class="metric-card"><div class="metric-label">Available</div><div class="metric-value green">—</div></div>
-          <div class="metric-card"><div class="metric-label">Rating</div><div class="metric-value gold">—</div></div>
-          <div class="metric-card"><div class="metric-label">Response Rate</div><div class="metric-value green">—</div></div>
+          <div class="metric-card"><div class="metric-label">Pending</div><div class="metric-value mv-gold">—</div></div>
+          <div class="metric-card"><div class="metric-label">Completed (30d)</div><div class="metric-value mv-cyan">—</div></div>
+          <div class="metric-card"><div class="metric-label">Earnings (30d)</div><div class="metric-value mv-purple">—</div></div>
+          <div class="metric-card"><div class="metric-label">Rating</div><div class="metric-value mv-mag">—</div></div>
         </div>
-
         <div class="section-header">
           <h2 class="section-title">Pending Requests</h2>
           <button class="btn-sm btn-sm-ghost" onclick="switchPanel('requests', document.querySelectorAll('.sidebar-link')[1])">View All</button>
         </div>
-
         <div class="requests-list" id="overviewRequests">
-          <div style="color:var(--gray);padding:1rem;">Loading requests...</div>
+          <div style="color:var(--white-dim);padding:1rem;">Loading requests...</div>
         </div>
       </div>
 
       <!-- REQUESTS -->
       <div class="tab-panel" id="panel-requests">
-        <div class="page-header">
-          <h1 class="page-title">My <em>Requests</em></h1>
-          <p class="page-sub">Manage incoming orders from your fans.</p>
-        </div>
-
+        <div class="page-eyebrow">Manage</div>
+        <h1 class="page-title">My <em>Requests</em></h1>
+        <p class="page-sub">Manage incoming orders from your fans.</p>
         <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-          <button class="btn-sm btn-sm-primary" onclick="filterRequests('all', this)">All</button>
+          <button class="btn-sm btn-sm-grad" onclick="filterRequests('all', this)">All</button>
           <button class="btn-sm btn-sm-ghost" onclick="filterRequests('pending', this)">Pending</button>
           <button class="btn-sm btn-sm-ghost" onclick="filterRequests('delivered', this)">Delivered</button>
           <button class="btn-sm btn-sm-ghost" onclick="filterRequests('completed', this)">Completed</button>
           <button class="btn-sm btn-sm-ghost" onclick="filterRequests('declined', this)">Declined</button>
         </div>
-
         <div class="requests-list" id="allRequests">
-          <div style="color:var(--gray);padding:1rem;">Loading...</div>
+          <div style="color:var(--white-dim);padding:1rem;">Loading...</div>
         </div>
       </div>
 
       <!-- EARNINGS -->
       <div class="tab-panel" id="panel-earnings">
-        <div class="page-header">
-          <h1 class="page-title">My <em>Earnings</em></h1>
-          <p class="page-sub">Track your revenue across all income streams.</p>
-        </div>
-
+        <div class="page-eyebrow">Finance</div>
+        <h1 class="page-title">My <em>Earnings</em></h1>
+        <p class="page-sub">Track your revenue across all income streams.</p>
         <div class="payout-section">
           <div>
             <div class="payout-label">Available to Withdraw</div>
@@ -651,11 +367,10 @@
             <div class="payout-sub">90% creator share · Processed within 2 business days</div>
           </div>
           <div class="payout-actions">
-            <button class="btn-primary" onclick="switchPanel('payouts', document.querySelectorAll('.sidebar-link')[5])">Withdraw Funds</button>
-            <button class="btn-secondary">Withdraw Crypto</button>
+            <button class="btn-grad" onclick="switchPanel('payouts', document.querySelectorAll('.sidebar-link')[5])">Withdraw Funds</button>
+            <button class="btn-glass">Withdraw Crypto</button>
           </div>
         </div>
-
         <div class="earnings-grid">
           <div class="earnings-card">
             <div class="earnings-card-title">This Month</div>
@@ -664,7 +379,6 @@
               <div class="earnings-row"><span>Loading...</span><span>—</span></div>
             </div>
           </div>
-
           <div class="earnings-card">
             <div class="earnings-card-title">All Time</div>
             <div class="earnings-amount" id="allTimeEarnings">$0.00</div>
@@ -677,58 +391,49 @@
 
       <!-- OFFERINGS -->
       <div class="tab-panel" id="panel-offerings">
-        <div class="page-header">
-          <h1 class="page-title">My <em>Offerings</em></h1>
-          <p class="page-sub">Set your prices and toggle which services you offer.</p>
-        </div>
+        <div class="page-eyebrow">Manage</div>
+        <h1 class="page-title">My <em>Offerings</em></h1>
+        <p class="page-sub">Set your prices and toggle which services you offer.</p>
         <div class="settings-grid" id="offeringsGrid">
-          <div style="color:var(--gray);padding:1rem;">Loading offerings...</div>
+          <div style="color:var(--white-dim);padding:1rem;">Loading offerings...</div>
         </div>
-        <div style="margin-top:1.5rem;">
-          <button class="btn-primary" style="width:auto;padding:0.75rem 2rem;" onclick="saveOfferings()">Save Offerings</button>
+        <div style="margin-top:1.75rem;">
+          <button class="btn-grad" style="width:auto;padding:0.75rem 2rem;" onclick="saveOfferings()">Save Offerings</button>
         </div>
       </div>
 
-      <!-- PROFILE -->
+      <!-- PROFILE EDIT -->
       <div class="tab-panel" id="panel-profile">
-        <div class="page-header">
-          <h1 class="page-title">Edit <em>Profile</em></h1>
-          <p class="page-sub">Update your public creator profile.</p>
-        </div>
-
+        <div class="page-eyebrow">Manage</div>
+        <h1 class="page-title">Edit <em>Profile</em></h1>
+        <p class="page-sub">Update your public creator profile.</p>
         <div class="settings-grid">
           <div class="settings-card full">
             <div class="settings-card-title">Basic Information</div>
             <label class="settings-label">Display Name</label>
             <input type="text" class="settings-input" id="editDisplayName" placeholder="Your display name" />
             <label class="settings-label">Category</label>
-            <select class="settings-input" id="editCategory">
-              <option value="comedy">Comedy</option>
-              <option value="music">Music</option>
-              <option value="sports">Sports</option>
-              <option value="wrestling">Wrestling</option>
-              <option value="podcaster">Podcaster</option>
-              <option value="fitness">Fitness</option>
-              <option value="politics">Politics</option>
-              <option value="gaming">Gaming</option>
-              <option value="k-pop">K-Pop</option>
-              <option value="18+ creator">18+ Creator</option>
+            <select class="settings-select" id="editCategory">
+              <option value="comedy">Comedy</option><option value="music">Music</option>
+              <option value="sports">Sports</option><option value="wrestling">Wrestling</option>
+              <option value="podcaster">Podcaster</option><option value="fitness">Fitness</option>
+              <option value="politics">Politics</option><option value="gaming">Gaming</option>
+              <option value="k-pop">K-Pop</option><option value="18+ creator">18+ Creator</option>
               <option value="other">Other</option>
             </select>
             <label class="settings-label">Bio</label>
-            <textarea class="settings-input" id="editBio" style="min-height:100px;resize:vertical;" placeholder="Tell fans about yourself..."></textarea>
+            <textarea class="settings-textarea" id="editBio" placeholder="Tell fans about yourself..."></textarea>
             <label class="settings-label">Tags (comma separated)</label>
             <input type="text" class="settings-input" id="editTags" placeholder="comedy, podcasting, interviews" />
           </div>
-
           <div class="settings-card full">
             <div class="settings-card-title">Social & External Links</div>
             <div class="social-input-wrap">
-              <span class="social-prefix">🐦 X / Twitter</span>
+              <span class="social-prefix">𝕏 Twitter</span>
               <input type="text" class="settings-input" id="linkTwitter" style="margin-bottom:0;" placeholder="https://x.com/yourhandle" />
             </div>
             <div class="social-input-wrap">
-              <span class="social-prefix">▶️ YouTube</span>
+              <span class="social-prefix">▶ YouTube</span>
               <input type="text" class="settings-input" id="linkYoutube" style="margin-bottom:0;" placeholder="https://youtube.com/yourchannel" />
             </div>
             <div class="social-input-wrap">
@@ -747,42 +452,33 @@
               <span class="social-prefix">🛍️ Merch</span>
               <input type="text" class="settings-input" id="linkMerch" style="margin-bottom:0;" placeholder="https://yourmerch.com" />
             </div>
-            <div class="social-input-wrap">
-              <span class="social-prefix">📧 Newsletter</span>
-              <input type="text" class="settings-input" id="linkNewsletter" style="margin-bottom:0;" placeholder="https://yournewsletter.com" />
-            </div>
           </div>
-
           <div class="settings-card full">
             <div class="settings-card-title">Creator Guidelines</div>
-            <textarea class="settings-input" id="editGuidelines" style="min-height:100px;resize:vertical;" placeholder="Describe what you will and won't do..."></textarea>
+            <textarea class="settings-textarea" id="editGuidelines" placeholder="Describe what you will and won't do..."></textarea>
           </div>
         </div>
-
-        <div style="margin-top:1.5rem;">
-          <button class="btn-primary" style="width:auto;padding:0.75rem 2rem;" onclick="saveProfile()">Save Profile</button>
+        <div style="margin-top:1.75rem;">
+          <button class="btn-grad" style="width:auto;padding:0.75rem 2rem;" onclick="saveProfile()">Save Profile</button>
         </div>
       </div>
 
       <!-- PAYOUTS -->
       <div class="tab-panel" id="panel-payouts">
-        <div class="page-header">
-          <h1 class="page-title">Payout <em>Settings</em></h1>
-          <p class="page-sub">Manage how and where you get paid.</p>
-        </div>
-
+        <div class="page-eyebrow">Finance</div>
+        <h1 class="page-title">Payout <em>Settings</em></h1>
+        <p class="page-sub">Manage how and where you get paid.</p>
         <div class="payout-section">
           <div>
             <div class="payout-label">Available to Withdraw</div>
             <div class="payout-amount" id="payoutBalance">$0.00</div>
-            <div class="payout-sub">Minimum withdrawal: $25 · Processed within 2 business days</div>
+            <div class="payout-sub">Minimum withdrawal: $25 · 2 business days</div>
           </div>
           <div class="payout-actions">
-            <button class="btn-primary" onclick="requestPayout('bank')">Request Bank Payout</button>
-            <button class="btn-secondary" onclick="requestPayout('crypto')">Request Crypto Payout</button>
+            <button class="btn-grad" onclick="requestPayout('bank')">Request Bank Payout</button>
+            <button class="btn-glass" onclick="requestPayout('crypto')">Request Crypto Payout</button>
           </div>
         </div>
-
         <div class="settings-grid">
           <div class="settings-card">
             <div class="settings-card-title">🏦 Bank Transfer (Stripe)</div>
@@ -793,32 +489,23 @@
             <label class="settings-label">Account Number</label>
             <input type="text" class="settings-input" id="bankAccount" placeholder="Account number" />
             <label class="settings-label">Account Type</label>
-            <select class="settings-input" id="bankType">
-              <option>Checking</option>
-              <option>Savings</option>
-            </select>
-            <button class="btn-primary" style="width:100%;margin-top:0.5rem;">Save Bank Details</button>
+            <select class="settings-select" id="bankType"><option>Checking</option><option>Savings</option></select>
+            <button class="btn-grad" style="width:100%;margin-top:0.5rem;">Save Bank Details</button>
           </div>
-
           <div class="settings-card">
             <div class="settings-card-title">₿ Crypto Payout (NowPayments)</div>
             <label class="settings-label">Preferred Currency</label>
-            <select class="settings-input" id="cryptoCurrency">
-              <option>Bitcoin (BTC)</option>
-              <option>Ethereum (ETH)</option>
-              <option>USDT</option>
-              <option>USDC</option>
-              <option>Litecoin (LTC)</option>
-              <option>Monero (XMR)</option>
-              <option>Dogecoin (DOGE)</option>
-              <option>Solana (SOL)</option>
+            <select class="settings-select" id="cryptoCurrency">
+              <option>Bitcoin (BTC)</option><option>Ethereum (ETH)</option>
+              <option>USDT</option><option>USDC</option>
+              <option>Litecoin (LTC)</option><option>Monero (XMR)</option>
+              <option>Dogecoin (DOGE)</option><option>Solana (SOL)</option>
             </select>
             <label class="settings-label">Wallet Address</label>
             <input type="text" class="settings-input" id="cryptoWallet" placeholder="Your crypto wallet address" />
-            <div style="font-size:0.75rem;color:var(--gray);margin-bottom:1rem;line-height:1.5;">Double-check your wallet address. VoxVega is not responsible for funds sent to incorrect addresses.</div>
-            <button class="btn-primary" style="width:100%;">Save Crypto Details</button>
+            <div style="font-size:0.72rem;color:var(--white-dim);margin-bottom:1rem;line-height:1.5;">Double-check your wallet address. VoxVega is not responsible for funds sent to incorrect addresses.</div>
+            <button class="btn-grad" style="width:100%;">Save Crypto Details</button>
           </div>
-
           <div class="settings-card full">
             <div class="settings-card-title">Payout History</div>
             <div class="earnings-breakdown" id="payoutHistory">
@@ -836,34 +523,27 @@
     <div class="modal-box">
       <div class="modal-title">Upload Completed Video</div>
       <div class="modal-sub" id="modalSub">Fulfilling your request</div>
-
       <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
         <div class="upload-icon">🎬</div>
         <div class="upload-text" id="uploadText">Click to select your video file</div>
         <div class="upload-sub">MP4, MOV, AVI · Max 500MB · Min 30 seconds</div>
         <input type="file" id="fileInput" accept="video/*" style="display:none;" onchange="handleFileSelect(this)" />
       </div>
-
       <textarea class="modal-textarea" id="creatorMessage" placeholder="Add a personal note to your fan (optional)..."></textarea>
-
       <div class="modal-actions">
-        <button class="btn-primary" onclick="submitVideo()">Submit Video</button>
-        <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn-grad" style="flex:1;" onclick="submitVideo()">Submit Video</button>
+        <button class="btn-glass" onclick="closeModal()">Cancel</button>
       </div>
     </div>
   </div>
 
   <footer>
-    <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+    <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p>
   </footer>
 
   <script type="module">
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-    const supabase = createClient(
-      'https://qoljcpacudkfcuzncncx.supabase.co',
-      'sb_publishable_nbolRR6lOenzMa9ZKRV_LA_li0vIuPT'
-    )
+    const supabase = createClient('https://qoljcpacudkfcuzncncx.supabase.co','sb_publishable_nbolRR6lOenzMa9ZKRV_LA_li0vIuPT')
 
     let currentUser = null
     let creatorProfile = null
@@ -871,73 +551,62 @@
     let currentUploadOrderId = null
     let selectedFile = null
 
+    const GRAD_OPTIONS = [
+      'linear-gradient(135deg,#00E5FF,#8B5CF6)',
+      'linear-gradient(135deg,#8B5CF6,#E040FB)',
+      'linear-gradient(135deg,#E040FB,#FFB300)',
+      'linear-gradient(135deg,#FFB300,#00E5FF)',
+    ]
+
     const OFFERING_TYPES = [
       { type: 'shoutout_personal', icon: '🎬', name: 'Personal Shoutout', defaultPrice: 25, deliveryHours: 48 },
       { type: 'shoutout_business', icon: '💼', name: 'Business Promo', defaultPrice: 150, deliveryHours: 48 },
       { type: 'subscription', icon: '⭐', name: 'Subscription', defaultPrice: 9.99, deliveryHours: null },
       { type: 'dm', icon: '💬', name: 'Direct Message', defaultPrice: 5, deliveryHours: null },
       { type: 'live_call', icon: '📹', name: 'Live Call', defaultPrice: 99, deliveryHours: null },
-      { type: 'download', icon: '📥', name: 'Digital Downloads', defaultPrice: 4.99, deliveryHours: null }
+      { type: 'download', icon: '📥', name: 'Digital Downloads', defaultPrice: 4.99, deliveryHours: null },
     ]
 
-    // Auth check
     const { data: { session } } = await supabase.auth.getSession()
-    if (!session) {
-      window.location.href = 'login.html'
-    } else {
-      currentUser = session.user
-      await loadDashboard()
-    }
+    if (!session) { window.location.href = 'login.html' }
+    else { currentUser = session.user; await loadDashboard() }
 
     async function loadDashboard() {
-      // Load creator profile
       const { data: creator, error } = await supabase
-        .from('creators')
-        .select('*, offerings(*)')
-        .eq('user_id', currentUser.id)
-        .single()
+        .from('creators').select('*, offerings(*)').eq('user_id', currentUser.id).single()
 
-      if (error || !creator) {
-        // Not a creator — redirect
-        window.location.href = 'buyer.html'
-        return
-      }
-
+      if (error || !creator) { window.location.href = 'buyer.html'; return }
       creatorProfile = creator
 
-      // Update UI
+      const initials = creator.display_name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()
+      const grad = GRAD_OPTIONS[Math.floor(Math.random() * GRAD_OPTIONS.length)]
+
       document.getElementById('welcomeName').textContent = creator.display_name
       document.getElementById('sidebarName').textContent = creator.display_name
-      document.getElementById('navAvatar').textContent = creator.avatar_emoji || '⭐'
+      document.getElementById('navAvatar').textContent = initials
+      document.getElementById('navAvatar').style.background = grad
       document.getElementById('viewProfileLink').href = `profile.html?id=${creator.id}`
 
       if (creator.avatar_url) {
         document.getElementById('sidebarAvatar').innerHTML = `<img src="${creator.avatar_url}" alt="${creator.display_name}" />`
       } else {
-        document.getElementById('sidebarAvatar').textContent = creator.avatar_emoji || '⭐'
+        document.getElementById('sidebarAvatar').textContent = initials
+        document.getElementById('sidebarAvatar').style.background = grad
       }
 
-      await Promise.all([
-        loadOrders(),
-        loadMetrics(),
-        loadEarnings(),
-        loadPayouts()
-      ])
-
+      await Promise.all([loadOrders(), loadMetrics(), loadEarnings(), loadPayouts()])
       renderOfferings()
       populateProfileForm()
     }
 
     async function loadOrders() {
       const { data, error } = await supabase
-        .from('orders')
-        .select('*, users(first_name, last_name, email)')
-        .eq('creator_id', creatorProfile.id)
-        .order('created_at', { ascending: false })
+        .from('orders').select('*, users(first_name, last_name, email)')
+        .eq('creator_id', creatorProfile.id).order('created_at', { ascending: false })
 
       if (error) { console.error(error); return }
-
       allOrders = data || []
+
       const pending = allOrders.filter(o => o.status === 'pending')
       document.getElementById('pendingBadge').textContent = pending.length
       document.getElementById('welcomeSub').textContent = pending.length > 0
@@ -950,126 +619,100 @@
 
     async function loadMetrics() {
       const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+      const { data: recent } = await supabase.from('orders').select('status, creator_earnings')
+        .eq('creator_id', creatorProfile.id).gte('created_at', thirtyDaysAgo)
 
-      const { data: recentOrders } = await supabase
-        .from('orders')
-        .select('status, creator_earnings, price, rush_fee')
-        .eq('creator_id', creatorProfile.id)
-        .gte('created_at', thirtyDaysAgo)
-
-      const completed30d = (recentOrders || []).filter(o => o.status === 'completed').length
-      const earnings30d = (recentOrders || [])
-        .filter(o => o.status === 'completed')
-        .reduce((sum, o) => sum + parseFloat(o.creator_earnings || 0), 0)
-
-      const pending = allOrders.filter(o => o.status === 'pending').length
+      const completed30d = (recent||[]).filter(o=>o.status==='completed').length
+      const earnings30d = (recent||[]).filter(o=>o.status==='completed').reduce((s,o)=>s+parseFloat(o.creator_earnings||0),0)
+      const pending = allOrders.filter(o=>o.status==='pending').length
 
       document.getElementById('metricsGrid').innerHTML = `
-        <div class="metric-card"><div class="metric-label">Pending Requests</div><div class="metric-value gold">${pending}</div><div class="metric-change">Awaiting your response</div></div>
-        <div class="metric-card"><div class="metric-label">Completed (30d)</div><div class="metric-value">${completed30d}</div><div class="metric-change up">Last 30 days</div></div>
-        <div class="metric-card"><div class="metric-label">Earnings (30d)</div><div class="metric-value gold">$${earnings30d.toFixed(2)}</div><div class="metric-change up">90% creator share</div></div>
-        <div class="metric-card"><div class="metric-label">Available Balance</div><div class="metric-value green">$${earnings30d.toFixed(2)}</div><div class="metric-change">Ready to withdraw</div></div>
-        <div class="metric-card"><div class="metric-label">Rating</div><div class="metric-value gold">${creatorProfile.rating ? creatorProfile.rating.toFixed(1) + '★' : 'New'}</div><div class="metric-change">${creatorProfile.review_count || 0} reviews</div></div>
-        <div class="metric-card"><div class="metric-label">Response Rate</div><div class="metric-value green">${creatorProfile.response_rate || 100}%</div><div class="metric-change up">Keep it up!</div></div>
+        <div class="metric-card"><div class="metric-label">Pending Requests</div><div class="metric-value mv-gold">${pending}</div><div class="metric-change">Awaiting response</div></div>
+        <div class="metric-card"><div class="metric-label">Completed (30d)</div><div class="metric-value mv-cyan">${completed30d}</div><div class="metric-change">Last 30 days</div></div>
+        <div class="metric-card"><div class="metric-label">Earnings (30d)</div><div class="metric-value mv-purple">$${earnings30d.toFixed(0)}</div><div class="metric-change">90% creator share</div></div>
+        <div class="metric-card"><div class="metric-label">Rating</div><div class="metric-value mv-mag">${creatorProfile.rating ? creatorProfile.rating.toFixed(1)+'★' : 'New'}</div><div class="metric-change">${creatorProfile.review_count||0} reviews</div></div>
       `
-
       document.getElementById('availableBalance').textContent = `$${earnings30d.toFixed(2)}`
       document.getElementById('payoutBalance').textContent = `$${earnings30d.toFixed(2)}`
     }
 
     async function loadEarnings() {
       const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
-
-      const [monthResult, allTimeResult] = await Promise.all([
-        supabase.from('orders').select('type, creator_earnings').eq('creator_id', creatorProfile.id).eq('status', 'completed').gte('created_at', thirtyDaysAgo),
-        supabase.from('orders').select('type, creator_earnings').eq('creator_id', creatorProfile.id).eq('status', 'completed')
+      const [monthRes, allRes] = await Promise.all([
+        supabase.from('orders').select('type,creator_earnings').eq('creator_id',creatorProfile.id).eq('status','completed').gte('created_at',thirtyDaysAgo),
+        supabase.from('orders').select('type,creator_earnings').eq('creator_id',creatorProfile.id).eq('status','completed')
       ])
 
-      const monthOrders = monthResult.data || []
-      const allOrders30 = allTimeResult.data || []
-
-      const monthTotal = monthOrders.reduce((sum, o) => sum + parseFloat(o.creator_earnings || 0), 0)
-      const allTimeTotal = allOrders30.reduce((sum, o) => sum + parseFloat(o.creator_earnings || 0), 0)
+      const monthOrders = monthRes.data||[]
+      const allOrdsData = allRes.data||[]
+      const monthTotal = monthOrders.reduce((s,o)=>s+parseFloat(o.creator_earnings||0),0)
+      const allTotal = allOrdsData.reduce((s,o)=>s+parseFloat(o.creator_earnings||0),0)
 
       document.getElementById('monthEarnings').textContent = `$${monthTotal.toFixed(2)}`
-      document.getElementById('allTimeEarnings').textContent = `$${allTimeTotal.toFixed(2)}`
+      document.getElementById('allTimeEarnings').textContent = `$${allTotal.toFixed(2)}`
 
-      // Breakdown by type
       const typeBreakdown = {}
-      monthOrders.forEach(o => {
-        typeBreakdown[o.type] = (typeBreakdown[o.type] || 0) + parseFloat(o.creator_earnings || 0)
-      })
+      monthOrders.forEach(o=>{ typeBreakdown[o.type]=(typeBreakdown[o.type]||0)+parseFloat(o.creator_earnings||0) })
 
       document.getElementById('earningsBreakdown').innerHTML = Object.entries(typeBreakdown).length
-        ? Object.entries(typeBreakdown).map(([type, amount]) =>
-          `<div class="earnings-row"><span>${type.replace(/_/g, ' ')}</span><span>$${amount.toFixed(2)}</span></div>`).join('')
+        ? Object.entries(typeBreakdown).map(([t,a])=>`<div class="earnings-row"><span>${t.replace(/_/g,' ')}</span><span>$${a.toFixed(2)}</span></div>`).join('')
         : '<div class="earnings-row"><span>No completed orders this month</span><span>$0.00</span></div>'
 
       document.getElementById('allTimeBreakdown').innerHTML = `
-        <div class="earnings-row"><span>Total completed orders</span><span>${allOrders30.length}</span></div>
-        <div class="earnings-row"><span>Total earned (90%)</span><span>$${allTimeTotal.toFixed(2)}</span></div>
-        <div class="earnings-row"><span>Platform kept (10%)</span><span>$${(allTimeTotal / 9).toFixed(2)}</span></div>
+        <div class="earnings-row"><span>Total completed</span><span>${allOrdsData.length}</span></div>
+        <div class="earnings-row"><span>Total earned (90%)</span><span>$${allTotal.toFixed(2)}</span></div>
+        <div class="earnings-row"><span>Platform kept (10%)</span><span>$${(allTotal/9).toFixed(2)}</span></div>
       `
     }
 
     async function loadPayouts() {
-      const { data } = await supabase
-        .from('payouts')
-        .select('*')
-        .eq('creator_id', creatorProfile.id)
-        .order('created_at', { ascending: false })
-        .limit(10)
+      const { data } = await supabase.from('payouts').select('*')
+        .eq('creator_id',creatorProfile.id).order('created_at',{ascending:false}).limit(10)
 
-      if (!data || data.length === 0) {
-        document.getElementById('payoutHistory').innerHTML = '<div class="earnings-row"><span>No payouts yet</span><span>—</span></div>'
-        return
-      }
+      if (!data||!data.length) { document.getElementById('payoutHistory').innerHTML = '<div class="earnings-row"><span>No payouts yet</span><span>—</span></div>'; return }
 
-      document.getElementById('payoutHistory').innerHTML = data.map(p => {
-        const date = new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+      document.getElementById('payoutHistory').innerHTML = data.map(p=>{
+        const date = new Date(p.created_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
         return `<div class="earnings-row"><span>${date}</span><span style="color:var(--green);">+$${parseFloat(p.amount).toFixed(2)} (${p.method})</span></div>`
       }).join('')
     }
 
     function renderRequests(orders, containerId) {
       const container = document.getElementById(containerId)
-      if (!orders || orders.length === 0) {
-        container.innerHTML = `
-          <div class="empty-state">
-            <div class="empty-state-icon">📭</div>
-            <h3>No requests yet</h3>
-            <p>Share your profile link to start getting bookings!</p>
-          </div>`
+      if (!orders||!orders.length) {
+        container.innerHTML = `<div class="empty-state"><div class="empty-icon">📭</div><h3 class="empty-title">No requests yet</h3><p>Share your profile link to start getting bookings!</p></div>`
         return
       }
 
-      container.innerHTML = orders.map(order => {
-        const buyerName = order.users ? `${order.users.first_name || ''} ${order.users.last_name || ''}`.trim() : order.buyer_name || 'Anonymous'
+      container.innerHTML = orders.map((order, i) => {
+        const grad = GRAD_OPTIONS[i%4]
+        const buyerName = order.users ? `${order.users.first_name||''}`.trim()||'Fan' : order.buyer_name||'Fan'
+        const initials = buyerName[0]?.toUpperCase()||'F'
         const deadline = order.deadline_at ? new Date(order.deadline_at) : null
-        const hoursLeft = deadline ? Math.floor((deadline - Date.now()) / 1000 / 3600) : null
-        const isUrgent = hoursLeft !== null && hoursLeft < 24 && hoursLeft > 0
-        const isOverdue = hoursLeft !== null && hoursLeft <= 0
-        const total = parseFloat(order.price) + parseFloat(order.rush_fee || 0)
+        const hoursLeft = deadline ? Math.floor((deadline-Date.now())/1000/3600) : null
+        const isUrgent = hoursLeft!==null && hoursLeft<24 && hoursLeft>0
+        const isOverdue = hoursLeft!==null && hoursLeft<=0
+        const total = parseFloat(order.price)+parseFloat(order.rush_fee||0)
 
         return `
-          <div class="request-card ${isUrgent ? 'urgent' : ''} ${isOverdue ? 'overdue' : ''}">
-            <div class="request-avatar">👤</div>
+          <div class="request-card ${isUrgent?'urgent':''} ${isOverdue?'overdue':''}">
+            <div class="request-avatar" style="background:${grad}">${initials}</div>
             <div>
               <div class="request-from">${buyerName} <span class="status-badge status-${order.status}">${order.status}</span></div>
-              <div class="request-type">${order.type.replace(/_/g, ' ')} · $${total.toFixed(2)}</div>
-              <div class="request-instructions">${order.instructions || 'No instructions provided'}</div>
+              <div class="request-type">${order.type.replace(/_/g,' ')} · $${total.toFixed(2)}</div>
+              <div class="request-instructions">${order.instructions||'No instructions provided'}</div>
             </div>
             <div class="request-meta">
-              <div class="request-price">$${parseFloat(order.creator_earnings || 0).toFixed(2)}</div>
-              <div class="request-deadline ${isUrgent ? 'urgent' : ''} ${isOverdue ? 'overdue' : ''}">
-                ${isOverdue ? '⚠️ Overdue' : isUrgent ? `⏰ ${hoursLeft}h left` : deadline ? `Due ${deadline.toLocaleDateString()}` : 'No deadline'}
+              <div class="request-price">$${parseFloat(order.creator_earnings||0).toFixed(2)}</div>
+              <div class="request-deadline ${isUrgent?'urgent':''} ${isOverdue?'overdue':''}">
+                ${isOverdue?'⚠️ Overdue':isUrgent?`⏰ ${hoursLeft}h left`:deadline?`Due ${deadline.toLocaleDateString()}`:'No deadline'}
               </div>
             </div>
             <div class="request-actions">
-              ${order.status === 'pending' ? `
-                <button class="btn-sm btn-sm-primary" onclick="openUploadModal('${order.id}', '${buyerName}')">Upload Video</button>
-                <button class="btn-sm btn-sm-danger" onclick="declineRequest('${order.id}', this)">Decline</button>
-              ` : order.status === 'delivered' ? `
+              ${order.status==='pending' ? `
+                <button class="btn-sm btn-sm-grad" onclick="openUploadModal('${order.id}','${buyerName}')">Upload Video</button>
+                <button class="btn-sm btn-sm-danger" onclick="declineRequest('${order.id}',this)">Decline</button>
+              ` : order.status==='delivered' ? `
                 <span class="status-badge status-delivered">Delivered</span>
               ` : `
                 <button class="btn-sm btn-sm-ghost">View</button>
@@ -1080,39 +723,33 @@
     }
 
     window.filterRequests = function(status, btn) {
-      document.querySelectorAll('#panel-requests .btn-sm').forEach(b => {
-        b.className = 'btn-sm btn-sm-ghost'
-      })
-      btn.className = 'btn-sm btn-sm-primary'
-      const filtered = status === 'all' ? allOrders : allOrders.filter(o => o.status === status)
-      renderRequests(filtered, 'allRequests')
+      document.querySelectorAll('#panel-requests .btn-sm').forEach(b=>{ b.className='btn-sm btn-sm-ghost' })
+      btn.className='btn-sm btn-sm-grad'
+      renderRequests(status==='all'?allOrders:allOrders.filter(o=>o.status===status), 'allRequests')
     }
 
     function renderOfferings() {
-      const existingOfferings = creatorProfile.offerings || []
+      const existing = creatorProfile.offerings||[]
       document.getElementById('offeringsGrid').innerHTML = OFFERING_TYPES.map(t => {
-        const existing = existingOfferings.find(o => o.type === t.type)
-        const isActive = existing ? existing.is_active : false
-        const price = existing ? existing.price : t.defaultPrice
+        const e = existing.find(o=>o.type===t.type)
+        const isActive = e ? e.is_active : false
+        const price = e ? e.price : t.defaultPrice
         return `
           <div class="settings-card">
             <div class="settings-card-title">${t.icon} ${t.name}</div>
             <div class="toggle-row">
               <div><div class="toggle-label-text">Active</div><div class="toggle-label-sub">Accepting requests</div></div>
-              <div class="toggle ${isActive ? 'on' : ''}" data-type="${t.type}" onclick="this.classList.toggle('on')"></div>
+              <div class="toggle ${isActive?'on':''}" data-type="${t.type}" onclick="this.classList.toggle('on')"></div>
             </div>
             <div style="margin-top:1rem;">
               <label class="settings-label">Price</label>
-              <div class="price-input-wrap">
-                <span>$</span>
-                <input type="number" data-type="${t.type}" value="${price}" min="1" step="0.01" />
-              </div>
-              ${t.deliveryHours !== null ? `
+              <div class="price-input-wrap"><input type="number" data-type="${t.type}" value="${price}" min="1" step="0.01" /></div>
+              ${t.deliveryHours!==null ? `
                 <label class="settings-label">Delivery Window</label>
-                <select class="settings-input" data-delivery="${t.type}">
-                  <option ${t.deliveryHours <= 24 ? 'selected' : ''}>Within 24 hours</option>
-                  <option ${t.deliveryHours === 48 ? 'selected' : ''}>Within 48 hours</option>
-                  <option ${t.deliveryHours > 48 ? 'selected' : ''}>Within 7 days</option>
+                <select class="settings-select" data-delivery="${t.type}">
+                  <option ${t.deliveryHours<=24?'selected':''}>Within 24 hours</option>
+                  <option ${t.deliveryHours===48?'selected':''}>Within 48 hours</option>
+                  <option ${t.deliveryHours>48?'selected':''}>Within 7 days</option>
                 </select>` : ''}
             </div>
           </div>`
@@ -1121,57 +758,36 @@
 
     window.saveOfferings = async function() {
       const toggles = document.querySelectorAll('#offeringsGrid .toggle')
-      const priceInputs = document.querySelectorAll('#offeringsGrid input[data-type]')
-
-      const updates = []
-      toggles.forEach(toggle => {
-        const type = toggle.dataset.type
-        const isActive = toggle.classList.contains('on')
-        const priceInput = document.querySelector(`#offeringsGrid input[data-type="${type}"]`)
-        const price = parseFloat(priceInput?.value || 0)
-
-        updates.push({
-          creator_id: creatorProfile.id,
-          type,
-          price,
-          is_active: isActive
-        })
-      })
-
       try {
-        for (const update of updates) {
-          await supabase.from('offerings').upsert(update, { onConflict: 'creator_id,type' })
+        for (const toggle of toggles) {
+          const type = toggle.dataset.type
+          const isActive = toggle.classList.contains('on')
+          const priceInput = document.querySelector(`#offeringsGrid input[data-type="${type}"]`)
+          const price = parseFloat(priceInput?.value||0)
+          await supabase.from('offerings').upsert({ creator_id: creatorProfile.id, type, price, is_active: isActive }, { onConflict: 'creator_id,type' })
         }
-        alert('Offerings saved successfully!')
-      } catch (err) {
-        alert('Error saving offerings: ' + err.message)
-      }
+        alert('Offerings saved!')
+      } catch (err) { alert('Error: '+err.message) }
     }
 
     function populateProfileForm() {
       const c = creatorProfile
-      document.getElementById('editDisplayName').value = c.display_name || ''
-      document.getElementById('editCategory').value = c.category || 'other'
-      document.getElementById('editBio').value = c.bio || ''
-      document.getElementById('editTags').value = (c.tags || []).join(', ')
-      document.getElementById('editGuidelines').value = c.guidelines || ''
-
-      const links = c.social_links || {}
-      document.getElementById('linkTwitter').value = links.twitter || ''
-      document.getElementById('linkYoutube').value = links.youtube || ''
-      document.getElementById('linkInstagram').value = links.instagram || ''
-      document.getElementById('linkTiktok').value = links.tiktok || ''
-      document.getElementById('linkPodcast').value = links.podcast || ''
-      document.getElementById('linkMerch').value = links.merch || ''
-      document.getElementById('linkNewsletter').value = links.newsletter || ''
+      document.getElementById('editDisplayName').value = c.display_name||''
+      document.getElementById('editCategory').value = c.category||'other'
+      document.getElementById('editBio').value = c.bio||''
+      document.getElementById('editTags').value = (c.tags||[]).join(', ')
+      document.getElementById('editGuidelines').value = c.guidelines||''
+      const links = c.social_links||{}
+      document.getElementById('linkTwitter').value = links.twitter||''
+      document.getElementById('linkYoutube').value = links.youtube||''
+      document.getElementById('linkInstagram').value = links.instagram||''
+      document.getElementById('linkTiktok').value = links.tiktok||''
+      document.getElementById('linkPodcast').value = links.podcast||''
+      document.getElementById('linkMerch').value = links.merch||''
     }
 
     window.saveProfile = async function() {
-      const tags = document.getElementById('editTags').value
-        .split(',')
-        .map(t => t.trim())
-        .filter(Boolean)
-
+      const tags = document.getElementById('editTags').value.split(',').map(t=>t.trim()).filter(Boolean)
       const social_links = {
         twitter: document.getElementById('linkTwitter').value,
         youtube: document.getElementById('linkYoutube').value,
@@ -1179,23 +795,17 @@
         tiktok: document.getElementById('linkTiktok').value,
         podcast: document.getElementById('linkPodcast').value,
         merch: document.getElementById('linkMerch').value,
-        newsletter: document.getElementById('linkNewsletter').value
       }
-
       try {
         await supabase.from('creators').update({
           display_name: document.getElementById('editDisplayName').value,
           category: document.getElementById('editCategory').value,
           bio: document.getElementById('editBio').value,
-          tags,
+          tags, social_links,
           guidelines: document.getElementById('editGuidelines').value,
-          social_links
         }).eq('id', creatorProfile.id)
-
-        alert('Profile saved successfully!')
-      } catch (err) {
-        alert('Error saving profile: ' + err.message)
-      }
+        alert('Profile saved!')
+      } catch (err) { alert('Error: '+err.message) }
     }
 
     window.openUploadModal = function(orderId, buyerName) {
@@ -1207,112 +817,53 @@
       document.getElementById('uploadModal').classList.add('active')
     }
 
-    window.closeModal = function() {
-      document.getElementById('uploadModal').classList.remove('active')
-      currentUploadOrderId = null
-      selectedFile = null
-    }
+    window.closeModal = function() { document.getElementById('uploadModal').classList.remove('active'); currentUploadOrderId = null; selectedFile = null }
 
     window.handleFileSelect = function(input) {
-      if (input.files && input.files[0]) {
-        selectedFile = input.files[0]
-        document.getElementById('uploadText').textContent = `✓ ${selectedFile.name}`
-      }
+      if (input.files&&input.files[0]) { selectedFile = input.files[0]; document.getElementById('uploadText').textContent = `✓ ${selectedFile.name}` }
     }
 
     window.submitVideo = async function() {
-      if (!selectedFile) {
-        alert('Please select a video file first.')
-        return
-      }
-
+      if (!selectedFile) { alert('Please select a video file.'); return }
       try {
-        // Upload to Supabase Storage (requires storage bucket setup)
-        // const { data: uploadData, error: uploadError } = await supabase.storage
-        //   .from('videos')
-        //   .upload(`${currentUploadOrderId}/${selectedFile.name}`, selectedFile)
-        // const fileUrl = supabase.storage.from('videos').getPublicUrl(uploadData.path).data.publicUrl
-
-        // For now, record delivery without actual file upload
-        // Replace fileUrl below with real URL once storage is configured
-        const fileUrl = 'pending_upload'
-        const message = document.getElementById('creatorMessage').value
-
-        await supabase.from('videos').insert({
-          order_id: currentUploadOrderId,
-          creator_id: creatorProfile.id,
-          file_url: fileUrl,
-          creator_message: message,
-          file_size_mb: (selectedFile.size / 1024 / 1024).toFixed(1)
-        })
-
-        await supabase.from('orders').update({
-          status: 'delivered',
-          delivered_at: new Date().toISOString()
-        }).eq('id', currentUploadOrderId)
-
-        alert('Video submitted! The fan will be notified and your earnings will be released after they confirm.')
+        await supabase.from('videos').insert({ order_id: currentUploadOrderId, creator_id: creatorProfile.id, file_url: 'pending_upload', creator_message: document.getElementById('creatorMessage').value, file_size_mb: (selectedFile.size/1024/1024).toFixed(1) })
+        await supabase.from('orders').update({ status: 'delivered', delivered_at: new Date().toISOString() }).eq('id', currentUploadOrderId)
+        alert('Video submitted! The fan will be notified.')
         closeModal()
         await loadOrders()
         await loadMetrics()
-      } catch (err) {
-        alert('Error submitting video: ' + err.message)
-      }
+      } catch (err) { alert('Error: '+err.message) }
     }
 
     window.declineRequest = async function(orderId, btn) {
       if (!confirm('Decline this request? The fan will receive a full refund.')) return
-
       try {
-        await supabase.from('orders').update({
-          status: 'declined',
-          payment_status: 'refunded',
-          refunded_at: new Date().toISOString()
-        }).eq('id', orderId)
-
-        const card = btn.closest('.request-card')
-        card.style.opacity = '0.5'
-        card.style.pointerEvents = 'none'
+        await supabase.from('orders').update({ status: 'declined', payment_status: 'refunded', refunded_at: new Date().toISOString() }).eq('id', orderId)
+        btn.closest('.request-card').style.opacity = '0.5'
+        btn.closest('.request-card').style.pointerEvents = 'none'
         await loadOrders()
         await loadMetrics()
-      } catch (err) {
-        alert('Error declining request: ' + err.message)
-      }
+      } catch (err) { alert('Error: '+err.message) }
     }
 
     window.requestPayout = async function(method) {
-      const amount = parseFloat(document.getElementById('payoutBalance').textContent.replace('$', ''))
-      if (amount < 25) {
-        alert('Minimum payout is $25.')
-        return
-      }
-
+      const amount = parseFloat(document.getElementById('payoutBalance').textContent.replace('$',''))
+      if (amount<25) { alert('Minimum payout is $25.'); return }
       try {
-        await supabase.from('payouts').insert({
-          creator_id: creatorProfile.id,
-          amount,
-          method,
-          status: 'pending'
-        })
-        alert(`Payout request of $${amount.toFixed(2)} submitted! Processing within 2 business days.`)
+        await supabase.from('payouts').insert({ creator_id: creatorProfile.id, amount, method, status: 'pending' })
+        alert(`Payout of $${amount.toFixed(2)} requested! Processing within 2 business days.`)
         await loadPayouts()
-      } catch (err) {
-        alert('Error requesting payout: ' + err.message)
-      }
+      } catch (err) { alert('Error: '+err.message) }
     }
 
-    window.handleSignOut = async function() {
-      await supabase.auth.signOut()
-      window.location.href = 'login.html'
-    }
+    window.handleSignOut = async function() { await supabase.auth.signOut(); window.location.href = 'login.html' }
 
     window.switchPanel = function(name, el) {
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'))
-      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'))
-      document.getElementById('panel-' + name).classList.add('active')
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'))
+      document.querySelectorAll('.sidebar-link').forEach(l=>l.classList.remove('active'))
+      document.getElementById('panel-'+name).classList.add('active')
       if (el) el.classList.add('active')
     }
   </script>
-
 </body>
 </html>
