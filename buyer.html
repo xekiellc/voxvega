@@ -7,6 +7,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet" />
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8293211QR8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8293211QR8');
+  </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -25,14 +33,7 @@
     }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--white); font-family: var(--font-main); font-size: 16px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 2.5rem; height: 64px;
-      background: rgba(8,11,20,0.95); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-    }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 64px; background: rgba(8,11,20,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
     .nav-logo { display: flex; align-items: center; gap: 0.65rem; text-decoration: none; }
     .nav-logo img { height: 34px; filter: drop-shadow(0 0 8px rgba(0,229,255,0.4)); }
     .nav-logo-word { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.02em; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -40,93 +41,63 @@
     .nav-link { color: var(--white-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
     .nav-link:hover { color: var(--white); }
     .btn-grad-sm { background: var(--grad); color: var(--white); padding: 0.45rem 1.1rem; border-radius: 100px; font-weight: 700; font-size: 0.82rem; text-decoration: none; box-shadow: 0 0 16px rgba(139,92,246,0.3); }
-
     .page-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; padding-top: 64px; }
-
-    /* SIDEBAR */
     .sidebar { background: var(--bg-2); border-right: 1px solid var(--border); padding: 2rem 0; position: sticky; top: 64px; height: calc(100vh - 64px); overflow-y: auto; }
-
     .sidebar-user { padding: 0 1.5rem 1.5rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; text-align: center; }
-
     .sidebar-avatar { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 900; color: var(--white); margin: 0 auto 0.75rem; border: 2px solid var(--border); }
-
     .sidebar-name { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 800; }
     .sidebar-email { font-size: 0.7rem; color: var(--white-dim); margin-top: 0.2rem; }
-
     .sidebar-nav { padding: 0 0.75rem; }
     .sidebar-section-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--white-dim); padding: 0.75rem 0.75rem 0.35rem; }
-
     .sidebar-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.875rem; border-radius: 10px; font-size: 0.84rem; font-weight: 500; color: var(--white-dim); text-decoration: none; transition: all 0.2s; cursor: pointer; margin-bottom: 0.15rem; border: none; background: none; width: 100%; font-family: var(--font-main); text-align: left; }
     .sidebar-link:hover { background: var(--white-faint); color: var(--white); }
     .sidebar-link.active { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,229,255,0.15); }
     .sidebar-link-icon { font-size: 0.95rem; width: 18px; text-align: center; }
     .sidebar-badge { margin-left: auto; background: var(--grad); color: var(--white); font-size: 0.62rem; font-weight: 700; padding: 0.1rem 0.5rem; border-radius: 100px; display: none; }
-
-    /* MAIN */
     .main-content { padding: 2.5rem; overflow-x: hidden; }
-
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
-
     .page-eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
     .page-eyebrow::before { content: ''; display: block; width: 16px; height: 2px; background: var(--cyan); box-shadow: 0 0 6px var(--cyan); }
     .page-title { font-family: var(--font-serif); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.35rem; }
     .page-title em { font-style: italic; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .page-sub { color: var(--white-dim); font-size: 0.875rem; margin-bottom: 2rem; }
-
-    /* FILTER PILLS */
     .filter-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
-
     .pill { padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.78rem; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--bg-2); color: var(--white-dim); font-family: var(--font-main); transition: all 0.2s; }
     .pill:hover { border-color: rgba(0,229,255,0.3); color: var(--white); }
     .pill.active { background: var(--grad); color: var(--white); border-color: transparent; box-shadow: 0 0 14px rgba(139,92,246,0.3); }
-
-    /* ORDER CARDS */
     .orders-list { display: flex; flex-direction: column; gap: 1rem; }
-
     .order-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: border-color 0.2s; }
     .order-card:hover { border-color: rgba(139,92,246,0.2); }
-
     .order-card-header { display: grid; grid-template-columns: auto 1fr auto auto; gap: 1.25rem; align-items: center; padding: 1.25rem 1.5rem; }
-
     .order-avatar { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 900; color: var(--white); flex-shrink: 0; }
-
     .order-creator-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 800; margin-bottom: 0.2rem; }
     .order-type { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .order-date { font-size: 0.72rem; color: var(--white-dim); margin-top: 0.2rem; }
-
     .status-badge { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22rem 0.6rem; border-radius: 100px; }
     .status-pending { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(255,179,0,0.2); }
     .status-completed { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
     .status-refunded { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
     .status-delivered { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(139,92,246,0.2); }
     .status-declined { background: var(--red-dim); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
-
     .order-price { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 800; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-align: right; }
     .order-id { font-size: 0.68rem; color: var(--white-dim); text-align: right; margin-top: 0.2rem; }
-
     .expand-toggle { background: none; border: none; color: var(--white-dim); font-size: 0.75rem; cursor: pointer; font-family: var(--font-main); display: flex; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.6rem 1.5rem; width: 100%; border-top: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
     .expand-toggle:hover { color: var(--white); background: var(--white-faint); }
-
     .order-body { border-top: 1px solid var(--border); padding: 1.5rem; display: none; }
     .order-body.open { display: block; }
-
     .order-body-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.25rem; }
     .order-detail-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.4rem; }
     .order-detail-value { font-size: 0.875rem; color: var(--white-dim); line-height: 1.6; }
-
     .video-ready { background: var(--bg-3); border: 1px solid rgba(74,222,128,0.2); border-radius: 14px; padding: 1.75rem; text-align: center; margin-bottom: 1rem; }
     .video-ready-icon { font-size: 3rem; margin-bottom: 0.5rem; }
     .video-ready h3 { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 800; margin-bottom: 0.35rem; color: var(--green); }
     .video-ready p { font-size: 0.82rem; color: var(--white-dim); margin-bottom: 1.25rem; line-height: 1.6; }
-
     .order-pending-state { background: var(--bg-3); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; text-align: center; margin-bottom: 1rem; }
     .progress-bar-wrap { background: var(--bg-4); border-radius: 100px; height: 6px; margin: 1rem 0 0.5rem; overflow: hidden; }
     .progress-bar { height: 100%; border-radius: 100px; background: var(--grad); }
     .progress-label { font-size: 0.7rem; color: var(--white-dim); display: flex; justify-content: space-between; }
-
     .order-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-
     .btn-sm { padding: 0.5rem 1rem; border-radius: 100px; font-size: 0.78rem; font-weight: 700; cursor: pointer; font-family: var(--font-main); transition: all 0.2s; border: none; text-decoration: none; display: inline-block; }
     .btn-sm-grad { background: var(--grad); color: var(--white); box-shadow: 0 0 12px rgba(139,92,246,0.25); }
     .btn-sm-grad:hover { opacity: 0.85; }
@@ -134,8 +105,6 @@
     .btn-sm-ghost:hover { border-color: var(--white-dim); color: var(--white); }
     .btn-sm-danger { background: transparent; color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
     .btn-sm-danger:hover { background: var(--red-dim); }
-
-    /* SUBSCRIPTIONS */
     .sub-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem 1.5rem; display: grid; grid-template-columns: auto 1fr auto auto; gap: 1.25rem; align-items: center; margin-bottom: 0.875rem; transition: border-color 0.2s; }
     .sub-card:hover { border-color: rgba(139,92,246,0.2); }
     .sub-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 900; color: var(--white); flex-shrink: 0; }
@@ -143,79 +112,50 @@
     .sub-detail { font-size: 0.72rem; color: var(--white-dim); margin-top: 0.2rem; }
     .sub-price { font-family: var(--font-serif); font-weight: 800; color: var(--gold); font-size: 1.1rem; text-align: right; }
     .sub-renew { font-size: 0.68rem; color: var(--white-dim); text-align: right; margin-top: 0.2rem; }
-
-    /* SAVED CREATORS */
     .saved-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
-
     .saved-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; text-decoration: none; color: var(--white); display: block; transition: all 0.25s; }
     .saved-card:hover { border-color: rgba(139,92,246,0.3); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
-
     .saved-card-img { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 900; color: var(--white); position: relative; }
-
     .unsave-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: rgba(8,11,20,0.7); border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 0.875rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; color: var(--magenta); }
     .unsave-btn:hover { background: var(--mag-dim); }
-
     .saved-card-info { padding: 1rem; }
     .saved-card-name { font-family: var(--font-serif); font-size: 1rem; font-weight: 800; margin-bottom: 0.2rem; }
     .saved-card-cat { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 0.5rem; }
     .saved-card-price { font-size: 0.875rem; font-weight: 700; }
-
-    /* SETTINGS */
     .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
     .settings-card { background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem; }
     .settings-card.full { grid-column: 1 / -1; }
     .settings-card-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--grad-text); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1.25rem; }
-
     .settings-label { display: block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--white-dim); margin-bottom: 0.4rem; }
-
     .settings-input, .settings-select { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 10px; padding: 0.75rem 1rem; color: var(--white); font-family: var(--font-main); font-size: 0.875rem; outline: none; margin-bottom: 0.875rem; transition: border-color 0.2s; }
     .settings-input:focus, .settings-select:focus { border-color: rgba(0,229,255,0.4); }
     .settings-input::placeholder { color: rgba(255,255,255,0.2); }
     .settings-input:disabled { opacity: 0.5; cursor: not-allowed; }
-
     .btn-grad { background: var(--grad); color: var(--white); padding: 0.75rem 1.5rem; border-radius: 100px; font-weight: 700; font-size: 0.875rem; border: none; cursor: pointer; font-family: var(--font-main); transition: opacity 0.2s, transform 0.2s; box-shadow: 0 0 20px rgba(139,92,246,0.3); }
     .btn-grad:hover { opacity: 0.85; transform: translateY(-1px); }
     .btn-glass { background: var(--white-faint); color: var(--white-dim); padding: 0.75rem 1.5rem; border-radius: 100px; font-weight: 500; font-size: 0.875rem; border: 1px solid var(--border); cursor: pointer; font-family: var(--font-main); transition: all 0.2s; }
     .btn-glass:hover { background: rgba(255,255,255,0.1); color: var(--white); }
-
-    /* REVIEW MODAL */
     .modal-overlay { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(8,11,20,0.92); align-items: center; justify-content: center; }
     .modal-overlay.active { display: flex; }
     .modal-box { background: var(--bg-2); border: 1px solid rgba(139,92,246,0.2); border-radius: 24px; padding: 2.5rem; max-width: 480px; width: 90%; }
     .modal-title { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 800; margin-bottom: 0.4rem; }
     .modal-sub { color: var(--white-dim); font-size: 0.875rem; margin-bottom: 1.5rem; }
-
     .star-rating { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; }
     .star-btn { font-size: 2rem; cursor: pointer; color: rgba(255,255,255,0.15); transition: color 0.15s; background: none; border: none; padding: 0; }
     .star-btn.active { color: var(--gold); text-shadow: 0 0 10px rgba(255,179,0,0.5); }
-
     .modal-textarea { width: 100%; background: var(--bg-3); border: 1px solid var(--border); border-radius: 10px; padding: 0.875rem 1rem; color: var(--white); font-family: var(--font-main); font-size: 0.875rem; outline: none; min-height: 100px; resize: vertical; margin-bottom: 1.25rem; }
     .modal-textarea:focus { border-color: rgba(139,92,246,0.5); }
     .modal-textarea::placeholder { color: rgba(255,255,255,0.2); }
     .modal-actions { display: flex; gap: 0.75rem; }
-
     .empty-state { text-align: center; padding: 4rem 2rem; color: var(--white-dim); }
     .empty-icon { font-size: 3.5rem; margin-bottom: 1rem; }
     .empty-title { font-family: var(--font-serif); font-size: 1.4rem; color: var(--white); margin-bottom: 0.5rem; }
     .empty-sub { font-size: 0.875rem; margin-bottom: 1.75rem; }
-
     footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 1.5rem 2.5rem; text-align: center; }
     footer p { font-size: 0.78rem; color: var(--white-dim); }
     footer a { color: var(--cyan); text-decoration: none; }
-
-    @media (max-width: 900px) {
-      .page-layout { grid-template-columns: 1fr; }
-      .sidebar { display: none; }
-      .order-card-header { grid-template-columns: auto 1fr; }
-      .order-body-grid { grid-template-columns: 1fr; }
-      .settings-grid { grid-template-columns: 1fr; }
-      .settings-card.full { grid-column: 1; }
-      .sub-card { grid-template-columns: auto 1fr; }
-    }
-    @media (max-width: 480px) {
-      nav { padding: 0 1.25rem; }
-      .main-content { padding: 1.5rem 1rem; }
-    }
+    @media (max-width: 900px) { .page-layout { grid-template-columns: 1fr; } .sidebar { display: none; } .order-card-header { grid-template-columns: auto 1fr; } .order-body-grid { grid-template-columns: 1fr; } .settings-grid { grid-template-columns: 1fr; } .settings-card.full { grid-column: 1; } .sub-card { grid-template-columns: auto 1fr; } }
+    @media (max-width: 480px) { nav { padding: 0 1.25rem; } .main-content { padding: 1.5rem 1rem; } }
   </style>
 </head>
 <body>
@@ -232,7 +172,6 @@
   </nav>
 
   <div class="page-layout">
-
     <aside class="sidebar">
       <div class="sidebar-user">
         <div class="sidebar-avatar" id="sidebarAvatar" style="background:linear-gradient(135deg,#00E5FF,#8B5CF6)">👤</div>
@@ -245,15 +184,9 @@
           <span class="sidebar-link-icon">📦</span> My Orders
           <span class="sidebar-badge" id="pendingBadge">0</span>
         </button>
-        <button class="sidebar-link" onclick="switchPanel('subscriptions', this)">
-          <span class="sidebar-link-icon">⭐</span> Subscriptions
-        </button>
-        <button class="sidebar-link" onclick="switchPanel('saved', this)">
-          <span class="sidebar-link-icon">❤️</span> Saved Creators
-        </button>
-        <button class="sidebar-link" onclick="switchPanel('settings', this)">
-          <span class="sidebar-link-icon">⚙️</span> Account Settings
-        </button>
+        <button class="sidebar-link" onclick="switchPanel('subscriptions', this)"><span class="sidebar-link-icon">⭐</span> Subscriptions</button>
+        <button class="sidebar-link" onclick="switchPanel('saved', this)"><span class="sidebar-link-icon">❤️</span> Saved Creators</button>
+        <button class="sidebar-link" onclick="switchPanel('settings', this)"><span class="sidebar-link-icon">⚙️</span> Account Settings</button>
         <div class="sidebar-section-label">Quick Links</div>
         <a href="creators.html" class="sidebar-link"><span class="sidebar-link-icon">🔍</span> Browse Creators</a>
         <button class="sidebar-link" onclick="handleSignOut()"><span class="sidebar-link-icon">🚪</span> Sign Out</button>
@@ -284,9 +217,7 @@
         <div class="page-eyebrow">My Account</div>
         <h1 class="page-title">My <em>Subscriptions</em></h1>
         <p class="page-sub">Manage your active creator subscriptions.</p>
-        <div id="subsList">
-          <div style="color:var(--white-dim);padding:2rem;">Loading subscriptions...</div>
-        </div>
+        <div id="subsList"><div style="color:var(--white-dim);padding:2rem;">Loading subscriptions...</div></div>
       </div>
 
       <!-- SAVED -->
@@ -294,9 +225,7 @@
         <div class="page-eyebrow">My Account</div>
         <h1 class="page-title">Saved <em>Creators</em></h1>
         <p class="page-sub">Creators you've saved for later.</p>
-        <div class="saved-grid" id="savedGrid">
-          <div style="color:var(--white-dim);padding:2rem;">Loading saved creators...</div>
-        </div>
+        <div class="saved-grid" id="savedGrid"><div style="color:var(--white-dim);padding:2rem;">Loading saved creators...</div></div>
       </div>
 
       <!-- SETTINGS -->
@@ -392,7 +321,6 @@
     async function loadBuyerDashboard() {
       const { data: profile } = await supabase.from('users').select('*').eq('id', currentUser.id).single()
       userProfile = profile
-
       if (profile) {
         const name = `${profile.first_name||''} ${profile.last_name||''}`.trim() || 'Fan'
         const initials = name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()
@@ -405,7 +333,6 @@
         document.getElementById('settingsLast').value = profile.last_name || ''
         document.getElementById('settingsEmail').value = profile.email || currentUser.email
       }
-
       await Promise.all([loadOrders(), loadSubscriptions(), loadSavedCreators()])
     }
 
@@ -415,16 +342,13 @@
         .select('*, creators(id, display_name, category), videos(id, file_url, creator_message, created_at)')
         .eq('buyer_id', currentUser.id)
         .order('created_at', { ascending: false })
-
       if (error) { console.error(error); return }
       allOrders = data || []
-
       const pending = allOrders.filter(o => o.status === 'pending' || o.status === 'delivered')
       if (pending.length > 0) {
         document.getElementById('pendingBadge').style.display = 'inline-flex'
         document.getElementById('pendingBadge').textContent = pending.length
       }
-
       renderOrders(allOrders)
     }
 
@@ -440,7 +364,6 @@
           </div>`
         return
       }
-
       container.innerHTML = orders.map((order, i) => {
         const creator = order.creators
         const video = order.videos
@@ -448,12 +371,7 @@
         const initials = (creator?.display_name || 'VV').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase()
         const date = new Date(order.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
         const total = parseFloat(order.price) + parseFloat(order.rush_fee || 0)
-
-        const statusLabel = {
-          pending: '⏳ Pending', delivered: '🎬 Ready',
-          completed: '✓ Completed', refunded: '↩ Refunded', declined: '✗ Declined'
-        }[order.status] || order.status
-
+        const statusLabel = { pending: '⏳ Pending', delivered: '🎬 Ready', completed: '✓ Completed', refunded: '↩ Refunded', declined: '✗ Declined' }[order.status] || order.status
         return `
           <div class="order-card">
             <div class="order-card-header">
@@ -480,7 +398,6 @@
     function renderOrderBody(order, creator, video, grad) {
       const date = new Date(order.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
       let statusBlock = ''
-
       if (order.status === 'pending') {
         const deadline = order.deadline_at ? new Date(order.deadline_at) : null
         const hoursLeft = deadline ? Math.floor((deadline - Date.now()) / 1000 / 3600) : null
@@ -514,7 +431,6 @@
             <div style="font-size:0.82rem;color:var(--white-dim);">$${(parseFloat(order.price)+parseFloat(order.rush_fee||0)).toFixed(2)} was refunded to your original payment method.</div>
           </div>`
       }
-
       return `
         ${statusBlock}
         <div class="order-body-grid">
@@ -554,18 +470,13 @@
     }
 
     async function loadSubscriptions() {
-      const { data, error } = await supabase
-        .from('subscriptions').select('*, creators(id, display_name, category, bio)')
-        .eq('fan_id', currentUser.id).eq('status', 'active')
-
+      const { data, error } = await supabase.from('subscriptions').select('*, creators(id, display_name, category, bio)').eq('fan_id', currentUser.id).eq('status', 'active')
       if (error) { console.error(error); return }
       const container = document.getElementById('subsList')
-
       if (!data || !data.length) {
         container.innerHTML = `<div class="empty-state"><div class="empty-icon">⭐</div><h3 class="empty-title">No active subscriptions</h3><p class="empty-sub">Subscribe to a creator for exclusive monthly content.</p><a href="creators.html" class="btn-grad" style="text-decoration:none;">Browse Creators</a></div>`
         return
       }
-
       container.innerHTML = data.map((sub, i) => {
         const c = sub.creators
         const grad = GRAD_OPTIONS[i%4]
@@ -591,18 +502,13 @@
     }
 
     async function loadSavedCreators() {
-      const { data, error } = await supabase
-        .from('saved_creators').select('*, creators(id, display_name, category, offerings(price, type, is_active))')
-        .eq('fan_id', currentUser.id)
-
+      const { data, error } = await supabase.from('saved_creators').select('*, creators(id, display_name, category, offerings(price, type, is_active))').eq('fan_id', currentUser.id)
       if (error) { console.error(error); return }
       const grid = document.getElementById('savedGrid')
-
       if (!data || !data.length) {
         grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">❤️</div><h3 class="empty-title">No saved creators</h3><p class="empty-sub">Heart a creator on their profile to save them here.</p><a href="creators.html" class="btn-grad" style="text-decoration:none;">Browse Creators</a></div>`
         return
       }
-
       grid.innerHTML = data.map((saved, i) => {
         const c = saved.creators
         if (!c) return ''
