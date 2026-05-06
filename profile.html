@@ -1,1 +1,937 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creator Profile — VoxVega</title>
+  <meta name="description" content="Book a personalized video, subscribe, or connect directly with your favorite creator on VoxVega." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0e1a;
+      --navy-mid: #111827;
+      --navy-light: #1e2a3a;
+      --gold: #c9a84c;
+      --gold-light: #e2c06e;
+      --white: #ffffff;
+      --gray: #8a9ab0;
+      --gray-light: #d1d9e6;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10, 14, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 100px;
+      font-weight: 600 !important;
+    }
+
+    /* PROFILE HERO */
+    .profile-hero {
+      padding-top: 5rem;
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .profile-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 2rem 0;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .profile-avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy-light), var(--navy));
+      border: 3px solid rgba(201, 168, 76, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      flex-shrink: 0;
+    }
+
+    .profile-info { padding-top: 0.5rem; }
+
+    .profile-badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .profile-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 100px;
+      background: rgba(201, 168, 76, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+    }
+
+    .profile-badge.verified {
+      background: rgba(34, 197, 94, 0.12);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.2);
+    }
+
+    .profile-name {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .profile-category {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .profile-bio {
+      color: var(--gray-light);
+      font-size: 0.95rem;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .profile-stats {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .profile-stat { text-align: center; }
+
+    .profile-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+
+    .profile-stat-label {
+      font-size: 0.72rem;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* SOCIAL LINKS */
+    .social-links {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+      padding-bottom: 2rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--gray-light);
+      transition: all 0.2s;
+    }
+
+    .social-link:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* QUICK BOOK SIDEBAR */
+    .quick-book {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 18px;
+      padding: 1.75rem;
+      min-width: 260px;
+      position: sticky;
+      top: 6rem;
+    }
+
+    .quick-book-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+
+    .quick-book-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 0.25rem;
+    }
+
+    .quick-book-price span {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .quick-book-note {
+      font-size: 0.78rem;
+      color: var(--gray);
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.85rem 1.5rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.2s, transform 0.2s;
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.85rem 1.5rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+    .quick-book-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin: 1rem 0;
+    }
+
+    .quick-book-meta {
+      font-size: 0.78rem;
+      color: var(--gray);
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .quick-book-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* PROFILE TABS */
+    .profile-tabs-wrap {
+      background: var(--navy-mid);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      position: sticky;
+      top: 5rem;
+      z-index: 50;
+    }
+
+    .profile-tabs {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      gap: 0;
+    }
+
+    .tab {
+      padding: 1rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: var(--font-body);
+      white-space: nowrap;
+    }
+
+    .tab:hover { color: var(--white); }
+    .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* MAIN CONTENT */
+    .profile-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .profile-content {}
+
+    /* TAB PANELS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* OFFERINGS */
+    .offerings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .offering-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .offering-card:hover {
+      border-color: rgba(201, 168, 76, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .offering-card.featured {
+      border-color: rgba(201, 168, 76, 0.3);
+      background: linear-gradient(135deg, var(--navy-light), rgba(201,168,76,0.05));
+    }
+
+    .offering-icon { font-size: 1.75rem; margin-bottom: 0.75rem; display: block; }
+
+    .offering-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .offering-desc {
+      font-size: 0.82rem;
+      color: var(--gray);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .offering-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .offering-price {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .offering-price span {
+      font-size: 0.72rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .offering-cta {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      background: rgba(201, 168, 76, 0.1);
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .offering-cta:hover { background: rgba(201, 168, 76, 0.2); }
+
+    /* SECTION HEADING */
+    .section-heading {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* REVIEWS */
+    .reviews-list { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .review {
+      background: var(--navy-light);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .review-author { font-weight: 600; font-size: 0.9rem; }
+    .review-stars { color: var(--gold); font-size: 0.85rem; }
+    .review-date { font-size: 0.75rem; color: var(--gray); }
+    .review-text { font-size: 0.88rem; color: var(--gray-light); line-height: 1.6; }
+
+    /* ABOUT TAB */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .about-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+
+    .about-card-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .about-card-value {
+      font-size: 0.9rem;
+      color: var(--gray-light);
+    }
+
+    /* SIDEBAR CARDS */
+    .sidebar-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .tip-amounts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tip-btn {
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 0.6rem;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+    }
+
+    .tip-btn:hover, .tip-btn.active {
+      background: rgba(201, 168, 76, 0.15);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .similar-creator {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      text-decoration: none;
+      color: var(--white);
+      transition: color 0.2s;
+    }
+
+    .similar-creator:last-child { border-bottom: none; }
+    .similar-creator:hover { color: var(--gold); }
+
+    .similar-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .similar-name { font-size: 0.875rem; font-weight: 600; }
+    .similar-price { font-size: 0.75rem; color: var(--gray); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 2rem;
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    footer p { font-size: 0.8rem; color: var(--gray); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .profile-hero-inner { grid-template-columns: 1fr; }
+      .quick-book { display: none; }
+      .profile-main { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .profile-name { font-size: 1.8rem; }
+      .profile-avatar { width: 100px; height: 100px; font-size: 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
+    <ul class="nav-links">
+      <li><a href="creators.html">Browse Creators</a></li>
+      <li><a href="index.html#how-it-works">How It Works</a></li>
+      <li><a href="index.html#for-creators">For Creators</a></li>
+      <li><a href="login.html">Sign In</a></li>
+      <li><a href="login.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="profile-hero-inner">
+
+      <!-- AVATAR -->
+      <div class="profile-avatar" id="profileAvatar">🎙️</div>
+
+      <!-- INFO -->
+      <div class="profile-info">
+        <div class="profile-badges">
+          <span class="profile-badge verified">✓ Verified</span>
+          <span class="profile-badge" id="profileCategoryBadge">Podcaster</span>
+          <span class="profile-badge">Popular</span>
+        </div>
+        <h1 class="profile-name" id="profileName">Alex Rivera</h1>
+        <div class="profile-category" id="profileCategory">Podcaster · Commentary · Interviews</div>
+        <p class="profile-bio" id="profileBio">
+          Host of one of the top independent podcasts in political commentary. Known for honest takes, deep interviews, and unfiltered conversation. Book me for a personalized shoutout, business promo, or subscriber message.
+        </p>
+        <div class="profile-stats">
+          <div class="profile-stat">
+            <span class="profile-stat-num">4.9</span>
+            <span class="profile-stat-label">Rating</span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat-num">247</span>
+            <span class="profile-stat-label">Completed</span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat-num">98%</span>
+            <span class="profile-stat-label">Response Rate</span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat-num">&lt;24hr</span>
+            <span class="profile-stat-label">Avg. Delivery</span>
+          </div>
+        </div>
+
+        <!-- SOCIAL LINKS -->
+        <div class="social-links">
+          <a href="#" class="social-link">🎙️ Podcast</a>
+          <a href="#" class="social-link">🐦 Twitter / X</a>
+          <a href="#" class="social-link">▶️ YouTube</a>
+          <a href="#" class="social-link">📸 Instagram</a>
+          <a href="#" class="social-link">🛍️ Merch Store</a>
+          <a href="#" class="social-link">📧 Newsletter</a>
+        </div>
+      </div>
+
+      <!-- QUICK BOOK (desktop sticky) -->
+      <div class="quick-book">
+        <div class="quick-book-title">Book Alex Rivera</div>
+        <div class="quick-book-price">$25 <span>/ personal shoutout</span></div>
+        <div class="quick-book-note">Business rate: $150 · Typically delivers in &lt;24 hours</div>
+        <a href="request.html?id=1" class="btn-primary">Book a Shoutout</a>
+        <a href="#subscribe" class="btn-secondary">Subscribe — $9.99/mo</a>
+        <hr class="quick-book-divider" />
+        <div class="quick-book-meta">
+          <span>✓ 100% satisfaction guarantee</span>
+          <span>✓ Pay by card or crypto</span>
+          <span>✓ No charge if not delivered</span>
+          <span>✓ 7-day delivery window</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="profile-tabs-wrap">
+    <div class="profile-tabs">
+      <button class="tab active" onclick="switchTab('offerings', this)">Offerings</button>
+      <button class="tab" onclick="switchTab('reviews', this)">Reviews (47)</button>
+      <button class="tab" onclick="switchTab('about', this)">About</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="profile-main">
+
+    <div class="profile-content">
+
+      <!-- OFFERINGS TAB -->
+      <div class="tab-panel active" id="tab-offerings">
+        <div class="offerings-grid">
+
+          <div class="offering-card featured" onclick="window.location='request.html?id=1&type=personal'">
+            <span class="offering-icon">🎬</span>
+            <div class="offering-name">Personal Shoutout</div>
+            <div class="offering-desc">A custom video message for birthdays, anniversaries, celebrations, or just because.</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$25 <span>/ video</span></div>
+              <span class="offering-cta">Book Now</span>
+            </div>
+          </div>
+
+          <div class="offering-card" onclick="window.location='request.html?id=1&type=business'">
+            <span class="offering-icon">💼</span>
+            <div class="offering-name">Business Promo</div>
+            <div class="offering-desc">A personalized video for your brand, product launch, or commercial use.</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$150 <span>/ video</span></div>
+              <span class="offering-cta">Book Now</span>
+            </div>
+          </div>
+
+          <div class="offering-card" id="subscribe">
+            <span class="offering-icon">⭐</span>
+            <div class="offering-name">Monthly Subscription</div>
+            <div class="offering-desc">Exclusive content, early access, and subscriber-only videos every month.</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$9.99 <span>/ month</span></div>
+              <span class="offering-cta">Subscribe</span>
+            </div>
+          </div>
+
+          <div class="offering-card" onclick="window.location='request.html?id=1&type=dm'">
+            <span class="offering-icon">💬</span>
+            <div class="offering-name">Direct Message</div>
+            <div class="offering-desc">Send a paid message directly to Alex and get a personal reply.</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$5 <span>/ message</span></div>
+              <span class="offering-cta">Message</span>
+            </div>
+          </div>
+
+          <div class="offering-card" onclick="window.location='request.html?id=1&type=call'">
+            <span class="offering-icon">📹</span>
+            <div class="offering-name">Live Video Call</div>
+            <div class="offering-desc">10 minutes one-on-one with Alex. Ask anything, get advice, or just chat.</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$99 <span>/ 10 min</span></div>
+              <span class="offering-cta">Book Call</span>
+            </div>
+          </div>
+
+          <div class="offering-card">
+            <span class="offering-icon">📥</span>
+            <div class="offering-name">Digital Download</div>
+            <div class="offering-desc">Exclusive podcast episodes, behind-the-scenes content, and bonus interviews.</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$4.99 <span>/ item</span></div>
+              <span class="offering-cta">Browse</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- REVIEWS TAB -->
+      <div class="tab-panel" id="tab-reviews">
+        <div class="section-heading">What fans are saying</div>
+        <div class="reviews-list">
+          <div class="review">
+            <div class="review-header">
+              <div>
+                <div class="review-author">Sarah M.</div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <div class="review-date">April 2026</div>
+            </div>
+            <div class="review-text">"Got a birthday video for my husband — Alex nailed it. Funny, warm, and incredibly personal. Delivered in under 6 hours. Could not recommend more highly."</div>
+          </div>
+          <div class="review">
+            <div class="review-header">
+              <div>
+                <div class="review-author">Derek T.</div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <div class="review-date">March 2026</div>
+            </div>
+            <div class="review-text">"Used the business promo option for our product launch. Alex mentioned all the key points naturally and it felt genuine — not scripted. Great ROI."</div>
+          </div>
+          <div class="review">
+            <div class="review-header">
+              <div>
+                <div class="review-author">Jamie L.</div>
+                <div class="review-stars">★★★★★</div>
+              </div>
+              <div class="review-date">March 2026</div>
+            </div>
+            <div class="review-text">"The live call was worth every penny. Alex spent the full 10 minutes with me and gave me real, actionable podcast advice. Already booked another."</div>
+          </div>
+          <div class="review">
+            <div class="review-header">
+              <div>
+                <div class="review-author">Marcus W.</div>
+                <div class="review-stars">★★★★☆</div>
+              </div>
+              <div class="review-date">February 2026</div>
+            </div>
+            <div class="review-text">"Great shoutout, delivered fast. Would have given 5 stars but the audio quality could have been a bit better. Still totally worth it and I'll book again."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ABOUT TAB -->
+      <div class="tab-panel" id="tab-about">
+        <div class="section-heading">About Alex Rivera</div>
+        <div class="about-grid">
+          <div class="about-card">
+            <div class="about-card-label">Member Since</div>
+            <div class="about-card-value">May 2026</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Response Rate</div>
+            <div class="about-card-value">98% within 24 hours</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Average Delivery</div>
+            <div class="about-card-value">Under 24 hours</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Languages</div>
+            <div class="about-card-value">English, Spanish</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Content Categories</div>
+            <div class="about-card-value">Podcasting, Politics, Commentary</div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-label">Payout Preference</div>
+            <div class="about-card-value">Bank Transfer + Crypto</div>
+          </div>
+        </div>
+        <div class="section-heading">Creator Guidelines</div>
+        <p style="color:var(--gray-light);font-size:0.9rem;line-height:1.7;margin-bottom:1rem;">Alex accepts most requests but reserves the right to decline content that conflicts with personal values. Business promos require advance approval of talking points. Please be specific in your request — the more detail you provide, the better the video.</p>
+        <p style="color:var(--gray);font-size:0.85rem;">All purchases are covered by VoxVega's 100% satisfaction guarantee. If Alex is unable to fulfill your request within 7 days, you will receive a full refund automatically.</p>
+      </div>
+
+    </div>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside>
+
+      <!-- TIP JAR -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Send a Tip</div>
+        <div class="tip-amounts">
+          <button class="tip-btn" onclick="selectTip(this, 3)">$3</button>
+          <button class="tip-btn" onclick="selectTip(this, 5)">$5</button>
+          <button class="tip-btn" onclick="selectTip(this, 10)">$10</button>
+          <button class="tip-btn" onclick="selectTip(this, 25)">$25</button>
+          <button class="tip-btn" onclick="selectTip(this, 50)">$50</button>
+          <button class="tip-btn" onclick="selectTip(this, 0)">Custom</button>
+        </div>
+        <button class="btn-primary" id="tipBtn" style="font-size:0.875rem;">Send Tip</button>
+      </div>
+
+      <!-- SIMILAR CREATORS -->
+      <div class="sidebar-card">
+        <div class="sidebar-card-title">Similar Creators</div>
+        <a href="profile.html" class="similar-creator">
+          <div class="similar-avatar">🎤</div>
+          <div>
+            <div class="similar-name">Marcus Lee</div>
+            <div class="similar-price">From $75 · Politics</div>
+          </div>
+        </a>
+        <a href="profile.html" class="similar-creator">
+          <div class="similar-avatar">🎵</div>
+          <div>
+            <div class="similar-name">Maya Chen</div>
+            <div class="similar-price">From $60 · Music</div>
+          </div>
+        </a>
+        <a href="profile.html" class="similar-creator">
+          <div class="similar-avatar">😂</div>
+          <div>
+            <div class="similar-name">Sam Kowalski</div>
+            <div class="similar-price">From $15 · Comedy</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- GUARANTEE -->
+      <div class="sidebar-card" style="text-align:center;">
+        <div style="font-size:2rem;margin-bottom:0.5rem;">🛡️</div>
+        <div class="sidebar-card-title" style="text-align:center;">VoxVega Guarantee</div>
+        <p style="font-size:0.8rem;color:var(--gray);line-height:1.6;">Every purchase is protected. If your video isn't delivered within 7 days, you get a full refund — automatically.</p>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+  </footer>
+
+  <script>
+    function switchTab(name, el) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('tab-' + name).classList.add('active');
+    }
+
+    let selectedTip = 5;
+
+    function selectTip(el, amount) {
+      document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      if (amount === 0) {
+        selectedTip = prompt('Enter custom tip amount ($):') || 5;
+      } else {
+        selectedTip = amount;
+      }
+      document.getElementById('tipBtn').textContent = `Send $${selectedTip} Tip`;
+    }
+
+    // URL param to load creator (ready for Supabase)
+    const params = new URLSearchParams(window.location.search);
+    const creatorId = params.get('id');
+    // When Supabase is wired: fetch creator by ID and populate DOM
+  </script>
+
+</body>
+</html>
