@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +20,7 @@
       --white: #ffffff;
       --gray: #8a9ab0;
       --gray-light: #d1d9e6;
+      --green: #4ade80;
       --font-display: 'Playfair Display', Georgia, serif;
       --font-body: 'DM Sans', sans-serif;
     }
@@ -36,7 +36,6 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -86,7 +85,6 @@
       font-weight: 600 !important;
     }
 
-    /* PROFILE HERO */
     .profile-hero {
       padding-top: 5rem;
       background: var(--navy-mid);
@@ -114,9 +112,10 @@
       justify-content: center;
       font-size: 4rem;
       flex-shrink: 0;
+      overflow: hidden;
     }
 
-    .profile-info { padding-top: 0.5rem; }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
     .profile-badges {
       display: flex;
@@ -191,7 +190,6 @@
       letter-spacing: 0.07em;
     }
 
-    /* SOCIAL LINKS */
     .social-links {
       display: flex;
       gap: 0.5rem;
@@ -214,12 +212,8 @@
       transition: all 0.2s;
     }
 
-    .social-link:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
 
-    /* QUICK BOOK SIDEBAR */
     .quick-book {
       background: var(--navy-light);
       border: 1px solid rgba(201, 168, 76, 0.2);
@@ -244,17 +238,9 @@
       margin-bottom: 0.25rem;
     }
 
-    .quick-book-price span {
-      font-size: 0.85rem;
-      color: var(--gray);
-      font-weight: 400;
-    }
+    .quick-book-price span { font-size: 0.85rem; color: var(--gray); font-weight: 400; }
 
-    .quick-book-note {
-      font-size: 0.78rem;
-      color: var(--gray);
-      margin-bottom: 1.25rem;
-    }
+    .quick-book-note { font-size: 0.78rem; color: var(--gray); margin-bottom: 1.25rem; }
 
     .btn-primary {
       background: var(--gold);
@@ -296,23 +282,11 @@
 
     .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
 
-    .quick-book-divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      margin: 1rem 0;
-    }
+    .quick-book-divider { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 1rem 0; }
 
-    .quick-book-meta {
-      font-size: 0.78rem;
-      color: var(--gray);
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
+    .quick-book-meta { font-size: 0.78rem; color: var(--gray); display: flex; flex-direction: column; gap: 0.4rem; }
     .quick-book-meta span { display: flex; align-items: center; gap: 0.4rem; }
 
-    /* PROFILE TABS */
     .profile-tabs-wrap {
       background: var(--navy-mid);
       border-bottom: 1px solid rgba(255,255,255,0.06);
@@ -348,7 +322,6 @@
     .tab:hover { color: var(--white); }
     .tab.active { color: var(--gold); border-bottom-color: var(--gold); }
 
-    /* MAIN CONTENT */
     .profile-main {
       max-width: 1100px;
       margin: 0 auto;
@@ -359,13 +332,9 @@
       align-items: start;
     }
 
-    .profile-content {}
-
-    /* TAB PANELS */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* OFFERINGS */
     .offerings-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -382,15 +351,8 @@
       cursor: pointer;
     }
 
-    .offering-card:hover {
-      border-color: rgba(201, 168, 76, 0.4);
-      transform: translateY(-3px);
-    }
-
-    .offering-card.featured {
-      border-color: rgba(201, 168, 76, 0.3);
-      background: linear-gradient(135deg, var(--navy-light), rgba(201,168,76,0.05));
-    }
+    .offering-card:hover { border-color: rgba(201, 168, 76, 0.4); transform: translateY(-3px); }
+    .offering-card.featured { border-color: rgba(201, 168, 76, 0.3); }
 
     .offering-icon { font-size: 1.75rem; margin-bottom: 0.75rem; display: block; }
 
@@ -401,30 +363,12 @@
       margin-bottom: 0.35rem;
     }
 
-    .offering-desc {
-      font-size: 0.82rem;
-      color: var(--gray);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
+    .offering-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.5; margin-bottom: 1rem; }
 
-    .offering-price-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .offering-price-row { display: flex; align-items: center; justify-content: space-between; }
 
-    .offering-price {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--gold);
-    }
-
-    .offering-price span {
-      font-size: 0.72rem;
-      color: var(--gray);
-      font-weight: 400;
-    }
+    .offering-price { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+    .offering-price span { font-size: 0.72rem; color: var(--gray); font-weight: 400; }
 
     .offering-cta {
       font-size: 0.78rem;
@@ -435,11 +379,13 @@
       border-radius: 100px;
       text-decoration: none;
       transition: background 0.2s;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
     }
 
     .offering-cta:hover { background: rgba(201, 168, 76, 0.2); }
 
-    /* SECTION HEADING */
     .section-heading {
       font-family: var(--font-display);
       font-size: 1.3rem;
@@ -449,7 +395,6 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* REVIEWS */
     .reviews-list { display: flex; flex-direction: column; gap: 1.25rem; }
 
     .review {
@@ -459,19 +404,12 @@
       padding: 1.25rem 1.5rem;
     }
 
-    .review-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.6rem;
-    }
-
+    .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
     .review-author { font-weight: 600; font-size: 0.9rem; }
     .review-stars { color: var(--gold); font-size: 0.85rem; }
     .review-date { font-size: 0.75rem; color: var(--gray); }
     .review-text { font-size: 0.88rem; color: var(--gray-light); line-height: 1.6; }
 
-    /* ABOUT TAB */
     .about-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -495,12 +433,8 @@
       margin-bottom: 0.4rem;
     }
 
-    .about-card-value {
-      font-size: 0.9rem;
-      color: var(--gray-light);
-    }
+    .about-card-value { font-size: 0.9rem; color: var(--gray-light); }
 
-    /* SIDEBAR CARDS */
     .sidebar-card {
       background: var(--navy-light);
       border: 1px solid rgba(201, 168, 76, 0.08);
@@ -539,11 +473,7 @@
       transition: all 0.2s;
     }
 
-    .tip-btn:hover, .tip-btn.active {
-      background: rgba(201, 168, 76, 0.15);
-      border-color: var(--gold);
-      color: var(--gold);
-    }
+    .tip-btn:hover, .tip-btn.active { background: rgba(201, 168, 76, 0.15); border-color: var(--gold); color: var(--gold); }
 
     .similar-creator {
       display: flex;
@@ -574,7 +504,23 @@
     .similar-name { font-size: 0.875rem; font-weight: 600; }
     .similar-price { font-size: 0.75rem; color: var(--gray); }
 
-    /* FOOTER */
+    .saved-btn {
+      background: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--gray);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .saved-btn:hover, .saved-btn.saved { border-color: var(--gold); color: var(--gold); }
+
     footer {
       background: var(--navy);
       border-top: 1px solid rgba(201, 168, 76, 0.08);
@@ -586,7 +532,6 @@
     footer p { font-size: 0.8rem; color: var(--gray); }
     footer a { color: var(--gold); text-decoration: none; }
 
-    /* RESPONSIVE */
     @media (max-width: 900px) {
       .profile-hero-inner { grid-template-columns: 1fr; }
       .quick-book { display: none; }
@@ -604,74 +549,37 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
     <ul class="nav-links">
       <li><a href="creators.html">Browse Creators</a></li>
       <li><a href="index.html#how-it-works">How It Works</a></li>
       <li><a href="index.html#for-creators">For Creators</a></li>
-      <li><a href="login.html">Sign In</a></li>
-      <li><a href="login.html" class="nav-cta">Get Started</a></li>
+      <li><a href="login.html" id="navSignin">Sign In</a></li>
+      <li><a href="login.html" class="nav-cta" id="navCta">Get Started</a></li>
     </ul>
   </nav>
 
   <!-- PROFILE HERO -->
   <div class="profile-hero">
     <div class="profile-hero-inner">
+      <div class="profile-avatar" id="profileAvatar">⏳</div>
 
-      <!-- AVATAR -->
-      <div class="profile-avatar" id="profileAvatar">🎙️</div>
-
-      <!-- INFO -->
       <div class="profile-info">
-        <div class="profile-badges">
-          <span class="profile-badge verified">✓ Verified</span>
-          <span class="profile-badge" id="profileCategoryBadge">Podcaster</span>
-          <span class="profile-badge">Popular</span>
-        </div>
-        <h1 class="profile-name" id="profileName">Alex Rivera</h1>
-        <div class="profile-category" id="profileCategory">Podcaster · Commentary · Interviews</div>
-        <p class="profile-bio" id="profileBio">
-          Host of one of the top independent podcasts in political commentary. Known for honest takes, deep interviews, and unfiltered conversation. Book me for a personalized shoutout, business promo, or subscriber message.
-        </p>
-        <div class="profile-stats">
-          <div class="profile-stat">
-            <span class="profile-stat-num">4.9</span>
-            <span class="profile-stat-label">Rating</span>
-          </div>
-          <div class="profile-stat">
-            <span class="profile-stat-num">247</span>
-            <span class="profile-stat-label">Completed</span>
-          </div>
-          <div class="profile-stat">
-            <span class="profile-stat-num">98%</span>
-            <span class="profile-stat-label">Response Rate</span>
-          </div>
-          <div class="profile-stat">
-            <span class="profile-stat-num">&lt;24hr</span>
-            <span class="profile-stat-label">Avg. Delivery</span>
-          </div>
-        </div>
-
-        <!-- SOCIAL LINKS -->
-        <div class="social-links">
-          <a href="#" class="social-link">🎙️ Podcast</a>
-          <a href="#" class="social-link">🐦 Twitter / X</a>
-          <a href="#" class="social-link">▶️ YouTube</a>
-          <a href="#" class="social-link">📸 Instagram</a>
-          <a href="#" class="social-link">🛍️ Merch Store</a>
-          <a href="#" class="social-link">📧 Newsletter</a>
-        </div>
+        <div class="profile-badges" id="profileBadges"></div>
+        <h1 class="profile-name" id="profileName">Loading...</h1>
+        <div class="profile-category" id="profileCategory"></div>
+        <p class="profile-bio" id="profileBio"></p>
+        <div class="profile-stats" id="profileStats"></div>
+        <div class="social-links" id="socialLinks"></div>
       </div>
 
-      <!-- QUICK BOOK (desktop sticky) -->
-      <div class="quick-book">
-        <div class="quick-book-title">Book Alex Rivera</div>
-        <div class="quick-book-price">$25 <span>/ personal shoutout</span></div>
-        <div class="quick-book-note">Business rate: $150 · Typically delivers in &lt;24 hours</div>
-        <a href="request.html?id=1" class="btn-primary">Book a Shoutout</a>
-        <a href="#subscribe" class="btn-secondary">Subscribe — $9.99/mo</a>
+      <div class="quick-book" id="quickBook">
+        <div class="quick-book-title" id="quickBookTitle">Book this Creator</div>
+        <div class="quick-book-price" id="quickBookPrice">—</div>
+        <div class="quick-book-note" id="quickBookNote">Loading...</div>
+        <a href="#" class="btn-primary" id="quickBookBtn">Book a Shoutout</a>
+        <a href="#" class="btn-secondary" id="quickSubBtn" style="display:none;">Subscribe</a>
         <hr class="quick-book-divider" />
         <div class="quick-book-meta">
           <span>✓ 100% satisfaction guarantee</span>
@@ -680,7 +588,6 @@
           <span>✓ 7-day delivery window</span>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -688,173 +595,42 @@
   <div class="profile-tabs-wrap">
     <div class="profile-tabs">
       <button class="tab active" onclick="switchTab('offerings', this)">Offerings</button>
-      <button class="tab" onclick="switchTab('reviews', this)">Reviews (47)</button>
+      <button class="tab" id="reviewsTab" onclick="switchTab('reviews', this)">Reviews</button>
       <button class="tab" onclick="switchTab('about', this)">About</button>
     </div>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <div class="profile-main">
-
     <div class="profile-content">
 
-      <!-- OFFERINGS TAB -->
       <div class="tab-panel active" id="tab-offerings">
-        <div class="offerings-grid">
-
-          <div class="offering-card featured" onclick="window.location='request.html?id=1&type=personal'">
-            <span class="offering-icon">🎬</span>
-            <div class="offering-name">Personal Shoutout</div>
-            <div class="offering-desc">A custom video message for birthdays, anniversaries, celebrations, or just because.</div>
-            <div class="offering-price-row">
-              <div class="offering-price">$25 <span>/ video</span></div>
-              <span class="offering-cta">Book Now</span>
-            </div>
-          </div>
-
-          <div class="offering-card" onclick="window.location='request.html?id=1&type=business'">
-            <span class="offering-icon">💼</span>
-            <div class="offering-name">Business Promo</div>
-            <div class="offering-desc">A personalized video for your brand, product launch, or commercial use.</div>
-            <div class="offering-price-row">
-              <div class="offering-price">$150 <span>/ video</span></div>
-              <span class="offering-cta">Book Now</span>
-            </div>
-          </div>
-
-          <div class="offering-card" id="subscribe">
-            <span class="offering-icon">⭐</span>
-            <div class="offering-name">Monthly Subscription</div>
-            <div class="offering-desc">Exclusive content, early access, and subscriber-only videos every month.</div>
-            <div class="offering-price-row">
-              <div class="offering-price">$9.99 <span>/ month</span></div>
-              <span class="offering-cta">Subscribe</span>
-            </div>
-          </div>
-
-          <div class="offering-card" onclick="window.location='request.html?id=1&type=dm'">
-            <span class="offering-icon">💬</span>
-            <div class="offering-name">Direct Message</div>
-            <div class="offering-desc">Send a paid message directly to Alex and get a personal reply.</div>
-            <div class="offering-price-row">
-              <div class="offering-price">$5 <span>/ message</span></div>
-              <span class="offering-cta">Message</span>
-            </div>
-          </div>
-
-          <div class="offering-card" onclick="window.location='request.html?id=1&type=call'">
-            <span class="offering-icon">📹</span>
-            <div class="offering-name">Live Video Call</div>
-            <div class="offering-desc">10 minutes one-on-one with Alex. Ask anything, get advice, or just chat.</div>
-            <div class="offering-price-row">
-              <div class="offering-price">$99 <span>/ 10 min</span></div>
-              <span class="offering-cta">Book Call</span>
-            </div>
-          </div>
-
-          <div class="offering-card">
-            <span class="offering-icon">📥</span>
-            <div class="offering-name">Digital Download</div>
-            <div class="offering-desc">Exclusive podcast episodes, behind-the-scenes content, and bonus interviews.</div>
-            <div class="offering-price-row">
-              <div class="offering-price">$4.99 <span>/ item</span></div>
-              <span class="offering-cta">Browse</span>
-            </div>
-          </div>
-
+        <div class="offerings-grid" id="offeringsGrid">
+          <div style="color:var(--gray);padding:2rem;">Loading offerings...</div>
         </div>
       </div>
 
-      <!-- REVIEWS TAB -->
       <div class="tab-panel" id="tab-reviews">
         <div class="section-heading">What fans are saying</div>
-        <div class="reviews-list">
-          <div class="review">
-            <div class="review-header">
-              <div>
-                <div class="review-author">Sarah M.</div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <div class="review-date">April 2026</div>
-            </div>
-            <div class="review-text">"Got a birthday video for my husband — Alex nailed it. Funny, warm, and incredibly personal. Delivered in under 6 hours. Could not recommend more highly."</div>
-          </div>
-          <div class="review">
-            <div class="review-header">
-              <div>
-                <div class="review-author">Derek T.</div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <div class="review-date">March 2026</div>
-            </div>
-            <div class="review-text">"Used the business promo option for our product launch. Alex mentioned all the key points naturally and it felt genuine — not scripted. Great ROI."</div>
-          </div>
-          <div class="review">
-            <div class="review-header">
-              <div>
-                <div class="review-author">Jamie L.</div>
-                <div class="review-stars">★★★★★</div>
-              </div>
-              <div class="review-date">March 2026</div>
-            </div>
-            <div class="review-text">"The live call was worth every penny. Alex spent the full 10 minutes with me and gave me real, actionable podcast advice. Already booked another."</div>
-          </div>
-          <div class="review">
-            <div class="review-header">
-              <div>
-                <div class="review-author">Marcus W.</div>
-                <div class="review-stars">★★★★☆</div>
-              </div>
-              <div class="review-date">February 2026</div>
-            </div>
-            <div class="review-text">"Great shoutout, delivered fast. Would have given 5 stars but the audio quality could have been a bit better. Still totally worth it and I'll book again."</div>
-          </div>
+        <div class="reviews-list" id="reviewsList">
+          <div style="color:var(--gray);">Loading reviews...</div>
         </div>
       </div>
 
-      <!-- ABOUT TAB -->
       <div class="tab-panel" id="tab-about">
-        <div class="section-heading">About Alex Rivera</div>
-        <div class="about-grid">
-          <div class="about-card">
-            <div class="about-card-label">Member Since</div>
-            <div class="about-card-value">May 2026</div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-label">Response Rate</div>
-            <div class="about-card-value">98% within 24 hours</div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-label">Average Delivery</div>
-            <div class="about-card-value">Under 24 hours</div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-label">Languages</div>
-            <div class="about-card-value">English, Spanish</div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-label">Content Categories</div>
-            <div class="about-card-value">Podcasting, Politics, Commentary</div>
-          </div>
-          <div class="about-card">
-            <div class="about-card-label">Payout Preference</div>
-            <div class="about-card-value">Bank Transfer + Crypto</div>
-          </div>
-        </div>
+        <div class="section-heading" id="aboutTitle">About</div>
+        <div class="about-grid" id="aboutGrid"></div>
         <div class="section-heading">Creator Guidelines</div>
-        <p style="color:var(--gray-light);font-size:0.9rem;line-height:1.7;margin-bottom:1rem;">Alex accepts most requests but reserves the right to decline content that conflicts with personal values. Business promos require advance approval of talking points. Please be specific in your request — the more detail you provide, the better the video.</p>
-        <p style="color:var(--gray);font-size:0.85rem;">All purchases are covered by VoxVega's 100% satisfaction guarantee. If Alex is unable to fulfill your request within 7 days, you will receive a full refund automatically.</p>
+        <p id="guidelinesText" style="color:var(--gray-light);font-size:0.9rem;line-height:1.7;margin-bottom:1rem;"></p>
+        <p style="color:var(--gray);font-size:0.85rem;">All purchases are covered by VoxVega's 100% satisfaction guarantee. If your video isn't delivered within 7 days, you receive a full automatic refund.</p>
       </div>
 
     </div>
 
-    <!-- RIGHT SIDEBAR -->
     <aside>
-
-      <!-- TIP JAR -->
       <div class="sidebar-card">
         <div class="sidebar-card-title">Send a Tip</div>
-        <div class="tip-amounts">
+        <div class="tip-amounts" id="tipAmounts">
           <button class="tip-btn" onclick="selectTip(this, 3)">$3</button>
           <button class="tip-btn" onclick="selectTip(this, 5)">$5</button>
           <button class="tip-btn" onclick="selectTip(this, 10)">$10</button>
@@ -862,75 +638,307 @@
           <button class="tip-btn" onclick="selectTip(this, 50)">$50</button>
           <button class="tip-btn" onclick="selectTip(this, 0)">Custom</button>
         </div>
-        <button class="btn-primary" id="tipBtn" style="font-size:0.875rem;">Send Tip</button>
+        <button class="btn-primary" id="tipBtn" onclick="sendTip()">Send Tip</button>
       </div>
 
-      <!-- SIMILAR CREATORS -->
       <div class="sidebar-card">
         <div class="sidebar-card-title">Similar Creators</div>
-        <a href="profile.html" class="similar-creator">
-          <div class="similar-avatar">🎤</div>
-          <div>
-            <div class="similar-name">Marcus Lee</div>
-            <div class="similar-price">From $75 · Politics</div>
-          </div>
-        </a>
-        <a href="profile.html" class="similar-creator">
-          <div class="similar-avatar">🎵</div>
-          <div>
-            <div class="similar-name">Maya Chen</div>
-            <div class="similar-price">From $60 · Music</div>
-          </div>
-        </a>
-        <a href="profile.html" class="similar-creator">
-          <div class="similar-avatar">😂</div>
-          <div>
-            <div class="similar-name">Sam Kowalski</div>
-            <div class="similar-price">From $15 · Comedy</div>
-          </div>
-        </a>
+        <div id="similarCreators"><div style="color:var(--gray);font-size:0.85rem;">Loading...</div></div>
       </div>
 
-      <!-- GUARANTEE -->
       <div class="sidebar-card" style="text-align:center;">
         <div style="font-size:2rem;margin-bottom:0.5rem;">🛡️</div>
         <div class="sidebar-card-title" style="text-align:center;">VoxVega Guarantee</div>
-        <p style="font-size:0.8rem;color:var(--gray);line-height:1.6;">Every purchase is protected. If your video isn't delivered within 7 days, you get a full refund — automatically.</p>
+        <p style="font-size:0.8rem;color:var(--gray);line-height:1.6;">Every purchase is protected. If your video isn't delivered within 7 days, you get a full refund automatically.</p>
       </div>
-
     </aside>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
   </footer>
 
-  <script>
-    function switchTab(name, el) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('tab-' + name).classList.add('active');
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+    const supabase = createClient(
+      'https://qoljcpacudkfcuzncncx.supabase.co',
+      'sb_publishable_nbolRR6lOenzMa9ZKRV_LA_li0vIuPT'
+    )
+
+    const params = new URLSearchParams(window.location.search)
+    const creatorId = params.get('id')
+    let creator = null
+    let currentUser = null
+    let selectedTip = 5
+    let isSaved = false
+
+    const OFFERING_META = {
+      shoutout_personal: { icon: '🎬', name: 'Personal Shoutout', desc: 'A custom video message for birthdays, anniversaries, celebrations, or just because.', unit: 'video' },
+      shoutout_business: { icon: '💼', name: 'Business Promo', desc: 'A personalized video for your brand, product launch, or commercial use.', unit: 'video' },
+      subscription: { icon: '⭐', name: 'Monthly Subscription', desc: 'Exclusive content, early access, and subscriber-only videos every month.', unit: 'month' },
+      dm: { icon: '💬', name: 'Direct Message', desc: 'Send a paid message directly and get a personal reply.', unit: 'message' },
+      live_call: { icon: '📹', name: 'Live Video Call', desc: '10 minutes one-on-one. Ask anything, get advice, or just chat.', unit: '10 min' },
+      download: { icon: '📥', name: 'Digital Download', desc: 'Exclusive content, bonus material, and digital products.', unit: 'item' },
+      tip: { icon: '💝', name: 'Tip Jar', desc: 'Show your appreciation with a direct tip.', unit: 'tip' }
     }
 
-    let selectedTip = 5;
+    // Auth
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session) {
+      currentUser = session.user
+      document.getElementById('navSignin').textContent = 'My Account'
+      document.getElementById('navSignin').href = 'buyer.html'
+      document.getElementById('navCta').textContent = 'Dashboard'
+      document.getElementById('navCta').href = 'dashboard.html'
+    }
 
-    function selectTip(el, amount) {
-      document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
-      el.classList.add('active');
-      if (amount === 0) {
-        selectedTip = prompt('Enter custom tip amount ($):') || 5;
-      } else {
-        selectedTip = amount;
+    // Load creator
+    if (!creatorId) {
+      window.location.href = 'creators.html'
+    } else {
+      await loadProfile()
+    }
+
+    async function loadProfile() {
+      const { data, error } = await supabase
+        .from('creators')
+        .select(`
+          *,
+          offerings(*),
+          reviews(*, users(first_name, last_name))
+        `)
+        .eq('id', creatorId)
+        .single()
+
+      if (error || !data) {
+        window.location.href = 'creators.html'
+        return
       }
-      document.getElementById('tipBtn').textContent = `Send $${selectedTip} Tip`;
+
+      creator = data
+      renderProfile()
+      renderOfferings()
+      renderReviews()
+      renderAbout()
+      loadSimilarCreators()
+      if (currentUser) checkIfSaved()
+
+      // Update page title
+      document.title = `${data.display_name} — VoxVega`
     }
 
-    // URL param to load creator (ready for Supabase)
-    const params = new URLSearchParams(window.location.search);
-    const creatorId = params.get('id');
-    // When Supabase is wired: fetch creator by ID and populate DOM
+    function renderProfile() {
+      const c = creator
+
+      // Avatar
+      const avatarEl = document.getElementById('profileAvatar')
+      if (c.avatar_url) {
+        avatarEl.innerHTML = `<img src="${c.avatar_url}" alt="${c.display_name}" />`
+      } else {
+        avatarEl.textContent = c.avatar_emoji || '🎙️'
+      }
+
+      // Badges
+      const badges = []
+      if (c.is_verified) badges.push(`<span class="profile-badge verified">✓ Verified</span>`)
+      if (c.is_adult) badges.push(`<span class="profile-badge">18+ Creator</span>`)
+      badges.push(`<span class="profile-badge">${c.category}</span>`)
+      document.getElementById('profileBadges').innerHTML = badges.join('')
+
+      // Name + category
+      document.getElementById('profileName').textContent = c.display_name
+      document.getElementById('profileCategory').textContent = [c.category, ...(c.tags || []).slice(0,2)].join(' · ')
+      document.getElementById('profileBio').textContent = c.bio || ''
+
+      // Stats
+      document.getElementById('profileStats').innerHTML = `
+        <div class="profile-stat"><span class="profile-stat-num">${c.rating ? c.rating.toFixed(1) : 'New'}</span><span class="profile-stat-label">Rating</span></div>
+        <div class="profile-stat"><span class="profile-stat-num">${c.completed_orders || 0}</span><span class="profile-stat-label">Completed</span></div>
+        <div class="profile-stat"><span class="profile-stat-num">${c.response_rate || 100}%</span><span class="profile-stat-label">Response Rate</span></div>
+        <div class="profile-stat"><span class="profile-stat-num">&lt;${c.avg_delivery_hours || 48}hr</span><span class="profile-stat-label">Avg. Delivery</span></div>
+      `
+
+      // Social links
+      const links = c.social_links || {}
+      const socialMap = {
+        twitter: '🐦 Twitter / X',
+        youtube: '▶️ YouTube',
+        instagram: '📸 Instagram',
+        podcast: '🎙️ Podcast',
+        merch: '🛍️ Merch Store',
+        newsletter: '📧 Newsletter',
+        tiktok: '🎵 TikTok',
+        twitch: '🟣 Twitch',
+        website: '🌐 Website'
+      }
+
+      const socialHTML = Object.entries(links)
+        .filter(([, url]) => url)
+        .map(([key, url]) => `<a href="${url}" target="_blank" rel="noopener" class="social-link">${socialMap[key] || key}</a>`)
+        .join('')
+
+      document.getElementById('socialLinks').innerHTML = socialHTML
+
+      // Quick book
+      const personalOffering = (c.offerings || []).find(o => o.type === 'shoutout_personal' && o.is_active)
+      const businessOffering = (c.offerings || []).find(o => o.type === 'shoutout_business' && o.is_active)
+      const subOffering = (c.offerings || []).find(o => o.type === 'subscription' && o.is_active)
+
+      document.getElementById('quickBookTitle').textContent = `Book ${c.display_name}`
+
+      if (personalOffering) {
+        document.getElementById('quickBookPrice').innerHTML = `$${personalOffering.price} <span>/ personal shoutout</span>`
+        document.getElementById('quickBookNote').textContent = `Business rate: ${businessOffering ? '$' + businessOffering.price : 'N/A'} · Delivers in <${c.avg_delivery_hours || 48} hours`
+        document.getElementById('quickBookBtn').href = `request.html?id=${c.id}&type=shoutout_personal`
+      }
+
+      if (subOffering) {
+        document.getElementById('quickSubBtn').style.display = 'block'
+        document.getElementById('quickSubBtn').textContent = `Subscribe — $${subOffering.price}/mo`
+        document.getElementById('quickSubBtn').href = `request.html?id=${c.id}&type=subscription`
+      }
+
+      // Review tab count
+      document.getElementById('reviewsTab').textContent = `Reviews (${c.review_count || 0})`
+    }
+
+    function renderOfferings() {
+      const offerings = (creator.offerings || []).filter(o => o.is_active && o.type !== 'tip')
+      if (offerings.length === 0) {
+        document.getElementById('offeringsGrid').innerHTML = `<div style="color:var(--gray);">No offerings available yet.</div>`
+        return
+      }
+
+      document.getElementById('offeringsGrid').innerHTML = offerings.map((o, i) => {
+        const meta = OFFERING_META[o.type] || { icon: '⭐', name: o.type, desc: '', unit: 'item' }
+        return `
+          <div class="offering-card ${i === 0 ? 'featured' : ''}" onclick="window.location.href='request.html?id=${creator.id}&type=${o.type}'">
+            <span class="offering-icon">${meta.icon}</span>
+            <div class="offering-name">${meta.name}</div>
+            <div class="offering-desc">${meta.desc}</div>
+            <div class="offering-price-row">
+              <div class="offering-price">$${o.price} <span>/ ${meta.unit}</span></div>
+              <button class="offering-cta">Book Now</button>
+            </div>
+          </div>`
+      }).join('')
+    }
+
+    function renderReviews() {
+      const reviews = creator.reviews || []
+      if (reviews.length === 0) {
+        document.getElementById('reviewsList').innerHTML = `<div style="color:var(--gray);padding:1rem 0;">No reviews yet — be the first to book!</div>`
+        return
+      }
+
+      document.getElementById('reviewsList').innerHTML = reviews.slice(0, 10).map(r => {
+        const name = r.users ? `${r.users.first_name} ${r.users.last_name?.charAt(0)}.` : 'Anonymous'
+        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating)
+        const date = new Date(r.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+        return `
+          <div class="review">
+            <div class="review-header">
+              <div>
+                <div class="review-author">${name}</div>
+                <div class="review-stars">${stars}</div>
+              </div>
+              <div class="review-date">${date}</div>
+            </div>
+            <div class="review-text">${r.review_text || ''}</div>
+          </div>`
+      }).join('')
+    }
+
+    function renderAbout() {
+      const c = creator
+      document.getElementById('aboutTitle').textContent = `About ${c.display_name}`
+      document.getElementById('aboutGrid').innerHTML = `
+        <div class="about-card"><div class="about-card-label">Member Since</div><div class="about-card-value">${new Date(c.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div></div>
+        <div class="about-card"><div class="about-card-label">Response Rate</div><div class="about-card-value">${c.response_rate || 100}% within ${c.avg_delivery_hours || 48} hours</div></div>
+        <div class="about-card"><div class="about-card-label">Completed Orders</div><div class="about-card-value">${c.completed_orders || 0} orders</div></div>
+        <div class="about-card"><div class="about-card-label">Category</div><div class="about-card-value">${c.category}</div></div>
+        <div class="about-card"><div class="about-card-label">Tags</div><div class="about-card-value">${(c.tags || []).join(', ') || 'None listed'}</div></div>
+        <div class="about-card"><div class="about-card-label">Content Type</div><div class="about-card-value">${c.is_adult ? '18+ Adult Content' : 'General Audience'}</div></div>
+      `
+      document.getElementById('guidelinesText').textContent = c.guidelines || 'This creator accepts most requests. Please be specific in your instructions for the best results.'
+    }
+
+    async function loadSimilarCreators() {
+      const { data } = await supabase
+        .from('creators')
+        .select('id, display_name, avatar_emoji, category, offerings(price, type, is_active)')
+        .eq('category', creator.category)
+        .eq('is_active', true)
+        .neq('id', creatorId)
+        .limit(3)
+
+      if (!data || data.length === 0) {
+        document.getElementById('similarCreators').innerHTML = `<div style="color:var(--gray);font-size:0.85rem;">No similar creators yet.</div>`
+        return
+      }
+
+      document.getElementById('similarCreators').innerHTML = data.map(c => {
+        const price = Math.min(...(c.offerings || []).filter(o => o.is_active).map(o => o.price), 999)
+        return `
+          <a href="profile.html?id=${c.id}" class="similar-creator">
+            <div class="similar-avatar">${c.avatar_emoji || '⭐'}</div>
+            <div>
+              <div class="similar-name">${c.display_name}</div>
+              <div class="similar-price">From $${price < 999 ? price : '—'} · ${c.category}</div>
+            </div>
+          </a>`
+      }).join('')
+    }
+
+    async function checkIfSaved() {
+      const { data } = await supabase
+        .from('saved_creators')
+        .select('id')
+        .eq('fan_id', currentUser.id)
+        .eq('creator_id', creatorId)
+        .single()
+      isSaved = !!data
+    }
+
+    window.switchTab = function(name, el) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'))
+      el.classList.add('active')
+      document.getElementById('tab-' + name).classList.add('active')
+    }
+
+    window.selectTip = function(el, amount) {
+      document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'))
+      el.classList.add('active')
+      if (amount === 0) {
+        const custom = prompt('Enter custom tip amount ($):')
+        selectedTip = parseFloat(custom) || 5
+      } else {
+        selectedTip = amount
+      }
+      document.getElementById('tipBtn').textContent = `Send $${selectedTip} Tip`
+    }
+
+    window.sendTip = async function() {
+      if (!currentUser) {
+        window.location.href = `login.html?mode=signin`
+        return
+      }
+
+      try {
+        await supabase.from('tips').insert({
+          fan_id: currentUser.id,
+          creator_id: creatorId,
+          amount: selectedTip,
+          payment_method: 'card',
+          payment_status: 'pending'
+        })
+        alert(`Tip of $${selectedTip} submitted! Payment processing coming soon.`)
+      } catch (err) {
+        alert('Could not send tip. Please try again.')
+      }
+    }
   </script>
 
 </body>
