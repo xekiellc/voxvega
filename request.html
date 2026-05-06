@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +20,8 @@
       --white: #ffffff;
       --gray: #8a9ab0;
       --gray-light: #d1d9e6;
+      --green: #4ade80;
+      --red: #f87171;
       --font-display: 'Playfair Display', Georgia, serif;
       --font-body: 'DM Sans', sans-serif;
     }
@@ -36,7 +37,6 @@
       overflow-x: hidden;
     }
 
-    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -86,7 +86,6 @@
       font-weight: 600 !important;
     }
 
-    /* PAGE */
     .page-wrap {
       min-height: 100vh;
       padding: 7rem 2rem 4rem;
@@ -101,7 +100,6 @@
       align-items: start;
     }
 
-    /* BREADCRUMB */
     .breadcrumb {
       font-size: 0.8rem;
       color: var(--gray);
@@ -116,7 +114,6 @@
     .breadcrumb a:hover { color: var(--gold); }
     .breadcrumb span { color: var(--gold); }
 
-    /* STEP INDICATOR */
     .steps-indicator {
       grid-column: 1 / -1;
       display: flex;
@@ -135,7 +132,7 @@
     }
 
     .step-dot.active { color: var(--gold); }
-    .step-dot.done { color: #4ade80; }
+    .step-dot.done { color: var(--green); }
 
     .step-circle {
       width: 28px;
@@ -149,11 +146,7 @@
       flex-shrink: 0;
     }
 
-    .step-dot.active .step-circle {
-      background: var(--gold);
-      color: var(--navy);
-      border-color: var(--gold);
-    }
+    .step-dot.active .step-circle { background: var(--gold); color: var(--navy); border-color: var(--gold); }
 
     .step-line {
       flex: 1;
@@ -162,12 +155,12 @@
       margin: 0 0.75rem;
     }
 
-    /* FORM */
     .form-card {
       background: var(--navy-light);
       border: 1px solid rgba(201, 168, 76, 0.1);
       border-radius: 18px;
       padding: 2rem;
+      margin-bottom: 1.25rem;
     }
 
     .form-section-title {
@@ -200,9 +193,7 @@
       margin-left: 0.25rem;
     }
 
-    .form-input,
-    .form-textarea,
-    .form-select {
+    .form-input, .form-textarea, .form-select {
       width: 100%;
       background: var(--navy);
       border: 1px solid rgba(201, 168, 76, 0.15);
@@ -215,36 +206,14 @@
       transition: border-color 0.2s;
     }
 
-    .form-input::placeholder,
-    .form-textarea::placeholder { color: var(--gray); }
-
-    .form-input:focus,
-    .form-textarea:focus,
-    .form-select:focus { border-color: var(--gold); }
-
-    .form-textarea {
-      resize: vertical;
-      min-height: 120px;
-      line-height: 1.6;
-    }
-
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--gray); }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--gold); }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
     .form-select option { background: var(--navy-mid); }
 
-    .char-count {
-      text-align: right;
-      font-size: 0.75rem;
-      color: var(--gray);
-      margin-top: 0.35rem;
-    }
+    .char-count { text-align: right; font-size: 0.75rem; color: var(--gray); margin-top: 0.35rem; }
+    .form-hint { font-size: 0.78rem; color: var(--gray); margin-top: 0.35rem; line-height: 1.5; }
 
-    .form-hint {
-      font-size: 0.78rem;
-      color: var(--gray);
-      margin-top: 0.35rem;
-      line-height: 1.5;
-    }
-
-    /* REQUEST TYPE SELECTOR */
     .type-selector {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -263,17 +232,13 @@
     }
 
     .type-option:hover { border-color: rgba(201, 168, 76, 0.3); }
-
-    .type-option.selected {
-      border-color: var(--gold);
-      background: rgba(201, 168, 76, 0.06);
-    }
+    .type-option.selected { border-color: var(--gold); background: rgba(201, 168, 76, 0.06); }
+    .type-option.disabled { opacity: 0.4; cursor: not-allowed; }
 
     .type-option-icon { font-size: 1.5rem; display: block; margin-bottom: 0.4rem; }
     .type-option-name { font-size: 0.875rem; font-weight: 600; display: block; }
     .type-option-price { font-size: 0.75rem; color: var(--gold); display: block; margin-top: 0.2rem; }
 
-    /* OCCASION TAGS */
     .occasion-tags {
       display: flex;
       flex-wrap: wrap;
@@ -297,7 +262,6 @@
     .occasion-tag:hover { border-color: var(--gold); color: var(--white); }
     .occasion-tag.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
 
-    /* TOGGLE */
     .toggle-row {
       display: flex;
       align-items: center;
@@ -307,7 +271,6 @@
     }
 
     .toggle-row:last-child { border-bottom: none; }
-
     .toggle-label { font-size: 0.9rem; }
     .toggle-sub { font-size: 0.75rem; color: var(--gray); }
 
@@ -339,7 +302,6 @@
 
     .toggle.on::after { transform: translateX(20px); }
 
-    /* SUBMIT BTN */
     .btn-primary {
       background: var(--gold);
       color: var(--navy);
@@ -381,7 +343,19 @@
 
     .btn-secondary:hover { border-color: var(--gray); color: var(--white); }
 
-    /* ORDER SUMMARY */
+    .form-error {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+      color: var(--red);
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .form-error.show { display: block; }
+
     .order-summary {
       background: var(--navy-light);
       border: 1px solid rgba(201, 168, 76, 0.15);
@@ -450,13 +424,7 @@
     .order-total-label { font-weight: 700; font-size: 0.95rem; }
     .order-total-value { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--gold); }
 
-    .order-note {
-      font-size: 0.75rem;
-      color: var(--gray);
-      line-height: 1.5;
-      margin-top: 1rem;
-      text-align: center;
-    }
+    .order-note { font-size: 0.75rem; color: var(--gray); line-height: 1.5; margin-top: 1rem; text-align: center; }
 
     .guarantee-badge {
       display: flex;
@@ -467,11 +435,10 @@
       border-radius: 10px;
       padding: 0.75rem;
       font-size: 0.78rem;
-      color: #4ade80;
+      color: var(--green);
       margin-top: 1rem;
     }
 
-    /* FOOTER */
     footer {
       background: var(--navy);
       border-top: 1px solid rgba(201, 168, 76, 0.08);
@@ -483,7 +450,6 @@
     footer p { font-size: 0.8rem; color: var(--gray); }
     footer a { color: var(--gold); text-decoration: none; }
 
-    /* RESPONSIVE */
     @media (max-width: 768px) {
       .page-inner { grid-template-columns: 1fr; }
       .order-summary { position: static; }
@@ -499,29 +465,24 @@
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
     <ul class="nav-links">
       <li><a href="creators.html">Browse Creators</a></li>
-      <li><a href="login.html">Sign In</a></li>
-      <li><a href="login.html" class="nav-cta">Get Started</a></li>
+      <li><a href="login.html" id="navSignin">Sign In</a></li>
+      <li><a href="login.html" class="nav-cta" id="navCta">Get Started</a></li>
     </ul>
   </nav>
 
   <div class="page-wrap">
     <div class="page-inner">
 
-      <!-- BREADCRUMB -->
       <div class="breadcrumb">
-        <a href="creators.html">Browse Creators</a>
-        ›
-        <a href="profile.html">Alex Rivera</a>
-        ›
+        <a href="creators.html">Browse Creators</a> ›
+        <a href="#" id="breadcrumbCreator">Creator</a> ›
         <span>Book a Request</span>
       </div>
 
-      <!-- STEP INDICATOR -->
       <div class="steps-indicator">
         <div class="step-dot active">
           <div class="step-circle">1</div>
@@ -543,37 +504,17 @@
       <div>
 
         <!-- REQUEST TYPE -->
-        <div class="form-card" style="margin-bottom:1.25rem;">
+        <div class="form-card">
           <div class="form-section-title">What type of request?</div>
-          <div class="type-selector">
-            <div class="type-option selected" onclick="selectType(this, 'personal', 25)">
-              <span class="type-option-icon">🎬</span>
-              <span class="type-option-name">Personal Shoutout</span>
-              <span class="type-option-price">$25</span>
-            </div>
-            <div class="type-option" onclick="selectType(this, 'business', 150)">
-              <span class="type-option-icon">💼</span>
-              <span class="type-option-name">Business Promo</span>
-              <span class="type-option-price">$150</span>
-            </div>
-            <div class="type-option" onclick="selectType(this, 'dm', 5)">
-              <span class="type-option-icon">💬</span>
-              <span class="type-option-name">Direct Message</span>
-              <span class="type-option-price">$5</span>
-            </div>
-            <div class="type-option" onclick="selectType(this, 'call', 99)">
-              <span class="type-option-icon">📹</span>
-              <span class="type-option-name">Live Call</span>
-              <span class="type-option-price">$99 / 10 min</span>
-            </div>
+          <div class="type-selector" id="typeSelector">
+            <div style="color:var(--gray);font-size:0.85rem;">Loading offerings...</div>
           </div>
         </div>
 
         <!-- REQUEST DETAILS -->
-        <div class="form-card" style="margin-bottom:1.25rem;">
+        <div class="form-card">
           <div class="form-section-title">Request Details</div>
 
-          <!-- OCCASION -->
           <div class="form-group" id="occasionGroup">
             <label class="form-label">Occasion <span>(select one)</span></label>
             <div class="occasion-tags">
@@ -588,14 +529,12 @@
             </div>
           </div>
 
-          <!-- WHO IS IT FOR -->
           <div class="form-group" id="recipientGroup">
             <label class="form-label">Who is this for? <span>(recipient's name)</span></label>
             <input type="text" class="form-input" id="recipientName" placeholder="e.g. My dad Tom, or my best friend Sarah" maxlength="80" />
             <div class="char-count"><span id="recipientCount">0</span>/80</div>
           </div>
 
-          <!-- PRONOUNS -->
           <div class="form-group" id="pronounGroup">
             <label class="form-label">Recipient's pronouns <span>(optional)</span></label>
             <select class="form-select" id="pronouns">
@@ -607,27 +546,25 @@
             </select>
           </div>
 
-          <!-- INSTRUCTIONS -->
           <div class="form-group">
             <label class="form-label">Instructions for the creator <span>(be specific!)</span></label>
-            <textarea class="form-textarea" id="instructions" maxlength="500" placeholder="Tell Alex exactly what you'd like them to say. The more detail you provide, the better the video. Example: 'Please wish my dad Tom a happy 60th birthday. He loves the Cleveland Browns and fishing. Make it funny if you can!'"></textarea>
+            <textarea class="form-textarea" id="instructions" maxlength="500" placeholder="Tell the creator exactly what you'd like. The more detail, the better the video. Example: 'Please wish my dad Tom a happy 60th birthday. He loves the Cleveland Browns and fishing. Make it funny if you can!'"></textarea>
             <div class="char-count"><span id="instrCount">0</span>/500</div>
             <div class="form-hint">Tip: Include names, inside jokes, specific details, and tone preference (funny, heartfelt, hype, etc.)</div>
           </div>
 
-          <!-- BUSINESS FIELDS (hidden by default) -->
           <div id="businessFields" style="display:none;">
             <div class="form-group">
               <label class="form-label">Business / Brand name</label>
-              <input type="text" class="form-input" placeholder="Your company or brand name" maxlength="80" />
+              <input type="text" class="form-input" id="businessName" placeholder="Your company or brand name" maxlength="80" />
             </div>
             <div class="form-group">
               <label class="form-label">Key talking points <span>(what should be mentioned?)</span></label>
-              <textarea class="form-textarea" placeholder="List the key points you want covered — product name, URL, offer, tagline, etc." maxlength="400" style="min-height:100px;"></textarea>
+              <textarea class="form-textarea" id="businessPoints" placeholder="List the key points — product name, URL, offer, tagline, etc." maxlength="400" style="min-height:100px;"></textarea>
             </div>
             <div class="form-group">
               <label class="form-label">Usage rights needed</label>
-              <select class="form-select">
+              <select class="form-select" id="usageRights">
                 <option>Social media only</option>
                 <option>Website use</option>
                 <option>Email marketing</option>
@@ -636,29 +573,25 @@
               </select>
             </div>
           </div>
-
         </div>
 
         <!-- OPTIONS -->
-        <div class="form-card" style="margin-bottom:1.25rem;">
+        <div class="form-card">
           <div class="form-section-title">Options</div>
-
           <div class="toggle-row">
             <div>
               <div class="toggle-label">Make this video private</div>
               <div class="toggle-sub">Creator won't share on their social media</div>
             </div>
-            <div class="toggle" onclick="this.classList.toggle('on')"></div>
+            <div class="toggle" id="privateToggle" onclick="this.classList.toggle('on')"></div>
           </div>
-
           <div class="toggle-row">
             <div>
               <div class="toggle-label">Allow creator to share publicly</div>
               <div class="toggle-sub">Help the creator promote themselves</div>
             </div>
-            <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+            <div class="toggle on" id="shareToggle" onclick="this.classList.toggle('on')"></div>
           </div>
-
           <div class="toggle-row">
             <div>
               <div class="toggle-label">Rush delivery — add $10</div>
@@ -666,26 +599,23 @@
             </div>
             <div class="toggle" id="rushToggle" onclick="toggleRush(this)"></div>
           </div>
-
         </div>
 
         <!-- YOUR INFO -->
         <div class="form-card">
           <div class="form-section-title">Your Information</div>
-
           <div class="form-group">
             <label class="form-label">Your name</label>
             <input type="text" class="form-input" id="buyerName" placeholder="Your full name" />
           </div>
-
           <div class="form-group">
             <label class="form-label">Email address <span>(for delivery notification)</span></label>
             <input type="email" class="form-input" id="buyerEmail" placeholder="your@email.com" />
             <div class="form-hint">Your video will be delivered to this email when ready.</div>
           </div>
-
-          <button class="btn-primary" onclick="submitRequest()">Continue to Payment →</button>
-          <a href="profile.html" class="btn-secondary">← Back to Profile</a>
+          <div class="form-error" id="formError"></div>
+          <button class="btn-primary" id="continueBtn" onclick="submitRequest()">Continue to Payment →</button>
+          <a href="#" id="backBtn" class="btn-secondary">← Back to Profile</a>
         </div>
 
       </div>
@@ -693,22 +623,20 @@
       <!-- ORDER SUMMARY -->
       <div class="order-summary">
         <div class="order-summary-title">Order Summary</div>
-
         <div class="creator-mini">
-          <div class="creator-mini-avatar">🎙️</div>
+          <div class="creator-mini-avatar" id="summaryAvatar">⏳</div>
           <div>
-            <div class="creator-mini-name">Alex Rivera</div>
-            <div class="creator-mini-cat">Podcaster</div>
+            <div class="creator-mini-name" id="summaryCreator">Loading...</div>
+            <div class="creator-mini-cat" id="summaryCategory"></div>
           </div>
         </div>
-
         <div class="order-line">
           <span class="order-line-label">Request type</span>
-          <span class="order-line-value" id="summaryType">Personal Shoutout</span>
+          <span class="order-line-value" id="summaryType">—</span>
         </div>
         <div class="order-line">
           <span class="order-line-label">Base price</span>
-          <span class="order-line-value" id="summaryBase">$25.00</span>
+          <span class="order-line-value" id="summaryBase">—</span>
         </div>
         <div class="order-line" id="rushLine" style="display:none;">
           <span class="order-line-label">Rush delivery</span>
@@ -718,102 +646,211 @@
           <span class="order-line-label">Platform fee</span>
           <span class="order-line-value">$0.00</span>
         </div>
-
         <div class="order-total">
           <span class="order-total-label">Total</span>
-          <span class="order-total-value" id="summaryTotal">$25.00</span>
+          <span class="order-total-value" id="summaryTotal">—</span>
         </div>
-
         <div class="order-note">You won't be charged until you confirm on the next step. Your payment is held securely until your video is delivered.</div>
-
-        <div class="guarantee-badge">
-          🛡️ 100% refund if not delivered within 7 days
-        </div>
+        <div class="guarantee-badge">🛡️ 100% refund if not delivered within 7 days</div>
       </div>
 
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
   </footer>
 
-  <script>
-    let basePrice = 25;
-    let rushAdded = false;
+  <script type="module">
+    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-    function selectType(el, type, price) {
-      document.querySelectorAll('.type-option').forEach(o => o.classList.remove('selected'));
-      el.classList.add('selected');
-      basePrice = price;
-      document.getElementById('summaryType').textContent = el.querySelector('.type-option-name').textContent;
-      document.getElementById('summaryBase').textContent = '$' + price.toFixed(2);
-      updateTotal();
+    const supabase = createClient(
+      'https://qoljcpacudkfcuzncncx.supabase.co',
+      'sb_publishable_nbolRR6lOenzMa9ZKRV_LA_li0vIuPT'
+    )
 
-      const isBusiness = type === 'business';
-      document.getElementById('businessFields').style.display = isBusiness ? 'block' : 'none';
-      document.getElementById('occasionGroup').style.display = (type === 'personal') ? 'block' : 'none';
-      document.getElementById('recipientGroup').style.display = (type === 'personal') ? 'block' : 'none';
-      document.getElementById('pronounGroup').style.display = (type === 'personal') ? 'block' : 'none';
+    const params = new URLSearchParams(window.location.search)
+    const creatorId = params.get('id')
+    const preselectedType = params.get('type')
+
+    let creator = null
+    let offerings = []
+    let selectedOffering = null
+    let rushAdded = false
+    let currentUser = null
+
+    const OFFERING_META = {
+      shoutout_personal: { icon: '🎬', name: 'Personal Shoutout' },
+      shoutout_business: { icon: '💼', name: 'Business Promo' },
+      subscription: { icon: '⭐', name: 'Subscription' },
+      dm: { icon: '💬', name: 'Direct Message' },
+      live_call: { icon: '📹', name: 'Live Call' },
+      download: { icon: '📥', name: 'Digital Download' }
     }
 
-    function selectOccasion(el) {
-      document.querySelectorAll('.occasion-tag').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
+    // Auth
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session) {
+      currentUser = session.user
+      const { data: profile } = await supabase.from('users').select('first_name, last_name, email').eq('id', currentUser.id).single()
+      if (profile) {
+        document.getElementById('buyerName').value = `${profile.first_name || ''} ${profile.last_name || ''}`.trim()
+        document.getElementById('buyerEmail').value = profile.email || currentUser.email
+      }
     }
 
-    function toggleRush(el) {
-      el.classList.toggle('on');
-      rushAdded = el.classList.contains('on');
-      document.getElementById('rushLine').style.display = rushAdded ? 'flex' : 'none';
-      updateTotal();
+    if (!creatorId) {
+      window.location.href = 'creators.html'
+    } else {
+      await loadCreator()
     }
 
-    function updateTotal() {
-      const total = basePrice + (rushAdded ? 10 : 0);
-      document.getElementById('summaryTotal').textContent = '$' + total.toFixed(2);
-    }
+    async function loadCreator() {
+      const { data, error } = await supabase
+        .from('creators')
+        .select('*, offerings(*)')
+        .eq('id', creatorId)
+        .single()
 
-    function submitRequest() {
-      const email = document.getElementById('buyerEmail').value;
-      const name = document.getElementById('buyerName').value;
-      const instructions = document.getElementById('instructions').value;
-
-      if (!email || !name || !instructions) {
-        alert('Please fill in your name, email, and instructions before continuing.');
-        return;
+      if (error || !data) {
+        window.location.href = 'creators.html'
+        return
       }
 
-      if (!email.includes('@')) {
-        alert('Please enter a valid email address.');
-        return;
+      creator = data
+      offerings = (data.offerings || []).filter(o => o.is_active && o.type !== 'tip')
+
+      // Breadcrumb + back link
+      document.getElementById('breadcrumbCreator').textContent = data.display_name
+      document.getElementById('breadcrumbCreator').href = `profile.html?id=${creatorId}`
+      document.getElementById('backBtn').href = `profile.html?id=${creatorId}`
+
+      // Summary sidebar
+      document.getElementById('summaryAvatar').textContent = data.avatar_emoji || '🎙️'
+      document.getElementById('summaryCreator').textContent = data.display_name
+      document.getElementById('summaryCategory').textContent = data.category
+
+      renderTypeSelector()
+    }
+
+    function renderTypeSelector() {
+      const container = document.getElementById('typeSelector')
+
+      if (offerings.length === 0) {
+        container.innerHTML = `<div style="color:var(--gray);">No offerings available from this creator.</div>`
+        return
       }
 
-      // Store request data for checkout page
+      container.innerHTML = offerings.map((o, i) => {
+        const meta = OFFERING_META[o.type] || { icon: '⭐', name: o.type }
+        const isPreselected = preselectedType === o.type || (!preselectedType && i === 0)
+        return `
+          <div class="type-option ${isPreselected ? 'selected' : ''}"
+               data-type="${o.type}"
+               data-price="${o.price}"
+               data-id="${o.id}"
+               onclick="selectType(this)">
+            <span class="type-option-icon">${meta.icon}</span>
+            <span class="type-option-name">${meta.name}</span>
+            <span class="type-option-price">$${o.price}</span>
+          </div>`
+      }).join('')
+
+      // Auto-select first or preselected
+      const preselected = container.querySelector('.selected') || container.querySelector('.type-option')
+      if (preselected) selectType(preselected)
+    }
+
+    window.selectType = function(el) {
+      document.querySelectorAll('.type-option').forEach(o => o.classList.remove('selected'))
+      el.classList.add('selected')
+
+      const type = el.dataset.type
+      const price = parseFloat(el.dataset.price)
+      const offeringId = el.dataset.id
+
+      selectedOffering = offerings.find(o => o.id === offeringId) || { type, price, id: offeringId }
+
+      // Show/hide context fields
+      const isBusiness = type === 'shoutout_business'
+      const isPersonal = type === 'shoutout_personal'
+      document.getElementById('businessFields').style.display = isBusiness ? 'block' : 'none'
+      document.getElementById('occasionGroup').style.display = isPersonal ? 'block' : 'none'
+      document.getElementById('recipientGroup').style.display = isPersonal ? 'block' : 'none'
+      document.getElementById('pronounGroup').style.display = isPersonal ? 'block' : 'none'
+
+      updateSummary()
+    }
+
+    function updateSummary() {
+      if (!selectedOffering) return
+      const meta = OFFERING_META[selectedOffering.type] || { name: selectedOffering.type }
+      const total = parseFloat(selectedOffering.price) + (rushAdded ? 10 : 0)
+      document.getElementById('summaryType').textContent = meta.name
+      document.getElementById('summaryBase').textContent = `$${parseFloat(selectedOffering.price).toFixed(2)}`
+      document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`
+      document.getElementById('continueBtn').textContent = `Continue to Payment — $${total.toFixed(2)} →`
+    }
+
+    window.toggleRush = function(el) {
+      el.classList.toggle('on')
+      rushAdded = el.classList.contains('on')
+      document.getElementById('rushLine').style.display = rushAdded ? 'flex' : 'none'
+      updateSummary()
+    }
+
+    window.selectOccasion = function(el) {
+      document.querySelectorAll('.occasion-tag').forEach(t => t.classList.remove('active'))
+      el.classList.add('active')
+    }
+
+    window.submitRequest = function() {
+      const buyerName = document.getElementById('buyerName').value.trim()
+      const buyerEmail = document.getElementById('buyerEmail').value.trim()
+      const instructions = document.getElementById('instructions').value.trim()
+      const errorEl = document.getElementById('formError')
+
+      if (!selectedOffering) { errorEl.textContent = 'Please select a request type.'; errorEl.classList.add('show'); return }
+      if (!buyerName) { errorEl.textContent = 'Please enter your name.'; errorEl.classList.add('show'); return }
+      if (!buyerEmail || !buyerEmail.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; errorEl.classList.add('show'); return }
+      if (!instructions) { errorEl.textContent = 'Please provide instructions for the creator.'; errorEl.classList.add('show'); return }
+
+      errorEl.classList.remove('show')
+
+      const occasion = document.querySelector('.occasion-tag.active')?.textContent || ''
       const requestData = {
-        creatorId: new URLSearchParams(window.location.search).get('id') || '1',
-        creatorName: 'Alex Rivera',
-        type: document.querySelector('.type-option.selected .type-option-name').textContent,
-        price: basePrice + (rushAdded ? 10 : 0),
+        creatorId,
+        creatorName: creator.display_name,
+        creatorEmoji: creator.avatar_emoji,
+        creatorCategory: creator.category,
+        offeringId: selectedOffering.id,
+        type: selectedOffering.type,
+        price: parseFloat(selectedOffering.price),
         rush: rushAdded,
-        buyerName: name,
-        buyerEmail: email,
-        instructions: instructions
-      };
+        rushFee: rushAdded ? 10 : 0,
+        instructions,
+        recipientName: document.getElementById('recipientName')?.value || '',
+        pronouns: document.getElementById('pronouns')?.value || '',
+        occasion,
+        isPrivate: document.getElementById('privateToggle').classList.contains('on'),
+        allowShare: document.getElementById('shareToggle').classList.contains('on'),
+        buyerName,
+        buyerEmail,
+        buyerId: currentUser?.id || null
+      }
 
-      sessionStorage.setItem('voxvega_request', JSON.stringify(requestData));
-      window.location.href = 'checkout.html';
+      sessionStorage.setItem('voxvega_request', JSON.stringify(requestData))
+      window.location.href = 'checkout.html'
     }
 
     // Char counters
     document.getElementById('instructions').addEventListener('input', function() {
-      document.getElementById('instrCount').textContent = this.value.length;
-    });
+      document.getElementById('instrCount').textContent = this.value.length
+    })
 
     document.getElementById('recipientName').addEventListener('input', function() {
-      document.getElementById('recipientCount').textContent = this.value.length;
-    });
+      document.getElementById('recipientCount').textContent = this.value.length
+    })
   </script>
 
 </body>
