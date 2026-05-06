@@ -1,1 +1,1194 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Orders — VoxVega</title>
+  <meta name="description" content="View and manage your VoxVega orders and purchases." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0e1a;
+      --navy-mid: #111827;
+      --navy-light: #1e2a3a;
+      --gold: #c9a84c;
+      --gold-light: #e2c06e;
+      --white: #ffffff;
+      --gray: #8a9ab0;
+      --gray-light: #d1d9e6;
+      --green: #4ade80;
+      --red: #f87171;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10, 14, 26, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 100px;
+      font-weight: 600 !important;
+    }
+
+    /* LAYOUT */
+    .page-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 100vh;
+      padding-top: 5rem;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: var(--navy-mid);
+      border-right: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 2rem 0;
+      position: sticky;
+      top: 5rem;
+      height: calc(100vh - 5rem);
+      overflow-y: auto;
+    }
+
+    .sidebar-user {
+      padding: 0 1.5rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .sidebar-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.1);
+      border: 2px solid rgba(201, 168, 76, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 0.75rem;
+    }
+
+    .sidebar-name {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .sidebar-email {
+      font-size: 0.72rem;
+      color: var(--gray);
+      margin-top: 0.2rem;
+    }
+
+    .sidebar-nav { padding: 0 0.75rem; }
+
+    .sidebar-section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      padding: 0.75rem 0.75rem 0.35rem;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.65rem 0.75rem;
+      border-radius: 10px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      margin-bottom: 0.15rem;
+      border: none;
+      background: none;
+      width: 100%;
+      font-family: var(--font-body);
+      text-align: left;
+    }
+
+    .sidebar-link:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+    .sidebar-link.active { background: rgba(201, 168, 76, 0.1); color: var(--gold); }
+    .sidebar-link-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+    .sidebar-badge {
+      margin-left: auto;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.1rem 0.5rem;
+      border-radius: 100px;
+    }
+
+    /* MAIN */
+    .main-content { padding: 2rem 2.5rem; }
+
+    .page-header { margin-bottom: 2rem; }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-sub { color: var(--gray); font-size: 0.9rem; margin-top: 0.25rem; }
+
+    /* TAB PANELS */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* FILTER PILLS */
+    .filter-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .pill {
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      color: var(--gray);
+      background: transparent;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+    }
+
+    .pill:hover { border-color: var(--gold); color: var(--white); }
+    .pill.active { background: var(--gold); color: var(--navy); border-color: var(--gold); font-weight: 600; }
+
+    /* ORDER CARDS */
+    .orders-list { display: flex; flex-direction: column; gap: 1rem; }
+
+    .order-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .order-card:hover { border-color: rgba(201, 168, 76, 0.2); }
+
+    .order-card-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 1.25rem;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .order-avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .order-creator-name {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .order-type {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .order-date { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+
+    .order-price {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-align: right;
+    }
+
+    .order-id { font-size: 0.7rem; color: var(--gray); text-align: right; margin-top: 0.2rem; }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+    }
+
+    .status-pending { background: rgba(201,168,76,0.12); color: var(--gold); border: 1px solid rgba(201,168,76,0.2); }
+    .status-completed { background: rgba(74,222,128,0.1); color: var(--green); border: 1px solid rgba(74,222,128,0.2); }
+    .status-refunded { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+    .status-processing { background: rgba(139,92,246,0.1); color: #a78bfa; border: 1px solid rgba(139,92,246,0.2); }
+
+    /* ORDER BODY (expanded) */
+    .order-body {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 1.25rem 1.5rem;
+      display: none;
+    }
+
+    .order-body.open { display: block; }
+
+    .order-body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .order-detail-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.35rem;
+    }
+
+    .order-detail-value {
+      font-size: 0.875rem;
+      color: var(--gray-light);
+      line-height: 1.5;
+    }
+
+    /* VIDEO PLAYER */
+    .video-ready {
+      background: var(--navy);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .video-ready-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+    .video-ready h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      color: var(--green);
+    }
+
+    .video-ready p { font-size: 0.82rem; color: var(--gray); margin-bottom: 1.25rem; }
+
+    /* PENDING STATE */
+    .order-pending-state {
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      height: 6px;
+      margin: 1rem 0 0.5rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      transition: width 0.3s;
+    }
+
+    .progress-label {
+      font-size: 0.72rem;
+      color: var(--gray);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* ORDER ACTIONS */
+    .order-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-sm-primary { background: var(--gold); color: var(--navy); }
+    .btn-sm-primary:hover { background: var(--gold-light); }
+
+    .btn-sm-ghost {
+      background: transparent;
+      color: var(--gray);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-sm-ghost:hover { border-color: var(--gray); color: var(--white); }
+
+    .btn-sm-danger {
+      background: transparent;
+      color: var(--red);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+    }
+
+    .btn-sm-danger:hover { background: rgba(248, 113, 113, 0.1); }
+
+    /* EXPAND TOGGLE */
+    .expand-toggle {
+      background: none;
+      border: none;
+      color: var(--gray);
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-family: var(--font-body);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.5rem 1.5rem;
+      width: 100%;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      transition: color 0.2s;
+    }
+
+    .expand-toggle:hover { color: var(--white); }
+
+    /* SUBSCRIPTIONS */
+    .sub-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      gap: 1.25rem;
+      align-items: center;
+      margin-bottom: 0.875rem;
+    }
+
+    .sub-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .sub-name { font-weight: 700; font-size: 0.95rem; }
+    .sub-detail { font-size: 0.75rem; color: var(--gray); margin-top: 0.2rem; }
+    .sub-price { font-weight: 700; color: var(--gold); font-size: 1rem; text-align: right; }
+    .sub-renew { font-size: 0.7rem; color: var(--gray); text-align: right; margin-top: 0.2rem; }
+
+    /* ACCOUNT SETTINGS */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .settings-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    .settings-card.full { grid-column: 1 / -1; }
+
+    .settings-card-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .settings-input {
+      width: 100%;
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      margin-bottom: 0.875rem;
+      transition: border-color 0.2s;
+    }
+
+    .settings-input:focus { border-color: var(--gold); }
+    .settings-input::placeholder { color: var(--gray); }
+
+    .settings-label {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--gray);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); }
+
+    /* EMPTY STATE */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray);
+    }
+
+    .empty-state-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+
+    .empty-state h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-state p { margin-bottom: 1.5rem; font-size: 0.9rem; }
+
+    /* REVIEW MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-box {
+      background: var(--navy-mid);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 480px;
+      width: 90%;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-sub { color: var(--gray); font-size: 0.875rem; margin-bottom: 1.5rem; }
+
+    .star-rating {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .star-btn {
+      font-size: 2rem;
+      cursor: pointer;
+      color: rgba(255,255,255,0.2);
+      transition: color 0.15s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+
+    .star-btn.active { color: var(--gold); }
+
+    .modal-textarea {
+      width: 100%;
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      outline: none;
+      min-height: 100px;
+      resize: vertical;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-textarea:focus { border-color: var(--gold); }
+    .modal-textarea::placeholder { color: var(--gray); }
+
+    .modal-actions { display: flex; gap: 0.75rem; }
+    .modal-actions .btn-primary { flex: 1; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--gray);
+      padding: 0.75rem 1.5rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+      flex: 1;
+      text-align: center;
+    }
+
+    .btn-ghost:hover { border-color: var(--gray); color: var(--white); }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p { font-size: 0.8rem; color: var(--gray); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .page-layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .order-card-header { grid-template-columns: auto 1fr; }
+      .order-body-grid { grid-template-columns: 1fr; }
+      .settings-grid { grid-template-columns: 1fr; }
+      .settings-card.full { grid-column: 1; }
+      .sub-card { grid-template-columns: auto 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .main-content { padding: 1.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
+    <ul class="nav-links">
+      <li><a href="creators.html">Browse Creators</a></li>
+      <li><a href="#" class="nav-cta">Book Now</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">👤</div>
+        <div class="sidebar-name">Sarah Myers</div>
+        <div class="sidebar-email">sarah@email.com</div>
+      </div>
+
+      <div class="sidebar-nav">
+        <div class="sidebar-section-label">My Account</div>
+        <button class="sidebar-link active" onclick="switchPanel('orders', this)">
+          <span class="sidebar-link-icon">📦</span> My Orders
+          <span class="sidebar-badge">1</span>
+        </button>
+        <button class="sidebar-link" onclick="switchPanel('subscriptions', this)">
+          <span class="sidebar-link-icon">⭐</span> Subscriptions
+        </button>
+        <button class="sidebar-link" onclick="switchPanel('wishlist', this)">
+          <span class="sidebar-link-icon">❤️</span> Saved Creators
+        </button>
+        <button class="sidebar-link" onclick="switchPanel('settings', this)">
+          <span class="sidebar-link-icon">⚙️</span> Account Settings
+        </button>
+
+        <div class="sidebar-section-label">Quick Links</div>
+        <a href="creators.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🔍</span> Browse Creators
+        </a>
+        <a href="login.html" class="sidebar-link">
+          <span class="sidebar-link-icon">🚪</span> Sign Out
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <!-- ORDERS PANEL -->
+      <div class="tab-panel active" id="panel-orders">
+        <div class="page-header">
+          <h1 class="page-title">My <em>Orders</em></h1>
+          <p class="page-sub">Track your requests and download completed videos.</p>
+        </div>
+
+        <div class="filter-pills">
+          <button class="pill active">All Orders</button>
+          <button class="pill">Pending</button>
+          <button class="pill">Completed</button>
+          <button class="pill">Refunded</button>
+        </div>
+
+        <div class="orders-list">
+
+          <!-- PENDING ORDER -->
+          <div class="order-card">
+            <div class="order-card-header">
+              <div class="order-avatar">🎙️</div>
+              <div>
+                <div class="order-creator-name">Alex Rivera</div>
+                <div class="order-type">Personal Shoutout · Rush</div>
+                <div class="order-date">Ordered May 5, 2026 · Order #VV-482910</div>
+              </div>
+              <span class="status-badge status-pending">⏳ Pending</span>
+              <div>
+                <div class="order-price">$35.00</div>
+                <div class="order-id">#VV-482910</div>
+              </div>
+            </div>
+            <button class="expand-toggle" onclick="toggleOrder(this)">
+              ▼ View details
+            </button>
+            <div class="order-body">
+              <div class="order-pending-state">
+                <div style="font-size:1.5rem;margin-bottom:0.5rem;">🎬</div>
+                <div style="font-weight:600;margin-bottom:0.25rem;">Alex is working on your video</div>
+                <div style="font-size:0.82rem;color:var(--gray);margin-bottom:0.75rem;">Rush delivery — expected within 12 hours</div>
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar" style="width:35%;"></div>
+                </div>
+                <div class="progress-label">
+                  <span>Request received</span>
+                  <span>Video delivered</span>
+                </div>
+              </div>
+
+              <div class="order-body-grid">
+                <div>
+                  <div class="order-detail-label">Your Instructions</div>
+                  <div class="order-detail-value">"Please wish my dad Tom a happy 60th birthday. He loves the Cleveland Browns and fishing. Make it funny if you can!"</div>
+                </div>
+                <div>
+                  <div class="order-detail-label">Order Details</div>
+                  <div class="order-detail-value">
+                    Type: Personal Shoutout<br/>
+                    Rush Delivery: Yes (+$10)<br/>
+                    Deliver to: sarah@email.com<br/>
+                    Deadline: May 6, 2026
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-actions">
+                <button class="btn-sm btn-sm-ghost">Contact Support</button>
+                <button class="btn-sm btn-sm-danger">Request Refund</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPLETED ORDER WITH VIDEO -->
+          <div class="order-card">
+            <div class="order-card-header">
+              <div class="order-avatar">💪</div>
+              <div>
+                <div class="order-creator-name">Jordan Miles</div>
+                <div class="order-type">Personal Shoutout</div>
+                <div class="order-date">Ordered Apr 28, 2026 · Order #VV-391047</div>
+              </div>
+              <span class="status-badge status-completed">✓ Completed</span>
+              <div>
+                <div class="order-price">$40.00</div>
+                <div class="order-id">#VV-391047</div>
+              </div>
+            </div>
+            <button class="expand-toggle" onclick="toggleOrder(this)">
+              ▼ View details & download
+            </button>
+            <div class="order-body">
+              <div class="video-ready">
+                <div class="video-ready-icon">🎬</div>
+                <h3>Your video is ready!</h3>
+                <p>Jordan Miles delivered your personalized video on Apr 29, 2026. Download it below or share directly.</p>
+                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+                  <button class="btn-sm btn-sm-primary" onclick="alert('Downloading your video...')">⬇ Download Video</button>
+                  <button class="btn-sm btn-sm-ghost" onclick="alert('Copied shareable link!')">🔗 Copy Link</button>
+                  <button class="btn-sm btn-sm-ghost" onclick="openReviewModal('Jordan Miles')">⭐ Leave Review</button>
+                </div>
+              </div>
+
+              <div class="order-body-grid">
+                <div>
+                  <div class="order-detail-label">Your Instructions</div>
+                  <div class="order-detail-value">"Motivational birthday message for my son Marcus who just started his fitness journey. Make it hype!"</div>
+                </div>
+                <div>
+                  <div class="order-detail-label">Order Details</div>
+                  <div class="order-detail-value">
+                    Type: Personal Shoutout<br/>
+                    Delivered: Apr 29, 2026<br/>
+                    Rating: Not yet reviewed<br/>
+                    Amount: $40.00
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-actions">
+                <button class="btn-sm btn-sm-ghost" onclick="window.location.href='profile.html'">Book Again</button>
+                <button class="btn-sm btn-sm-ghost">Contact Support</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- COMPLETED ORDER ALREADY REVIEWED -->
+          <div class="order-card">
+            <div class="order-card-header">
+              <div class="order-avatar">😂</div>
+              <div>
+                <div class="order-creator-name">Sam Kowalski</div>
+                <div class="order-type">Personal Shoutout</div>
+                <div class="order-date">Ordered Apr 10, 2026 · Order #VV-274819</div>
+              </div>
+              <span class="status-badge status-completed">✓ Completed</span>
+              <div>
+                <div class="order-price">$15.00</div>
+                <div class="order-id">#VV-274819</div>
+              </div>
+            </div>
+            <button class="expand-toggle" onclick="toggleOrder(this)">
+              ▼ View details & download
+            </button>
+            <div class="order-body">
+              <div class="video-ready">
+                <div class="video-ready-icon">🎬</div>
+                <h3>Your video is ready!</h3>
+                <p>Sam Kowalski delivered your video on Apr 11, 2026. You rated this ★★★★★.</p>
+                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+                  <button class="btn-sm btn-sm-primary" onclick="alert('Downloading your video...')">⬇ Download Video</button>
+                  <button class="btn-sm btn-sm-ghost" onclick="alert('Copied shareable link!')">🔗 Copy Link</button>
+                </div>
+              </div>
+
+              <div class="order-body-grid">
+                <div>
+                  <div class="order-detail-label">Your Instructions</div>
+                  <div class="order-detail-value">"Roast my friend Jake for his 30th birthday — he thinks he's a great cook but burns everything."</div>
+                </div>
+                <div>
+                  <div class="order-detail-label">Your Review</div>
+                  <div class="order-detail-value">
+                    ★★★★★ — "Sam absolutely nailed the roast. Jake could not stop laughing. 10/10 worth every penny."
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-actions">
+                <button class="btn-sm btn-sm-ghost" onclick="window.location.href='profile.html'">Book Again</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- REFUNDED ORDER -->
+          <div class="order-card">
+            <div class="order-card-header">
+              <div class="order-avatar">🎵</div>
+              <div>
+                <div class="order-creator-name">Maya Chen</div>
+                <div class="order-type">Personal Shoutout</div>
+                <div class="order-date">Ordered Mar 28, 2026 · Order #VV-198374</div>
+              </div>
+              <span class="status-badge status-refunded">↩ Refunded</span>
+              <div>
+                <div class="order-price" style="color:var(--red);">$60.00</div>
+                <div class="order-id">#VV-198374</div>
+              </div>
+            </div>
+            <button class="expand-toggle" onclick="toggleOrder(this)">
+              ▼ View details
+            </button>
+            <div class="order-body">
+              <div style="background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.15);border-radius:12px;padding:1.25rem;margin-bottom:1rem;text-align:center;">
+                <div style="font-size:1.5rem;margin-bottom:0.5rem;">↩️</div>
+                <div style="font-weight:600;color:var(--red);margin-bottom:0.25rem;">Order refunded</div>
+                <div style="font-size:0.82rem;color:var(--gray);">Maya Chen was unable to fulfill this request within 7 days. $60.00 was automatically refunded to your original payment method on Apr 4, 2026.</div>
+              </div>
+
+              <div class="order-body-grid">
+                <div>
+                  <div class="order-detail-label">Your Instructions</div>
+                  <div class="order-detail-value">"Anniversary song dedication for my wife — something romantic and heartfelt."</div>
+                </div>
+                <div>
+                  <div class="order-detail-label">Refund Details</div>
+                  <div class="order-detail-value">
+                    Refund Amount: $60.00<br/>
+                    Refund Date: Apr 4, 2026<br/>
+                    Reason: Not delivered in 7 days<br/>
+                    Method: Original payment
+                  </div>
+                </div>
+              </div>
+
+              <div class="order-actions">
+                <button class="btn-sm btn-sm-ghost" onclick="window.location.href='profile.html'">Try Another Creator</button>
+                <button class="btn-sm btn-sm-ghost">Contact Support</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTIONS PANEL -->
+      <div class="tab-panel" id="panel-subscriptions">
+        <div class="page-header">
+          <h1 class="page-title">My <em>Subscriptions</em></h1>
+          <p class="page-sub">Manage your active creator subscriptions.</p>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-avatar">🎙️</div>
+          <div>
+            <div class="sub-name">Alex Rivera</div>
+            <div class="sub-detail">Podcaster · Exclusive content + subscriber videos monthly</div>
+          </div>
+          <div>
+            <div class="sub-price">$9.99/mo</div>
+            <div class="sub-renew">Renews June 5, 2026</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <button class="btn-sm btn-sm-ghost" onclick="window.location.href='profile.html'">View Content</button>
+            <button class="btn-sm btn-sm-danger" onclick="cancelSub(this)">Cancel</button>
+          </div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-avatar">💪</div>
+          <div>
+            <div class="sub-name">Jordan Miles</div>
+            <div class="sub-detail">Fitness · Weekly workout videos + motivation drops</div>
+          </div>
+          <div>
+            <div class="sub-price">$14.99/mo</div>
+            <div class="sub-renew">Renews June 28, 2026</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:0.5rem;">
+            <button class="btn-sm btn-sm-ghost" onclick="window.location.href='profile.html'">View Content</button>
+            <button class="btn-sm btn-sm-danger" onclick="cancelSub(this)">Cancel</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SAVED CREATORS PANEL -->
+      <div class="tab-panel" id="panel-wishlist">
+        <div class="page-header">
+          <h1 class="page-title">Saved <em>Creators</em></h1>
+          <p class="page-sub">Creators you've saved for later.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem;">
+
+          <a href="profile.html" style="background:var(--navy-light);border:1px solid rgba(201,168,76,0.08);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--white);display:block;transition:all 0.3s;">
+            <div style="aspect-ratio:1;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;">
+              🎤
+              <button onclick="event.preventDefault();this.textContent=this.textContent==='❤️'?'🤍':'❤️'" style="position:absolute;top:0.5rem;right:0.5rem;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:1rem;">❤️</button>
+            </div>
+            <div style="padding:1rem;">
+              <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.2rem;">Marcus Lee</div>
+              <div style="font-size:0.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.6rem;">Politics</div>
+              <div style="font-size:0.9rem;font-weight:600;">From $75</div>
+            </div>
+          </a>
+
+          <a href="profile.html" style="background:var(--navy-light);border:1px solid rgba(201,168,76,0.08);border-radius:14px;overflow:hidden;text-decoration:none;color:var(--white);display:block;transition:all 0.3s;">
+            <div style="aspect-ratio:1;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative;">
+              🎮
+              <button onclick="event.preventDefault();this.textContent=this.textContent==='❤️'?'🤍':'❤️'" style="position:absolute;top:0.5rem;right:0.5rem;background:rgba(0,0,0,0.5);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:1rem;">❤️</button>
+            </div>
+            <div style="padding:1rem;">
+              <div style="font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:0.2rem;">Taylor Brooks</div>
+              <div style="font-size:0.72rem;color:var(--gold);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.6rem;">Gaming</div>
+              <div style="font-size:0.9rem;font-weight:600;">From $20</div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- SETTINGS PANEL -->
+      <div class="tab-panel" id="panel-settings">
+        <div class="page-header">
+          <h1 class="page-title">Account <em>Settings</em></h1>
+          <p class="page-sub">Manage your personal information and preferences.</p>
+        </div>
+
+        <div class="settings-grid">
+          <div class="settings-card full">
+            <div class="settings-card-title">Personal Information</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+              <div>
+                <label class="settings-label">First Name</label>
+                <input type="text" class="settings-input" value="Sarah" />
+              </div>
+              <div>
+                <label class="settings-label">Last Name</label>
+                <input type="text" class="settings-input" value="Myers" />
+              </div>
+            </div>
+            <label class="settings-label">Email Address</label>
+            <input type="email" class="settings-input" value="sarah@email.com" />
+            <label class="settings-label">Phone (optional)</label>
+            <input type="tel" class="settings-input" placeholder="+1 (555) 000-0000" />
+            <button class="btn-primary">Save Changes</button>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-card-title">Notifications</div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+              <label style="display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;cursor:pointer;">
+                <input type="checkbox" checked style="accent-color:var(--gold);width:15px;height:15px;" />
+                Video delivered
+              </label>
+              <label style="display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;cursor:pointer;">
+                <input type="checkbox" checked style="accent-color:var(--gold);width:15px;height:15px;" />
+                Order status updates
+              </label>
+              <label style="display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;cursor:pointer;">
+                <input type="checkbox" checked style="accent-color:var(--gold);width:15px;height:15px;" />
+                New content from subscriptions
+              </label>
+              <label style="display:flex;align-items:center;gap:0.75rem;font-size:0.875rem;cursor:pointer;">
+                <input type="checkbox" style="accent-color:var(--gold);width:15px;height:15px;" />
+                VoxVega promotions
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-card-title">Change Password</div>
+            <label class="settings-label">Current Password</label>
+            <input type="password" class="settings-input" placeholder="••••••••" />
+            <label class="settings-label">New Password</label>
+            <input type="password" class="settings-input" placeholder="••••••••" />
+            <label class="settings-label">Confirm New Password</label>
+            <input type="password" class="settings-input" placeholder="••••••••" style="margin-bottom:1rem;" />
+            <button class="btn-primary">Update Password</button>
+          </div>
+
+          <div class="settings-card full">
+            <div class="settings-card-title" style="color:var(--red);">Danger Zone</div>
+            <p style="font-size:0.875rem;color:var(--gray);margin-bottom:1rem;">Deleting your account is permanent and cannot be undone. All orders, subscriptions, and saved creators will be removed.</p>
+            <button style="background:transparent;color:var(--red);border:1px solid rgba(248,113,113,0.3);padding:0.6rem 1.5rem;border-radius:100px;font-family:var(--font-body);font-size:0.875rem;cursor:pointer;" onclick="confirmDelete()">Delete My Account</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- REVIEW MODAL -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-box">
+      <div class="modal-title">Leave a Review</div>
+      <div class="modal-sub" id="reviewModalSub">How was your experience with Jordan Miles?</div>
+
+      <div class="star-rating" id="starRating">
+        <button class="star-btn" onclick="setRating(1)">★</button>
+        <button class="star-btn" onclick="setRating(2)">★</button>
+        <button class="star-btn" onclick="setRating(3)">★</button>
+        <button class="star-btn" onclick="setRating(4)">★</button>
+        <button class="star-btn" onclick="setRating(5)">★</button>
+      </div>
+
+      <textarea class="modal-textarea" placeholder="Tell other fans about your experience. What made it great? Would you book again?"></textarea>
+
+      <div class="modal-actions">
+        <button class="btn-primary" onclick="submitReview()">Submit Review</button>
+        <button class="btn-ghost" onclick="closeReviewModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+  </footer>
+
+  <script>
+    function switchPanel(name, el) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      document.getElementById('panel-' + name).classList.add('active');
+      if (el) el.classList.add('active');
+    }
+
+    function toggleOrder(btn) {
+      const body = btn.nextElementSibling;
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open');
+      btn.textContent = isOpen ? '▼ View details' : '▲ Hide details';
+      if (btn.textContent.includes('download')) {
+        btn.textContent = isOpen ? '▼ View details & download' : '▲ Hide details';
+      }
+    }
+
+    let selectedRating = 0;
+
+    function setRating(n) {
+      selectedRating = n;
+      document.querySelectorAll('.star-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i < n);
+      });
+    }
+
+    function openReviewModal(creatorName) {
+      document.getElementById('reviewModalSub').textContent = `How was your experience with ${creatorName}?`;
+      document.getElementById('reviewModal').classList.add('active');
+    }
+
+    function closeReviewModal() {
+      document.getElementById('reviewModal').classList.remove('active');
+      selectedRating = 0;
+      document.querySelectorAll('.star-btn').forEach(btn => btn.classList.remove('active'));
+    }
+
+    function submitReview() {
+      if (!selectedRating) {
+        alert('Please select a star rating.');
+        return;
+      }
+      alert('Review submitted! Thank you for your feedback.');
+      closeReviewModal();
+    }
+
+    function cancelSub(btn) {
+      if (confirm('Are you sure you want to cancel this subscription? You will retain access until the end of your billing period.')) {
+        const card = btn.closest('.sub-card');
+        card.style.opacity = '0.5';
+        card.style.pointerEvents = 'none';
+        btn.textContent = 'Cancelled';
+      }
+    }
+
+    function confirmDelete() {
+      if (confirm('Are you absolutely sure? This cannot be undone.')) {
+        alert('Account deletion request submitted. You will receive a confirmation email.');
+      }
+    }
+  </script>
+
+</body>
+</html>
