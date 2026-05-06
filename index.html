@@ -1,1 +1,1107 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VoxVega — Book a Personal Video from Your Favorite Creators</title>
+  <meta name="description" content="Book personalized video messages, shoutouts, and exclusive content from your favorite creators. VoxVega — Your voice. Their star." />
+  <meta property="og:title" content="VoxVega — Book a Personal Video from Your Favorite Creators" />
+  <meta property="og:description" content="Book personalized video messages from your favorite creators." />
+  <meta property="og:url" content="https://voxvega.com" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0e1a;
+      --navy-mid: #111827;
+      --navy-light: #1e2a3a;
+      --gold: #c9a84c;
+      --gold-light: #e2c06e;
+      --gold-pale: #f5e9c8;
+      --white: #ffffff;
+      --off-white: #f8f6f1;
+      --gray: #8a9ab0;
+      --gray-light: #d1d9e6;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      background: rgba(10, 14, 26, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--navy) !important;
+      padding: 0.5rem 1.25rem;
+      border-radius: 100px;
+      font-weight: 600 !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--navy) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: var(--op, 0.6); transform: scale(1.5); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--gray);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.6s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.8s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: var(--navy-light);
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      color: var(--gray);
+      font-size: 1.05rem;
+      max-width: 520px;
+      font-weight: 300;
+    }
+
+    /* HOW IT WORKS */
+    .how-it-works { max-width: 1100px; margin: 0 auto; }
+
+    .how-header { margin-bottom: 3.5rem; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .step {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    .step:hover { border-color: rgba(201, 168, 76, 0.4); transform: translateY(-4px); }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(201, 168, 76, 0.12);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .step-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .step h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .step p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+
+    /* CATEGORIES */
+    .categories-section { background: var(--navy-mid); }
+
+    .categories-inner { max-width: 1100px; margin: 0 auto; }
+
+    .categories-header { margin-bottom: 3rem; }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .category-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .category-card:hover {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.05);
+      transform: translateY(-3px);
+    }
+
+    .category-icon { font-size: 2rem; display: block; margin-bottom: 0.75rem; }
+
+    .category-name { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; }
+
+    .category-count { font-size: 0.75rem; color: var(--gray); margin-top: 0.25rem; }
+
+    /* FEATURED CREATORS */
+    .featured-section { max-width: 1100px; margin: 0 auto; }
+
+    .featured-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .creator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .creator-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 16px;
+      overflow: hidden;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s;
+      display: block;
+    }
+
+    .creator-card:hover { border-color: rgba(201, 168, 76, 0.4); transform: translateY(-5px); }
+
+    .creator-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .creator-img::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(transparent, rgba(10,14,26,0.8));
+    }
+
+    .creator-badge {
+      position: absolute;
+      top: 0.75rem; right: 0.75rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.5rem;
+      border-radius: 100px;
+      z-index: 2;
+    }
+
+    .creator-info { padding: 1.25rem; }
+
+    .creator-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .creator-category {
+      font-size: 0.78rem;
+      color: var(--gold);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .creator-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .creator-price {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .creator-price span {
+      font-size: 0.75rem;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .creator-rating {
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    /* FOR CREATORS SECTION */
+    .for-creators {
+      background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-mid) 100%);
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .for-creators-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .creators-perks { list-style: none; margin: 2rem 0; }
+
+    .creators-perks li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.95rem;
+    }
+
+    .creators-perks li:last-child { border-bottom: none; }
+
+    .perk-icon { color: var(--gold); font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+    .perk-text strong { display: block; font-weight: 600; margin-bottom: 0.15rem; }
+    .perk-text span { color: var(--gray); font-size: 0.85rem; }
+
+    .revenue-card {
+      background: var(--navy);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+    }
+
+    .revenue-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .revenue-number {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .revenue-sub {
+      font-size: 0.9rem;
+      color: var(--gray);
+      margin-bottom: 2rem;
+    }
+
+    .revenue-streams {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .revenue-stream {
+      background: var(--navy-light);
+      border-radius: 10px;
+      padding: 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gray-light);
+    }
+
+    .revenue-stream strong { display: block; color: var(--gold); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.2rem; }
+
+    /* TESTIMONIALS */
+    .testimonials-section { max-width: 1100px; margin: 0 auto; }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial {
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.08);
+      border-radius: 16px;
+      padding: 2rem;
+    }
+
+    .testimonial-stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1rem; }
+
+    .testimonial-text {
+      font-size: 0.95rem;
+      color: var(--gray-light);
+      line-height: 1.7;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-author { display: flex; align-items: center; gap: 0.75rem; }
+
+    .author-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .author-name { font-weight: 600; font-size: 0.9rem; }
+    .author-detail { font-size: 0.78rem; color: var(--gray); }
+
+    /* CTA SECTION */
+    .cta-section {
+      text-align: center;
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .cta-inner { max-width: 640px; margin: 0 auto; }
+
+    .cta-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-inner h2 em { font-style: italic; color: var(--gold); }
+
+    .cta-inner p { color: var(--gray); margin-bottom: 2rem; font-size: 1.05rem; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .nav-logo { font-size: 1.4rem; display: inline-block; margin-bottom: 1rem; }
+
+    .footer-brand p { color: var(--gray); font-size: 0.85rem; max-width: 260px; line-height: 1.7; }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col ul { list-style: none; }
+
+    .footer-col ul li { margin-bottom: 0.6rem; }
+
+    .footer-col ul li a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: var(--white); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-bottom p { font-size: 0.8rem; color: var(--gray); }
+
+    .footer-legal { display: flex; gap: 1.5rem; }
+
+    .footer-legal a { font-size: 0.8rem; color: var(--gray); text-decoration: none; }
+    .footer-legal a:hover { color: var(--white); }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .nav-links { display: none; }
+      .stats-bar { gap: 2rem; }
+      .for-creators-inner { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .revenue-streams { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">Vox<span>Vega</span></a>
+    <ul class="nav-links">
+      <li><a href="creators.html">Browse Creators</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#for-creators">For Creators</a></li>
+      <li><a href="login.html">Sign In</a></li>
+      <li><a href="login.html" class="nav-cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-stars" id="heroStars"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Personalized Creator Experiences</div>
+      <h1>Your favorite creator,<br /><em>speaking to you.</em></h1>
+      <p class="hero-sub">Book personalized video messages, exclusive content, and direct connections from the creators you love — on the platform that puts them first.</p>
+      <div class="hero-actions">
+        <a href="creators.html" class="btn-primary">Browse Creators</a>
+        <a href="#for-creators" class="btn-secondary">Join as a Creator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">90%</span>
+      <span class="stat-label">Paid to Creators</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">48hr</span>
+      <span class="stat-label">Average Delivery</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Satisfaction Guarantee</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">6+</span>
+      <span class="stat-label">Ways to Monetize</span>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works">
+    <div class="how-it-works">
+      <div class="how-header">
+        <div class="section-label">Simple Process</div>
+        <h2 class="section-title">How VoxVega works</h2>
+        <p class="section-sub">From browsing to delivery, we've made booking a personal creator experience effortless.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <span class="step-icon">🔍</span>
+          <h3>Find your creator</h3>
+          <p>Browse by category, search by name, or discover new talent. Every creator sets their own price and availability.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <span class="step-icon">✍️</span>
+          <h3>Make your request</h3>
+          <p>Tell the creator what you need — a birthday shoutout, a business message, a personal note, or something totally unique.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <span class="step-icon">💳</span>
+          <h3>Pay securely</h3>
+          <p>Pay by card or crypto. Your payment is held safely until your video is delivered — no delivery, no charge.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">04</div>
+          <span class="step-icon">🎬</span>
+          <h3>Receive your video</h3>
+          <p>Get notified when your personalized video is ready. Download, share, and keep it forever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="categories-section">
+    <div class="categories-inner">
+      <div class="categories-header">
+        <div class="section-label">Explore</div>
+        <h2 class="section-title">Find creators in every category</h2>
+      </div>
+      <div class="category-grid">
+        <a href="creators.html?cat=comedy" class="category-card">
+          <span class="category-icon">😂</span>
+          <div class="category-name">Comedy</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=music" class="category-card">
+          <span class="category-icon">🎵</span>
+          <div class="category-name">Music</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=sports" class="category-card">
+          <span class="category-icon">🏆</span>
+          <div class="category-name">Sports</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=wrestling" class="category-card">
+          <span class="category-icon">🤼</span>
+          <div class="category-name">Wrestling</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=podcasters" class="category-card">
+          <span class="category-icon">🎙️</span>
+          <div class="category-name">Podcasters</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=fitness" class="category-card">
+          <span class="category-icon">💪</span>
+          <div class="category-name">Fitness</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=politics" class="category-card">
+          <span class="category-icon">🎤</span>
+          <div class="category-name">Politics</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=gaming" class="category-card">
+          <span class="category-icon">🎮</span>
+          <div class="category-name">Gaming</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=kpop" class="category-card">
+          <span class="category-icon">✨</span>
+          <div class="category-name">K-Pop</div>
+          <div class="category-count">Coming soon</div>
+        </a>
+        <a href="creators.html?cat=adult" class="category-card">
+          <span class="category-icon">🔞</span>
+          <div class="category-name">18+ Creators</div>
+          <div class="category-count">Age verified</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED CREATORS (placeholder) -->
+  <section>
+    <div class="featured-section">
+      <div class="featured-header">
+        <div>
+          <div class="section-label">Featured</div>
+          <h2 class="section-title">Meet our creators</h2>
+        </div>
+        <a href="creators.html" class="btn-secondary">View all creators</a>
+      </div>
+      <div class="creator-grid">
+        <a href="profile.html" class="creator-card">
+          <div class="creator-img">🎤
+            <div class="creator-badge">Popular</div>
+          </div>
+          <div class="creator-info">
+            <div class="creator-name">Alex Rivera</div>
+            <div class="creator-category">Podcaster</div>
+            <div class="creator-price-row">
+              <div class="creator-price">$25 <span>/ shoutout</span></div>
+              <div class="creator-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+        <a href="profile.html" class="creator-card">
+          <div class="creator-img">🏋️
+            <div class="creator-badge">New</div>
+          </div>
+          <div class="creator-info">
+            <div class="creator-name">Jordan Miles</div>
+            <div class="creator-category">Fitness</div>
+            <div class="creator-price-row">
+              <div class="creator-price">$40 <span>/ shoutout</span></div>
+              <div class="creator-rating">★ 5.0</div>
+            </div>
+          </div>
+        </a>
+        <a href="profile.html" class="creator-card">
+          <div class="creator-img">😂</div>
+          <div class="creator-info">
+            <div class="creator-name">Sam Kowalski</div>
+            <div class="creator-category">Comedy</div>
+            <div class="creator-price-row">
+              <div class="creator-price">$15 <span>/ shoutout</span></div>
+              <div class="creator-rating">★ 4.8</div>
+            </div>
+          </div>
+        </a>
+        <a href="profile.html" class="creator-card">
+          <div class="creator-img">🎵
+            <div class="creator-badge">Trending</div>
+          </div>
+          <div class="creator-info">
+            <div class="creator-name">Maya Chen</div>
+            <div class="creator-category">Music</div>
+            <div class="creator-price-row">
+              <div class="creator-price">$60 <span>/ shoutout</span></div>
+              <div class="creator-rating">★ 4.9</div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR CREATORS -->
+  <section class="for-creators" id="for-creators">
+    <div class="for-creators-inner">
+      <div>
+        <div class="section-label">For Creators</div>
+        <h2 class="section-title">The platform that actually pays you</h2>
+        <p class="section-sub">VoxVega was built creator-first. Keep 90% of everything you earn — across every revenue stream.</p>
+        <ul class="creators-perks">
+          <li>
+            <span class="perk-icon">★</span>
+            <div class="perk-text">
+              <strong>90/10 revenue split</strong>
+              <span>Industry-leading payout. You keep 90% of every transaction.</span>
+            </div>
+          </li>
+          <li>
+            <span class="perk-icon">★</span>
+            <div class="perk-text">
+              <strong>Multiple income streams</strong>
+              <span>Shoutouts, subscriptions, tips, DMs, digital downloads, and live calls — all in one place.</span>
+            </div>
+          </li>
+          <li>
+            <span class="perk-icon">★</span>
+            <div class="perk-text">
+              <strong>Card + crypto payouts</strong>
+              <span>Get paid by bank transfer or choose from 8 cryptocurrencies.</span>
+            </div>
+          </li>
+          <li>
+            <span class="perk-icon">★</span>
+            <div class="perk-text">
+              <strong>No gatekeeping</strong>
+              <span>We welcome all legal creators. No approval process, no ideological vetting.</span>
+            </div>
+          </li>
+          <li>
+            <span class="perk-icon">★</span>
+            <div class="perk-text">
+              <strong>Your full profile, your ecosystem</strong>
+              <span>Link your socials, merch store, YouTube, and other platforms directly on your VoxVega profile.</span>
+            </div>
+          </li>
+        </ul>
+        <a href="login.html" class="btn-primary">Start earning on VoxVega</a>
+      </div>
+      <div class="revenue-card">
+        <div class="revenue-label">Your creator split</div>
+        <div class="revenue-number">90%</div>
+        <div class="revenue-sub">of every dollar goes to you</div>
+        <div class="revenue-streams">
+          <div class="revenue-stream"><strong>Shoutouts</strong>Personal & business</div>
+          <div class="revenue-stream"><strong>Subscriptions</strong>Monthly recurring</div>
+          <div class="revenue-stream"><strong>Tips</strong>Fan appreciation</div>
+          <div class="revenue-stream"><strong>Direct DMs</strong>Paid messaging</div>
+          <div class="revenue-stream"><strong>Downloads</strong>Digital products</div>
+          <div class="revenue-stream"><strong>Live Calls</strong>1-on-1 video</div>
+        </div>
+        <a href="login.html" class="btn-primary" style="width:100%;text-align:center;">Apply as a Creator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="testimonials-section">
+      <div class="section-label">Reviews</div>
+      <h2 class="section-title">Fans and creators love VoxVega</h2>
+      <div class="testimonial-grid">
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"I got a birthday video for my dad from his favorite podcaster. He cried. Worth every penny and then some."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">👤</div>
+            <div>
+              <div class="author-name">Sarah M.</div>
+              <div class="author-detail">VoxVega buyer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"Finally a platform that doesn't take half my earnings. I moved from another platform and immediately noticed the difference."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">🎙️</div>
+            <div>
+              <div class="author-name">Derek T.</div>
+              <div class="author-detail">Podcaster & VoxVega creator</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">"The crypto payout option is a game changer. No other platform offers this. VoxVega is the future of creator monetization."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">💪</div>
+            <div>
+              <div class="author-name">Marcus L.</div>
+              <div class="author-detail">Fitness creator</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to book your<br /><em>perfect moment?</em></h2>
+      <p>Join thousands of fans connecting with their favorite creators on VoxVega.</p>
+      <div class="hero-actions">
+        <a href="creators.html" class="btn-primary">Browse Creators</a>
+        <a href="login.html" class="btn-secondary">Join as a Creator</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="nav-logo">Vox<span>Vega</span></a>
+          <p>The creator monetization platform that puts creators first. Book personalized videos, subscribe to exclusive content, and connect directly with the creators you love.</p>
+        </div>
+        <div class="footer-col">
+          <h4>For Fans</h4>
+          <ul>
+            <li><a href="creators.html">Browse Creators</a></li>
+            <li><a href="creators.html">How It Works</a></li>
+            <li><a href="buyer.html">My Orders</a></li>
+            <li><a href="#">Gift Cards</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>For Creators</h4>
+          <ul>
+            <li><a href="login.html">Join VoxVega</a></li>
+            <li><a href="dashboard.html">Creator Dashboard</a></li>
+            <li><a href="#">Pricing & Payouts</a></li>
+            <li><a href="#">Creator Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 VoxVega LLC. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Generate twinkling stars
+    const container = document.getElementById('heroStars');
+    for (let i = 0; i < 60; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        --dur: ${2 + Math.random() * 4}s;
+        --delay: ${Math.random() * 4}s;
+        --op: ${0.3 + Math.random() * 0.7};
+        width: ${1 + Math.random() * 2}px;
+        height: ${1 + Math.random() * 2}px;
+      `;
+      container.appendChild(star);
+    }
+  </script>
+
+</body>
+</html>
