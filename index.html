@@ -16,7 +16,6 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Logo-extracted palette */
       --cyan:       #00E5FF;
       --cyan-dim:   rgba(0, 229, 255, 0.15);
       --cyan-glow:  rgba(0, 229, 255, 0.08);
@@ -27,27 +26,18 @@
       --gold:       #FFB300;
       --gold-dim:   rgba(255, 179, 0, 0.15);
       --gold-glow:  rgba(255, 179, 0, 0.08);
-
-      /* Backgrounds */
       --bg:         #080B14;
       --bg-2:       #0D1120;
       --bg-3:       #111827;
       --bg-4:       #161D2E;
-
-      /* Text */
       --white:      #FFFFFF;
       --white-dim:  rgba(255,255,255,0.55);
       --white-faint:rgba(255,255,255,0.08);
       --white-sub:  rgba(255,255,255,0.04);
-
-      /* Border */
       --border:     rgba(255,255,255,0.07);
-
-      /* Gradient — logo spectrum */
       --grad:       linear-gradient(90deg, #00E5FF, #8B5CF6, #E040FB, #FFB300);
       --grad-diag:  linear-gradient(135deg, #00E5FF 0%, #8B5CF6 35%, #E040FB 65%, #FFB300 100%);
       --grad-text:  linear-gradient(90deg, #00E5FF 0%, #8B5CF6 30%, #E040FB 65%, #FFB300 100%);
-
       --font-main:  'Inter', sans-serif;
       --font-serif: 'Playfair Display', Georgia, serif;
     }
@@ -64,7 +54,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── GRADIENT TEXT UTILITY ── */
     .grad-text {
       background: var(--grad-text);
       -webkit-background-clip: text;
@@ -72,7 +61,6 @@
       background-clip: text;
     }
 
-    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -161,7 +149,6 @@
       color: var(--white) !important;
     }
 
-    /* ── HERO ── */
     .hero {
       position: relative;
       min-height: 100vh;
@@ -171,7 +158,6 @@
       padding: 0 2.5rem;
     }
 
-    /* Ambient glow backgrounds */
     .hero-glow-cyan {
       position: absolute;
       top: 20%;
@@ -202,7 +188,6 @@
       pointer-events: none;
     }
 
-    /* Grid lines */
     .hero-grid {
       position: absolute;
       inset: 0;
@@ -227,8 +212,6 @@
       align-items: center;
       padding: 8rem 0 5rem;
     }
-
-    .hero-left {}
 
     .hero-badge {
       display: inline-flex;
@@ -366,7 +349,6 @@
     .trust-dot-purple { background: var(--purple); box-shadow: 0 0 6px var(--purple); }
     .trust-dot-mag { background: var(--magenta); box-shadow: 0 0 6px var(--magenta); }
 
-    /* Hero right — logo showcase + creator cards */
     .hero-right {
       display: flex;
       flex-direction: column;
@@ -412,7 +394,6 @@
       50% { transform: translateY(-12px); }
     }
 
-    /* Mini creator cards */
     .hero-creator-row {
       display: flex;
       gap: 0.875rem;
@@ -463,7 +444,6 @@
     .price-purple { color: var(--purple); }
     .price-mag { color: var(--magenta); }
 
-    /* ── STATS BAR ── */
     .stats-bar {
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
@@ -509,7 +489,6 @@
       text-transform: uppercase;
     }
 
-    /* ── TICKER ── */
     .ticker-wrap {
       overflow: hidden;
       white-space: nowrap;
@@ -559,7 +538,6 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* ── SHARED SECTION ── */
     .section-wrap {
       max-width: 1200px;
       margin: 0 auto;
@@ -611,7 +589,6 @@
       background-clip: text;
     }
 
-    /* ── HOW IT WORKS ── */
     .how-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -630,7 +607,6 @@
     }
 
     .how-card:hover { transform: translateY(-4px); }
-
     .how-card-1:hover { border-color: var(--cyan-dim); }
     .how-card-2:hover { border-color: var(--purple-dim); }
     .how-card-3:hover { border-color: var(--mag-dim); }
@@ -674,7 +650,6 @@
 
     .how-card p { font-size: 0.875rem; color: var(--white-dim); line-height: 1.65; }
 
-    /* ── CATEGORIES ── */
     .cat-outer {
       background: var(--bg-2);
       border-top: 1px solid var(--border);
@@ -728,34 +703,24 @@
 
     .cat-btn:hover::after { background: rgba(0,0,0,0.1); }
 
-    /* Each category gets a neon gradient from the logo palette */
     .cb-comedy   { background: linear-gradient(145deg, #00E5FF22, #8B5CF622); border-color: rgba(0,229,255,0.2); }
     .cb-comedy:hover { box-shadow: 0 16px 40px rgba(0,229,255,0.2); border-color: rgba(0,229,255,0.5); }
-
     .cb-music    { background: linear-gradient(145deg, #8B5CF622, #E040FB22); border-color: rgba(139,92,246,0.2); }
     .cb-music:hover { box-shadow: 0 16px 40px rgba(139,92,246,0.2); border-color: rgba(139,92,246,0.5); }
-
     .cb-sports   { background: linear-gradient(145deg, #E040FB22, #FFB30022); border-color: rgba(224,64,251,0.2); }
     .cb-sports:hover { box-shadow: 0 16px 40px rgba(224,64,251,0.2); border-color: rgba(224,64,251,0.5); }
-
     .cb-wrestling{ background: linear-gradient(145deg, #FFB30022, #00E5FF22); border-color: rgba(255,179,0,0.2); }
     .cb-wrestling:hover { box-shadow: 0 16px 40px rgba(255,179,0,0.2); border-color: rgba(255,179,0,0.5); }
-
     .cb-podcast  { background: linear-gradient(145deg, #00E5FF22, #E040FB22); border-color: rgba(0,229,255,0.2); }
     .cb-podcast:hover { box-shadow: 0 16px 40px rgba(0,229,255,0.15); border-color: rgba(0,229,255,0.4); }
-
     .cb-fitness  { background: linear-gradient(145deg, #E040FB22, #8B5CF622); border-color: rgba(224,64,251,0.2); }
     .cb-fitness:hover { box-shadow: 0 16px 40px rgba(224,64,251,0.15); border-color: rgba(224,64,251,0.4); }
-
     .cb-politics { background: linear-gradient(145deg, #8B5CF622, #FFB30022); border-color: rgba(139,92,246,0.2); }
     .cb-politics:hover { box-shadow: 0 16px 40px rgba(139,92,246,0.15); border-color: rgba(139,92,246,0.4); }
-
     .cb-gaming   { background: linear-gradient(145deg, #FFB30022, #E040FB22); border-color: rgba(255,179,0,0.2); }
     .cb-gaming:hover { box-shadow: 0 16px 40px rgba(255,179,0,0.15); border-color: rgba(255,179,0,0.4); }
-
     .cb-kpop     { background: linear-gradient(145deg, #E040FB22, #00E5FF22); border-color: rgba(224,64,251,0.2); }
     .cb-kpop:hover { box-shadow: 0 16px 40px rgba(224,64,251,0.15); border-color: rgba(224,64,251,0.4); }
-
     .cb-adult    { background: linear-gradient(145deg, #ffffff08, #ffffff05); border-color: rgba(255,255,255,0.1); }
     .cb-adult:hover { box-shadow: 0 16px 40px rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
 
@@ -784,7 +749,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* ── CREATOR CARDS ── */
     .creators-section {
       max-width: 1200px;
       margin: 0 auto;
@@ -838,7 +802,6 @@
     .cc-img-3 { background: linear-gradient(160deg, #1A002A 0%, #E040FB22 50%, #FFB30022 100%); }
     .cc-img-4 { background: linear-gradient(160deg, #1A1000 0%, #FFB30022 50%, #00E5FF22 100%); }
 
-    /* Glow orb in each card */
     .cc-orb {
       position: absolute;
       top: 50%;
@@ -855,7 +818,6 @@
     .orb-mag { background: rgba(224,64,251,0.35); }
     .orb-gold { background: rgba(255,179,0,0.35); }
 
-    /* Initials avatar */
     .cc-initials {
       position: absolute;
       top: 50%;
@@ -932,7 +894,6 @@
     .cc-price sub { font-size: 0.68rem; color: var(--white-dim); font-weight: 400; }
     .cc-rating { font-size: 0.78rem; font-weight: 600; color: var(--gold); }
 
-    /* ── FOR CREATORS ── */
     .fc-outer {
       background: var(--bg-2);
       border-top: 1px solid var(--border);
@@ -987,7 +948,6 @@
     .fc-perk-title { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.2rem; }
     .fc-perk-desc { font-size: 0.82rem; color: var(--white-dim); line-height: 1.6; }
 
-    /* Split card */
     .fc-card {
       background: var(--bg-3);
       border: 1px solid var(--border);
@@ -1073,7 +1033,6 @@
       border-top: 1px solid var(--border);
     }
 
-    /* ── TESTIMONIALS ── */
     .testimonials-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1133,7 +1092,6 @@
     .t-name { font-size: 0.9rem; font-weight: 700; color: var(--white); }
     .t-role { font-size: 0.75rem; color: var(--white-dim); }
 
-    /* ── CTA ── */
     .cta-section {
       padding: 8rem 2.5rem;
       text-align: center;
@@ -1161,7 +1119,6 @@
 
     .cta-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; }
 
-    /* Gradient border around CTA */
     .cta-border-wrap {
       display: inline-block;
       background: var(--grad-diag);
@@ -1203,7 +1160,6 @@
 
     .cta-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-    /* ── FOOTER ── */
     footer {
       background: var(--bg-2);
       border-top: 1px solid var(--border);
@@ -1285,7 +1241,6 @@
     .footer-legal a { font-size: 0.8rem; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.15s; }
     .footer-legal a:hover { color: var(--white); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 1100px) {
       .hero-inner { grid-template-columns: 1fr; min-height: auto; }
       .hero-right { display: none; }
@@ -1316,10 +1271,17 @@
       .hero { padding: 0 1.5rem; }
     }
   </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8293211QR8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-8293211QR8');
+  </script>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav>
     <a href="/" class="nav-logo">
       <img src="logo.png" alt="VoxVega" class="nav-logo-img" />
@@ -1334,7 +1296,6 @@
     </ul>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-glow-cyan"></div>
     <div class="hero-glow-purple"></div>
@@ -1388,7 +1349,6 @@
     </div>
   </section>
 
-  <!-- STATS BAR -->
   <div class="stats-bar">
     <div class="stats-inner">
       <div class="stat-item">
@@ -1410,7 +1370,6 @@
     </div>
   </div>
 
-  <!-- TICKER -->
   <div class="ticker-wrap">
     <div class="ticker-track">
       <span class="ticker-item t-cyan">Shoutouts <span class="ticker-spark">✦</span></span>
@@ -1436,7 +1395,6 @@
     </div>
   </div>
 
-  <!-- HOW IT WORKS -->
   <section id="how-it-works">
     <div class="section-wrap">
       <div class="section-eyebrow ey-cyan">Simple Process</div>
@@ -1470,7 +1428,6 @@
     </div>
   </section>
 
-  <!-- CATEGORIES -->
   <section class="cat-outer">
     <div class="cat-inner">
       <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
@@ -1481,51 +1438,20 @@
         <a href="creators.html" class="btn-glass">View All Creators →</a>
       </div>
       <div class="cat-grid">
-        <a href="creators.html?cat=comedy" class="cat-btn cb-comedy">
-          <div class="cat-btn-icon">😂</div>
-          <span class="cat-btn-label">Comedy</span>
-        </a>
-        <a href="creators.html?cat=music" class="cat-btn cb-music">
-          <div class="cat-btn-icon">🎵</div>
-          <span class="cat-btn-label">Music</span>
-        </a>
-        <a href="creators.html?cat=sports" class="cat-btn cb-sports">
-          <div class="cat-btn-icon">🏆</div>
-          <span class="cat-btn-label">Sports</span>
-        </a>
-        <a href="creators.html?cat=wrestling" class="cat-btn cb-wrestling">
-          <div class="cat-btn-icon">🤼</div>
-          <span class="cat-btn-label">Wrestling</span>
-        </a>
-        <a href="creators.html?cat=podcaster" class="cat-btn cb-podcast">
-          <div class="cat-btn-icon">🎙️</div>
-          <span class="cat-btn-label">Podcasters</span>
-        </a>
-        <a href="creators.html?cat=fitness" class="cat-btn cb-fitness">
-          <div class="cat-btn-icon">💪</div>
-          <span class="cat-btn-label">Fitness</span>
-        </a>
-        <a href="creators.html?cat=politics" class="cat-btn cb-politics">
-          <div class="cat-btn-icon">🎤</div>
-          <span class="cat-btn-label">Politics</span>
-        </a>
-        <a href="creators.html?cat=gaming" class="cat-btn cb-gaming">
-          <div class="cat-btn-icon">🎮</div>
-          <span class="cat-btn-label">Gaming</span>
-        </a>
-        <a href="creators.html?cat=k-pop" class="cat-btn cb-kpop">
-          <div class="cat-btn-icon">✨</div>
-          <span class="cat-btn-label">K-Pop</span>
-        </a>
-        <a href="creators.html?cat=adult" class="cat-btn cb-adult">
-          <div class="cat-btn-icon">🔞</div>
-          <span class="cat-btn-label">18+ Creators</span>
-        </a>
+        <a href="creators.html?cat=comedy" class="cat-btn cb-comedy"><div class="cat-btn-icon">😂</div><span class="cat-btn-label">Comedy</span></a>
+        <a href="creators.html?cat=music" class="cat-btn cb-music"><div class="cat-btn-icon">🎵</div><span class="cat-btn-label">Music</span></a>
+        <a href="creators.html?cat=sports" class="cat-btn cb-sports"><div class="cat-btn-icon">🏆</div><span class="cat-btn-label">Sports</span></a>
+        <a href="creators.html?cat=wrestling" class="cat-btn cb-wrestling"><div class="cat-btn-icon">🤼</div><span class="cat-btn-label">Wrestling</span></a>
+        <a href="creators.html?cat=podcaster" class="cat-btn cb-podcast"><div class="cat-btn-icon">🎙️</div><span class="cat-btn-label">Podcasters</span></a>
+        <a href="creators.html?cat=fitness" class="cat-btn cb-fitness"><div class="cat-btn-icon">💪</div><span class="cat-btn-label">Fitness</span></a>
+        <a href="creators.html?cat=politics" class="cat-btn cb-politics"><div class="cat-btn-icon">🎤</div><span class="cat-btn-label">Politics</span></a>
+        <a href="creators.html?cat=gaming" class="cat-btn cb-gaming"><div class="cat-btn-icon">🎮</div><span class="cat-btn-label">Gaming</span></a>
+        <a href="creators.html?cat=k-pop" class="cat-btn cb-kpop"><div class="cat-btn-icon">✨</div><span class="cat-btn-label">K-Pop</span></a>
+        <a href="creators.html?cat=adult" class="cat-btn cb-adult"><div class="cat-btn-icon">🔞</div><span class="cat-btn-label">18+ Creators</span></a>
       </div>
     </div>
   </section>
 
-  <!-- CREATOR CARDS -->
   <section>
     <div class="creators-section">
       <div class="creators-header">
@@ -1537,69 +1463,25 @@
       </div>
       <div class="creator-cards">
         <a href="profile.html" class="cc cc-1">
-          <div class="cc-img cc-img-1">
-            <div class="cc-orb orb-cyan"></div>
-            <div class="cc-initials init-1">AR</div>
-            <div class="cc-badge">Popular</div>
-          </div>
-          <div class="cc-body">
-            <div class="cc-name">Alex Rivera</div>
-            <div class="cc-cat cat-cyan">Podcaster</div>
-            <div class="cc-bottom">
-              <div class="cc-price">$25 <sub>/ shoutout</sub></div>
-              <div class="cc-rating">★ 4.9</div>
-            </div>
-          </div>
+          <div class="cc-img cc-img-1"><div class="cc-orb orb-cyan"></div><div class="cc-initials init-1">AR</div><div class="cc-badge">Popular</div></div>
+          <div class="cc-body"><div class="cc-name">Alex Rivera</div><div class="cc-cat cat-cyan">Podcaster</div><div class="cc-bottom"><div class="cc-price">$25 <sub>/ shoutout</sub></div><div class="cc-rating">★ 4.9</div></div></div>
         </a>
         <a href="profile.html" class="cc cc-2">
-          <div class="cc-img cc-img-2">
-            <div class="cc-orb orb-purple"></div>
-            <div class="cc-initials init-2">JM</div>
-            <div class="cc-badge">New</div>
-          </div>
-          <div class="cc-body">
-            <div class="cc-name">Jordan Miles</div>
-            <div class="cc-cat cat-purple">Fitness</div>
-            <div class="cc-bottom">
-              <div class="cc-price">$40 <sub>/ shoutout</sub></div>
-              <div class="cc-rating">★ 5.0</div>
-            </div>
-          </div>
+          <div class="cc-img cc-img-2"><div class="cc-orb orb-purple"></div><div class="cc-initials init-2">JM</div><div class="cc-badge">New</div></div>
+          <div class="cc-body"><div class="cc-name">Jordan Miles</div><div class="cc-cat cat-purple">Fitness</div><div class="cc-bottom"><div class="cc-price">$40 <sub>/ shoutout</sub></div><div class="cc-rating">★ 5.0</div></div></div>
         </a>
         <a href="profile.html" class="cc cc-3">
-          <div class="cc-img cc-img-3">
-            <div class="cc-orb orb-mag"></div>
-            <div class="cc-initials init-3">SK</div>
-          </div>
-          <div class="cc-body">
-            <div class="cc-name">Sam Kowalski</div>
-            <div class="cc-cat cat-mag">Comedy</div>
-            <div class="cc-bottom">
-              <div class="cc-price">$15 <sub>/ shoutout</sub></div>
-              <div class="cc-rating">★ 4.8</div>
-            </div>
-          </div>
+          <div class="cc-img cc-img-3"><div class="cc-orb orb-mag"></div><div class="cc-initials init-3">SK</div></div>
+          <div class="cc-body"><div class="cc-name">Sam Kowalski</div><div class="cc-cat cat-mag">Comedy</div><div class="cc-bottom"><div class="cc-price">$15 <sub>/ shoutout</sub></div><div class="cc-rating">★ 4.8</div></div></div>
         </a>
         <a href="profile.html" class="cc cc-4">
-          <div class="cc-img cc-img-4">
-            <div class="cc-orb orb-gold"></div>
-            <div class="cc-initials init-4">MC</div>
-            <div class="cc-badge">Trending</div>
-          </div>
-          <div class="cc-body">
-            <div class="cc-name">Maya Chen</div>
-            <div class="cc-cat cat-gold">Music</div>
-            <div class="cc-bottom">
-              <div class="cc-price">$60 <sub>/ shoutout</sub></div>
-              <div class="cc-rating">★ 4.9</div>
-            </div>
-          </div>
+          <div class="cc-img cc-img-4"><div class="cc-orb orb-gold"></div><div class="cc-initials init-4">MC</div><div class="cc-badge">Trending</div></div>
+          <div class="cc-body"><div class="cc-name">Maya Chen</div><div class="cc-cat cat-gold">Music</div><div class="cc-bottom"><div class="cc-price">$60 <sub>/ shoutout</sub></div><div class="cc-rating">★ 4.9</div></div></div>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- FOR CREATORS -->
   <section class="fc-outer" id="for-creators">
     <div class="fc-inner">
       <div>
@@ -1609,36 +1491,23 @@
         <div class="fc-perks">
           <div class="fc-perk">
             <div class="fc-perk-icon pi-1">💰</div>
-            <div>
-              <div class="fc-perk-title">90/10 Revenue Split</div>
-              <div class="fc-perk-desc">Industry-leading payout across every revenue type. You keep 90% of every transaction.</div>
-            </div>
+            <div><div class="fc-perk-title">90/10 Revenue Split</div><div class="fc-perk-desc">Industry-leading payout across every revenue type. You keep 90% of every transaction.</div></div>
           </div>
           <div class="fc-perk">
             <div class="fc-perk-icon pi-2">₿</div>
-            <div>
-              <div class="fc-perk-title">Card + Crypto Payouts</div>
-              <div class="fc-perk-desc">Bank transfer or 8 cryptocurrencies including BTC, ETH, USDT, and Monero.</div>
-            </div>
+            <div><div class="fc-perk-title">Card + Crypto Payouts</div><div class="fc-perk-desc">Bank transfer or 8 cryptocurrencies including BTC, ETH, USDT, and Monero.</div></div>
           </div>
           <div class="fc-perk">
             <div class="fc-perk-icon pi-3">🔓</div>
-            <div>
-              <div class="fc-perk-title">No Gatekeeping</div>
-              <div class="fc-perk-desc">All legal creators welcome. No approval process, no ideology test, no history check.</div>
-            </div>
+            <div><div class="fc-perk-title">No Gatekeeping</div><div class="fc-perk-desc">All legal creators welcome. No approval process, no ideology test, no history check.</div></div>
           </div>
           <div class="fc-perk">
             <div class="fc-perk-icon pi-4">🔗</div>
-            <div>
-              <div class="fc-perk-title">Your Full Ecosystem</div>
-              <div class="fc-perk-desc">Link socials, merch, YouTube, podcast, and other platforms right on your profile.</div>
-            </div>
+            <div><div class="fc-perk-title">Your Full Ecosystem</div><div class="fc-perk-desc">Link socials, merch, YouTube, podcast, and other platforms right on your profile.</div></div>
           </div>
         </div>
         <a href="login.html?mode=signup&type=creator" class="btn-grad">Start Earning on VoxVega</a>
       </div>
-
       <div>
         <div class="fc-card">
           <div class="fc-card-top">
@@ -1661,7 +1530,6 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
   <section>
     <div class="section-wrap">
       <div class="section-eyebrow ey-cyan">Reviews</div>
@@ -1670,41 +1538,22 @@
         <div class="testimonial t-1">
           <div class="t-stars">★★★★★</div>
           <p class="t-text">"Got a birthday video for my dad from his favorite podcaster. He cried. Worth every penny and then some. Delivered in under 6 hours."</p>
-          <div class="t-author">
-            <div class="t-avatar t-av-1">SM</div>
-            <div>
-              <div class="t-name">Sarah M.</div>
-              <div class="t-role">VoxVega fan</div>
-            </div>
-          </div>
+          <div class="t-author"><div class="t-avatar t-av-1">SM</div><div><div class="t-name">Sarah M.</div><div class="t-role">VoxVega fan</div></div></div>
         </div>
         <div class="testimonial t-2">
           <div class="t-stars">★★★★★</div>
           <p class="t-text">"Finally a platform that doesn't take half my earnings. Moved from another platform and the difference is immediate. 90% is real."</p>
-          <div class="t-author">
-            <div class="t-avatar t-av-2">DT</div>
-            <div>
-              <div class="t-name">Derek T.</div>
-              <div class="t-role">Podcaster & creator</div>
-            </div>
-          </div>
+          <div class="t-author"><div class="t-avatar t-av-2">DT</div><div><div class="t-name">Derek T.</div><div class="t-role">Podcaster & creator</div></div></div>
         </div>
         <div class="testimonial t-3">
           <div class="t-stars">★★★★★</div>
           <p class="t-text">"The crypto payout option is a game changer. No other platform offers this. VoxVega is where the creator economy is heading."</p>
-          <div class="t-author">
-            <div class="t-avatar t-av-3">ML</div>
-            <div>
-              <div class="t-name">Marcus L.</div>
-              <div class="t-role">Fitness creator</div>
-            </div>
-          </div>
+          <div class="t-author"><div class="t-avatar t-av-3">ML</div><div><div class="t-name">Marcus L.</div><div class="t-role">Fitness creator</div></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta-section">
     <div class="cta-glow-l"></div>
     <div class="cta-glow-r"></div>
@@ -1722,7 +1571,6 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
@@ -1755,16 +1603,16 @@
         <ul>
           <li><a href="#">About</a></li>
           <li><a href="#">Contact</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Service</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2026 VoxVega LLC. All rights reserved.</p>
       <div class="footer-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
         <a href="#">Cookie Policy</a>
       </div>
     </div>
