@@ -1,1 +1,898 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In — VoxVega</title>
+  <meta name="description" content="Sign in or create your VoxVega account as a fan or creator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0a0e1a;
+      --navy-mid: #111827;
+      --navy-light: #1e2a3a;
+      --gold: #c9a84c;
+      --gold-light: #e2c06e;
+      --white: #ffffff;
+      --gray: #8a9ab0;
+      --gray-light: #d1d9e6;
+      --green: #4ade80;
+      --red: #f87171;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2.5rem;
+      border-bottom: 1px solid rgba(201, 168, 76, 0.1);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-link {
+      font-size: 0.875rem;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover { color: var(--white); }
+
+    /* PAGE */
+    .page-wrap {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - 73px);
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background: var(--navy-mid);
+      border-right: 1px solid rgba(201, 168, 76, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .left-stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .left-star {
+      position: absolute;
+      background: var(--gold);
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--dur, 3s) var(--delay, 0s) infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: var(--op, 0.4); }
+    }
+
+    .left-content { position: relative; z-index: 2; max-width: 420px; }
+
+    .left-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .left-eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .left-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .left-title em { font-style: italic; color: var(--gold); }
+
+    .left-sub {
+      font-size: 0.95rem;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .perks { display: flex; flex-direction: column; gap: 0.875rem; }
+
+    .perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      font-size: 0.875rem;
+    }
+
+    .perk-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(201, 168, 76, 0.12);
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .perk-text strong { display: block; font-weight: 600; font-size: 0.875rem; }
+    .perk-text span { color: var(--gray); font-size: 0.8rem; }
+
+    /* RIGHT PANEL — FORM */
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 2rem;
+    }
+
+    .auth-box {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* ACCOUNT TYPE TOGGLE */
+    .account-type {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .type-btn {
+      background: var(--navy-light);
+      border: 2px solid rgba(201, 168, 76, 0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+      color: var(--gray);
+    }
+
+    .type-btn:hover { border-color: rgba(201, 168, 76, 0.3); color: var(--white); }
+
+    .type-btn.selected {
+      border-color: var(--gold);
+      background: rgba(201, 168, 76, 0.06);
+      color: var(--white);
+    }
+
+    .type-btn-icon { font-size: 1.5rem; display: block; margin-bottom: 0.4rem; }
+    .type-btn-name { font-size: 0.875rem; font-weight: 600; display: block; }
+    .type-btn-sub { font-size: 0.72rem; color: var(--gray); display: block; margin-top: 0.15rem; }
+
+    /* MODE TOGGLE */
+    .mode-toggle {
+      display: flex;
+      background: var(--navy-light);
+      border-radius: 100px;
+      padding: 0.25rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(201, 168, 76, 0.08);
+    }
+
+    .mode-btn {
+      flex: 1;
+      padding: 0.6rem 1.5rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      font-family: var(--font-body);
+      color: var(--gray);
+      background: transparent;
+      transition: all 0.2s;
+    }
+
+    .mode-btn.active {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    /* FORM */
+    .auth-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .auth-sub {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group { margin-bottom: 1.1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input {
+      width: 100%;
+      background: var(--navy-light);
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input::placeholder { color: var(--gray); }
+    .form-input:focus { border-color: var(--gold); }
+
+    .form-input-wrap { position: relative; }
+
+    .form-input-wrap .form-input { padding-right: 3rem; }
+
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 0;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem;
+    }
+
+    .forgot-link {
+      font-size: 0.78rem;
+      color: var(--gold);
+      text-decoration: none;
+      float: right;
+      margin-top: -0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .forgot-link:hover { text-decoration: underline; }
+
+    /* SUBMIT */
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+      padding: 0.95rem 2rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: background 0.2s, transform 0.2s;
+      width: 100%;
+      margin-top: 0.5rem;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    /* DIVIDER */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      color: var(--gray);
+      font-size: 0.78rem;
+    }
+
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* SOCIAL LOGIN */
+    .social-login { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-body);
+      transition: all 0.2s;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: var(--white);
+      width: 100%;
+    }
+
+    .social-btn:hover { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.2); }
+
+    .social-icon { font-size: 1.1rem; }
+
+    /* TERMS */
+    .auth-terms {
+      font-size: 0.72rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .auth-terms a { color: var(--gold); text-decoration: none; }
+
+    /* SWITCH MODE */
+    .auth-switch {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .auth-switch a {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .auth-switch a:hover { text-decoration: underline; }
+
+    /* CREATOR EXTRA FIELDS */
+    .creator-fields { display: none; }
+    .creator-fields.show { display: block; }
+
+    .creator-note {
+      background: rgba(201, 168, 76, 0.06);
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      border-radius: 10px;
+      padding: 0.875rem 1rem;
+      font-size: 0.8rem;
+      color: var(--gray-light);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .creator-note strong { color: var(--gold); display: block; margin-bottom: 0.2rem; }
+
+    /* ERROR / SUCCESS */
+    .form-error {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid rgba(248, 113, 113, 0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+      color: var(--red);
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .form-error.show { display: block; }
+
+    .form-success {
+      background: rgba(74, 222, 128, 0.08);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.82rem;
+      color: var(--green);
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .form-success.show { display: block; }
+
+    /* PASSWORD STRENGTH */
+    .password-strength {
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .password-strength.show { display: block; }
+
+    .strength-bar {
+      height: 3px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 0.25rem;
+      overflow: hidden;
+    }
+
+    .strength-fill {
+      height: 100%;
+      border-radius: 100px;
+      transition: width 0.3s, background 0.3s;
+    }
+
+    .strength-label { font-size: 0.7rem; color: var(--gray); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(201, 168, 76, 0.08);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p { font-size: 0.78rem; color: var(--gray); }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .left-panel { display: none; }
+      .right-panel { padding: 2rem 1.5rem; justify-content: flex-start; padding-top: 2.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 1rem 1.25rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">Vox<span>Vega</span></a>
+    <a href="creators.html" class="nav-link">Browse Creators →</a>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="left-stars" id="leftStars"></div>
+      <div class="left-content">
+        <div class="left-eyebrow">Join VoxVega</div>
+        <h2 class="left-title">Your voice.<br /><em>Their star.</em></h2>
+        <p class="left-sub">The creator monetization platform built for everyone — fans who want real connections and creators who deserve real pay.</p>
+
+        <div class="perks">
+          <div class="perk">
+            <div class="perk-icon">🎬</div>
+            <div class="perk-text">
+              <strong>Personalized videos</strong>
+              <span>Book shoutouts, promos, and messages from creators you love</span>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-icon">💰</div>
+            <div class="perk-text">
+              <strong>90% creator payout</strong>
+              <span>Industry-leading split across every revenue stream</span>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-icon">🔒</div>
+            <div class="perk-text">
+              <strong>Secure & guaranteed</strong>
+              <span>Pay safely — full refund if your video isn't delivered</span>
+            </div>
+          </div>
+          <div class="perk">
+            <div class="perk-icon">₿</div>
+            <div class="perk-text">
+              <strong>Card or crypto</strong>
+              <span>Pay and get paid however works best for you</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="auth-box">
+
+        <!-- MODE TOGGLE -->
+        <div class="mode-toggle">
+          <button class="mode-btn active" id="signinBtn" onclick="setMode('signin')">Sign In</button>
+          <button class="mode-btn" id="signupBtn" onclick="setMode('signup')">Create Account</button>
+        </div>
+
+        <!-- ERROR / SUCCESS -->
+        <div class="form-error" id="formError">Invalid email or password. Please try again.</div>
+        <div class="form-success" id="formSuccess">Account created! Welcome to VoxVega.</div>
+
+        <!-- SIGN IN FORM -->
+        <div id="signinForm">
+          <h1 class="auth-title">Welcome back</h1>
+          <p class="auth-sub">Sign in to your VoxVega account.</p>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="signinEmail" placeholder="your@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="form-input-wrap">
+              <input type="password" class="form-input" id="signinPassword" placeholder="••••••••" />
+              <button class="password-toggle" onclick="togglePassword('signinPassword', this)">👁</button>
+            </div>
+          </div>
+
+          <a href="#" class="forgot-link">Forgot password?</a>
+
+          <button class="btn-primary" onclick="handleSignin()">Sign In to VoxVega</button>
+
+          <div class="auth-divider">or continue with</div>
+
+          <div class="social-login">
+            <button class="social-btn" onclick="socialLogin('Google')">
+              <span class="social-icon">G</span> Continue with Google
+            </button>
+            <button class="social-btn" onclick="socialLogin('Apple')">
+              <span class="social-icon">🍎</span> Continue with Apple
+            </button>
+          </div>
+
+          <div class="auth-switch">
+            Don't have an account? <a href="#" onclick="setMode('signup')">Create one free</a>
+          </div>
+        </div>
+
+        <!-- SIGN UP FORM -->
+        <div id="signupForm" style="display:none;">
+          <h1 class="auth-title">Create account</h1>
+          <p class="auth-sub">Join VoxVega as a fan or creator.</p>
+
+          <!-- ACCOUNT TYPE -->
+          <div class="account-type">
+            <button class="type-btn selected" id="fanBtn" onclick="selectAccountType('fan')">
+              <span class="type-btn-icon">🎬</span>
+              <span class="type-btn-name">Fan / Buyer</span>
+              <span class="type-btn-sub">Book creators</span>
+            </button>
+            <button class="type-btn" id="creatorBtn" onclick="selectAccountType('creator')">
+              <span class="type-btn-icon">⭐</span>
+              <span class="type-btn-name">Creator</span>
+              <span class="type-btn-sub">Start earning</span>
+            </button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-input" id="signupFirst" placeholder="First name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-input" id="signupLast" placeholder="Last name" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" id="signupEmail" placeholder="your@email.com" />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="form-input-wrap">
+              <input type="password" class="form-input" id="signupPassword" placeholder="Create a strong password" oninput="checkStrength(this.value)" />
+              <button class="password-toggle" onclick="togglePassword('signupPassword', this)">👁</button>
+            </div>
+            <div class="password-strength" id="strengthMeter">
+              <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+              <div class="strength-label" id="strengthLabel">Enter a password</div>
+            </div>
+          </div>
+
+          <!-- CREATOR EXTRA FIELDS -->
+          <div class="creator-fields" id="creatorFields">
+            <div class="creator-note">
+              <strong>Creator Account</strong>
+              You'll set up your profile, pricing, and offerings after signing up. No approval needed — go live immediately.
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Display Name / Stage Name</label>
+              <input type="text" class="form-input" id="displayName" placeholder="How fans will find you" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Primary Category</label>
+              <select class="form-input" id="creatorCategory">
+                <option value="">Select your category...</option>
+                <option>Comedy</option>
+                <option>Music</option>
+                <option>Sports</option>
+                <option>Wrestling</option>
+                <option>Podcaster</option>
+                <option>Fitness</option>
+                <option>Politics</option>
+                <option>Gaming</option>
+                <option>K-Pop</option>
+                <option>18+ Creator</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top:0.5rem;">
+            <label style="display:flex;align-items:flex-start;gap:0.75rem;font-size:0.82rem;color:var(--gray-light);cursor:pointer;line-height:1.5;">
+              <input type="checkbox" id="agreeTerms" style="accent-color:var(--gold);width:15px;height:15px;flex-shrink:0;margin-top:0.15rem;" />
+              I agree to VoxVega's <a href="#" style="color:var(--gold);">Terms of Service</a> and <a href="#" style="color:var(--gold);">Privacy Policy</a>
+            </label>
+          </div>
+
+          <button class="btn-primary" onclick="handleSignup()">Create My Account</button>
+
+          <div class="auth-divider">or sign up with</div>
+
+          <div class="social-login">
+            <button class="social-btn" onclick="socialLogin('Google')">
+              <span class="social-icon">G</span> Continue with Google
+            </button>
+            <button class="social-btn" onclick="socialLogin('Apple')">
+              <span class="social-icon">🍎</span> Continue with Apple
+            </button>
+          </div>
+
+          <div class="auth-switch">
+            Already have an account? <a href="#" onclick="setMode('signin')">Sign in</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <a href="index.html">VoxVega LLC</a> · <a href="#">Privacy Policy</a> · <a href="#">Terms of Service</a> · <a href="#">Contact</a></p>
+  </footer>
+
+  <script>
+    // Generate stars
+    const container = document.getElementById('leftStars');
+    for (let i = 0; i < 40; i++) {
+      const star = document.createElement('div');
+      star.className = 'left-star';
+      const size = 1 + Math.random() * 2;
+      star.style.cssText = `
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        width: ${size}px;
+        height: ${size}px;
+        --dur: ${2 + Math.random() * 4}s;
+        --delay: ${Math.random() * 5}s;
+        --op: ${0.2 + Math.random() * 0.5};
+      `;
+      container.appendChild(star);
+    }
+
+    let currentMode = 'signin';
+    let accountType = 'fan';
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.getElementById('signinForm').style.display = mode === 'signin' ? 'block' : 'none';
+      document.getElementById('signupForm').style.display = mode === 'signup' ? 'block' : 'none';
+      document.getElementById('signinBtn').classList.toggle('active', mode === 'signin');
+      document.getElementById('signupBtn').classList.toggle('active', mode === 'signup');
+      document.getElementById('formError').classList.remove('show');
+      document.getElementById('formSuccess').classList.remove('show');
+    }
+
+    function selectAccountType(type) {
+      accountType = type;
+      document.getElementById('fanBtn').classList.toggle('selected', type === 'fan');
+      document.getElementById('creatorBtn').classList.toggle('selected', type === 'creator');
+      document.getElementById('creatorFields').classList.toggle('show', type === 'creator');
+    }
+
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+      }
+    }
+
+    function checkStrength(password) {
+      const meter = document.getElementById('strengthMeter');
+      const fill = document.getElementById('strengthFill');
+      const label = document.getElementById('strengthLabel');
+
+      meter.classList.add('show');
+
+      let score = 0;
+      if (password.length >= 8) score++;
+      if (password.length >= 12) score++;
+      if (/[A-Z]/.test(password)) score++;
+      if (/[0-9]/.test(password)) score++;
+      if (/[^A-Za-z0-9]/.test(password)) score++;
+
+      const levels = [
+        { width: '20%', color: '#f87171', label: 'Very weak' },
+        { width: '40%', color: '#fb923c', label: 'Weak' },
+        { width: '60%', color: '#facc15', label: 'Fair' },
+        { width: '80%', color: '#a3e635', label: 'Strong' },
+        { width: '100%', color: '#4ade80', label: 'Very strong' },
+      ];
+
+      const level = levels[Math.max(0, score - 1)] || levels[0];
+      fill.style.width = password.length ? level.width : '0%';
+      fill.style.background = level.color;
+      label.textContent = password.length ? level.label : 'Enter a password';
+    }
+
+    function handleSignin() {
+      const email = document.getElementById('signinEmail').value;
+      const password = document.getElementById('signinPassword').value;
+
+      if (!email || !password) {
+        document.getElementById('formError').textContent = 'Please enter your email and password.';
+        document.getElementById('formError').classList.add('show');
+        return;
+      }
+
+      // Simulate auth — replace with Supabase
+      const btn = document.querySelector('#signinForm .btn-primary');
+      btn.textContent = 'Signing in...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        // Demo: route based on email
+        if (email.includes('creator')) {
+          window.location.href = 'dashboard.html';
+        } else {
+          window.location.href = 'buyer.html';
+        }
+      }, 1500);
+    }
+
+    function handleSignup() {
+      const first = document.getElementById('signupFirst').value;
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      const agreed = document.getElementById('agreeTerms').checked;
+
+      if (!first || !email || !password) {
+        document.getElementById('formError').textContent = 'Please fill in all required fields.';
+        document.getElementById('formError').classList.add('show');
+        return;
+      }
+
+      if (!agreed) {
+        document.getElementById('formError').textContent = 'Please agree to the Terms of Service.';
+        document.getElementById('formError').classList.add('show');
+        return;
+      }
+
+      if (password.length < 8) {
+        document.getElementById('formError').textContent = 'Password must be at least 8 characters.';
+        document.getElementById('formError').classList.add('show');
+        return;
+      }
+
+      // Simulate signup — replace with Supabase
+      const btn = document.querySelector('#signupForm .btn-primary');
+      btn.textContent = 'Creating account...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        document.getElementById('formError').classList.remove('show');
+        document.getElementById('formSuccess').textContent = `Welcome to VoxVega, ${first}! Redirecting...`;
+        document.getElementById('formSuccess').classList.add('show');
+
+        setTimeout(() => {
+          if (accountType === 'creator') {
+            window.location.href = 'dashboard.html';
+          } else {
+            window.location.href = 'creators.html';
+          }
+        }, 1500);
+      }, 1500);
+    }
+
+    function socialLogin(provider) {
+      alert(`${provider} login will be connected via Supabase OAuth.`);
+    }
+
+    // Check URL params for mode
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('mode') === 'signup') setMode('signup');
+    if (params.get('type') === 'creator') {
+      setMode('signup');
+      setTimeout(() => selectAccountType('creator'), 100);
+    }
+  </script>
+
+</body>
+</html>
